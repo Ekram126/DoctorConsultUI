@@ -1,0 +1,179 @@
+// // Define variables for easier maintenance
+// $card-height: 200px;
+$max-card-image-height: 130px;
+$button-height: 25px;
+$button-font-size: 12px;
+$button-width: 80px;
+
+// // Ensure there's enough space for the menu
+// section {
+//   margin-top: 10px; // Adjust based on the height of your menu component
+// }
+
+// // Card Styles
+// .card {
+//   // height: 250px;
+//   // width: 100%; // Full width of the grid tile
+//   max-width: $card-width; // Maximum width for larger screens
+//   display: flex;
+//   flex-direction: column;
+//   margin-bottom: 1rem; // Space below each card
+//   padding: 0.3rem; // Padding inside the card
+//   box-sizing: border-box; // Include padding in width/height calculations
+//  margin: 8px; /* Adjust as needed */
+// }
+
+// .mat-card-image {
+//   width: 100%; // Full width of the card
+//   height: auto; // Maintain aspect ratio
+//   object-fit: cover; // Cover the image container
+// }
+
+// .fs-smaller {
+//   font-size: 0.7rem; // Font size for subtitles
+// }
+
+// .custom-button {
+//   height: $button-height; // Button height
+//   font-size: $button-font-size; // Font size
+//   width: auto; // Adjust width based on text
+//   min-width: $button-width; // Minimum width
+//   padding: 0 0.5rem; // Horizontal padding
+//   overflow: hidden; // Hide overflow text
+//   text-overflow: ellipsis; // Add ellipsis for overflow text
+//   white-space: nowrap; // Prevent text wrapping
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+
+// .mat-grid-tile{
+// width: calc(22% - 12px) !important; 
+
+// }
+// // Responsive Styles
+// @media (max-width: 1200px) {
+//   .mat-grid-list {
+//     grid-template-columns: repeat(5, 1fr); // 3 columns for tablets and smaller desktops
+//   }
+// }
+
+// @media (max-width: 992px) {
+//   .mat-grid-list {
+//     grid-template-columns: repeat(4, 1fr); // 2 columns for tablets
+//   }
+// }
+
+// @media (max-width: 768px) {
+//   .mat-grid-list {
+//     // grid-template-columns: 1fr; // 1 column for small devices
+
+//     grid-template-columns: repeat(4, 1fr); // 2 columns for tablets
+//   }
+
+//   .card {
+//     max-width: 100%; // Full width on small screens
+//     height: auto; // Adjust height based on content
+//   }
+
+//   .mat-card-image {
+//     max-height: 100px; // Adjust image height for smaller screens
+//   }
+
+//   .custom-button {
+//     font-size: 14px; // Increase font size for better readability
+//     padding: 0 1rem; // Increase padding for better appearance on small screens
+
+//     background-color: #0a8696 !important;
+//   }
+// }
+
+// @media (max-width: 576px) {
+//   .fs-smaller {
+//     font-size: 0.6rem; // Further reduce font size for extra-small screens
+//   }
+
+//   .fs-md-0 {
+//     font-size: 1rem; // Adjust font size
+//   }
+
+//   .fs-1 {
+//     font-size: 1.1rem; // Adjust font size
+//   }
+// }
+// .custom-text-primary {
+//   color: #0a8696; /* or the appropriate primary color */
+// }
+// // // Specific styles for very small screens, such as 360x740
+// // @media (max-width: 360px) {
+// //   .mat-grid-list {
+// //     grid-template-columns: 1fr; // 1 column for very small devices
+// //     padding: 0; // Remove extra padding
+// //   }
+
+// //   .card {
+// //     padding: 0.5rem; // Adjust padding for small screens
+// //     margin-bottom: 0.5rem; // Reduce margin for better fit
+// //   }
+
+// //   .mat-card-image {
+// //     max-height: 80px; // Further reduce image height
+// //   }
+
+// //   .custom-button {
+// //     font-size: 8px; // Smaller font size for tight spaces
+// //     padding: 0 0.5rem; // Adjust padding
+// //     min-width: 50px; // Adjust minimum width
+// //   }
+// // }
+
+
+
+// Define a fixed card height
+$card-width:400px;
+
+.card {
+  max-width: $card-width; // Maximum width for larger screens
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; // Space below each card
+  padding: 0.3rem; // Padding inside the card
+  box-sizing: border-box; // Include padding in width/height calculations
+}
+
+.mat-card-image {
+  width: 100%; // Full width of the card
+  height: auto; // Maintain aspect ratio
+  max-height: $max-card-image-height; // Set a max height for images
+  object-fit: fill; // Cover the image container
+  //flex-shrink: 0; // Prevent the image from shrinking
+}
+.card{
+  height: 240px !important;
+}
+.mat-card-content {
+  flex-grow: 1; // Allow content to grow and fill space
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Ensure space between elements
+}
+
+
+.custom-button {
+  height: $button-height; // Button height
+  font-size: $button-font-size; // Font size
+  width: auto; // Adjust width based on text
+  min-width: $button-width; // Minimum width
+  padding: 0 0.5rem; // Horizontal padding
+  overflow: hidden; // Hide overflow text
+  text-overflow: ellipsis; // Add ellipsis for overflow text
+  white-space: nowrap; // Prevent text wrapping
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-text-primary {
+  color: #0a8696; /* or the appropriate primary color */
+}

@@ -1,0 +1,26 @@
+<div class="context-container">
+    <div class="context-item">
+        <img src="../../../../assets/images/art.jpeg" width="50" height="50" (click)="getArticles(specialityId)"
+            alt="Articles">
+        <p>{{'DC.Articles' | translate}}</p>
+    </div>
+    <div class="context-item">
+        <img src="../../../../assets/images/YT.jpeg" width="50" height="50" (click)="getVideos(specialityId)"
+            alt="Videos">
+        <p>{{'DC.Videos' | translate}}</p>
+    </div>
+    <div class="context-item">
+        <img src="../../../../assets/images/consult.jpeg"
+            *ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor" width="50"
+            height="50" (click)="handleRegisterClick(specialityId)" alt="Request">
+        <p> {{ isPatient ? ('DC.RequestConsult' | translate) : ('DC.NeedConsult' | translate) }}</p>
+    </div>
+</div>
+
+<!-- <div  (click)="handleRegisterClick()"  *ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor">
+        <i class="bi bi-chat-left-text"></i>
+    </div> -->
+<!-- <a class="btn btn-lg btn-primary rounded-pill" role="button"
+*ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor"
+(click)="handleRegisterClick()" [ngClass]="{'btn-rtl': lang === 'ar'}">{{'DC.NeedConsult' | translate}}</a>
+</div>  -->

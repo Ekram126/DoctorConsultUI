@@ -1,0 +1,105 @@
+<main class="main" [dir]="lang === 'ar' ? 'rtl' : 'ltr'" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+  <app-cdmenu></app-cdmenu>
+
+
+
+  <section>
+
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-12 py-5">
+          <h1 class="text-center">{{'DC.ContactUsTitle' | translate}} </h1>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 z-index-2 mb-5">
+          <!-- <img class="w-75 oval-image" src="assets/img/gallery/contactus.jpeg" alt="" /> -->
+
+          <img class="w-75 oval-image" [src]="contactSection.sectionImg" alt="" />
+        </div>
+        <div class="col-lg-6 z-index-2">
+          <form class="row g-3" #form="ngForm" (ngSubmit)="onSubmit()">
+            <div class="col-md-6">
+              <label class="visually-hidden" for="inputName">{{'DC.Name' | translate}}</label>
+              <input class="form-control input-sm" id="inputName" type="text" placeholder="Name"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="contactObj.fullName" />
+            </div>
+            <div class="col-md-6">
+              <label class="visually-hidden" for="inputPhone">{{'DC.Phone' | translate}}</label>
+              <input class="form-control" id="inputPhone" type="text" placeholder="Phone"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="contactObj.phone" />
+            </div>
+
+            <div class="col-md-12">
+              <label class="form-label visually-hidden" for="inputEmail">{{'DC.Email' | translate}}</label>
+              <input class="form-control" id="inputEmail" type="email" placeholder="Email"
+                [ngModelOptions]="{standalone: true}" [(ngModel)]="contactObj.email" />
+
+
+            </div>
+            <div class="col-md-12">
+              <label class="form-label visually-hidden" for="validationTextarea">{{'DC.Message' | translate}}</label>
+              <textarea class="form-control" id="validationTextarea" placeholder="Message"
+                [(ngModel)]="contactObj.message" style="height: 100px;"
+                [ngModelOptions]="{standalone: true}"></textarea>
+
+
+            </div>
+            <div class="col-12">
+              <div class="d-grid">
+
+                <button type="submit" style="background-color: #1B71A1;color: white;" class="btn btn-light rounded-pill"
+                  [disabled]="form.invalid">{{'DC.ContactUsTitle' | translate}}</button>
+              </div>
+            </div>
+          </form>
+
+
+          <div class="row col-lg-6 z-index-2">
+            <div class="col-12"  *ngIf="personalObj.mobile != ''">
+              <strong class="custom-title">{{ 'DC.Mobile' | translate }}:</strong> {{ personalObj.mobile }}
+            </div>
+            <div class="col-12" *ngIf="personalObj.whatsApp != ''">
+              <strong class="custom-title">{{ 'DC.WhatsApp' | translate }}:</strong> {{ personalObj.whatsApp }}
+            </div>
+            <div class="col-12" *ngIf="personalObj.email != ''">
+              <strong class="custom-title">{{ 'DC.Email' | translate }}:</strong> {{ personalObj.email }}
+            </div>
+            <div class="col-12">
+              <strong class="custom-title">{{ 'DC.Address' | translate }}:</strong>
+              {{ lang == 'en' ? personalObj.address : personalObj.addressAr }}
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+      </div>
+    </div>
+  </section>
+  <app-cdfooter></app-cdfooter>
+</main>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+  <ng-template pTemplate="header">
+    <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+    </h6>
+  </ng-template>
+  <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+    translate
+    }}</span>
+</p-dialog>
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+  <p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+  <span style="color: rgb(181, 4, 4); font-weight: bold">
+    {{ errorMessage }}</span>
+</p-dialog>

@@ -1,0 +1,28 @@
+<section class="py-1" id="departments">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 py-1">
+        <div class="bg-holder bg-size"
+          style="background-image:url(assets/images/Whitebg.png);background-position:top center;background-size:contain;">
+        </div>
+        <h1 class="text-center">{{'DC.OurDepartments' | translate}}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="py-0">
+  <div class="container">
+      <div class="grid-container row py-3 align-items-center justify-content-center justify-content-lg-evenly">
+        <div class="grid-item d-flex justify-content-center" *ngFor="let special of lstSpeciality">
+          <div class="col-auto col-md-4 col-lg-auto text-center" (click)="selectMedia(special.id)">
+            <div class="d-flex flex-column align-items-center icon-box">
+              <div class="icon-box-content d-flex flex-column align-items-center" style="cursor: pointer;">
+                <img class="ms-2" [src]="special.pngIcon" alt="" width="100" height="100" />
+                <p class="fs-1 fs-xxl-2 text-center">{{ lang == 'en' ? special.name : special.nameAr }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+  </div>
+</section>

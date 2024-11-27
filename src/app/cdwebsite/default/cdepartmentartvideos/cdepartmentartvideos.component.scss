@@ -1,0 +1,25 @@
+.card {
+  max-width: 500px; /* Fixed width */
+  max-height: 300px; /* Fixed height */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hide overflow to prevent content spill */
+}
+
+.fs-smaller {
+  font-size: 0.7rem; /* Adjust the value as needed */
+}
+
+.custom-button {
+ // height: 30px; /* Adjust height as needed */
+  font-size: 12px; /* Adjust font size as needed */
+  width: 140px;
+  line-height: 5px;
+}
+.p-dialog .p-dialog-header {
+  height: 20px !important;
+}
+
+.custom-text-primary {
+  color: #0a8696; /* or the appropriate primary color */
+}

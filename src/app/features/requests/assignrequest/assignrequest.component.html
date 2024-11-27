@@ -1,0 +1,113 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="field col-3">
+                        <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
+                            }}:</label>{{reqObj.requestCode}}
+                    </div>
+                    <div class="field col-3">
+                        <label for="complain" class="titlefontbold" [translate]="'DC.Patient'">{{'DC.UserName' |
+                            translate}}:</label>
+                        {{reqObj.userName}}
+                    </div>
+                    <div class="field col-3">
+                        <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
+                            translate}}:</label>
+                        {{reqObj.subject}}
+                    </div>
+                
+                    <div class="field col-3">
+                        <label for="special" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Special' |
+                            translate}}:</label>
+                            {{lang == 'en' ? reqObj.specialityName : reqObj.specialityNameAr}}
+                    </div>
+                
+                </div>
+
+                
+                <div class="row">
+                    <div class="field col-12">
+                        <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
+                            translate}}:</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="field col-12">
+                        {{reqObj.complain}}
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-4" hidden>
+                    <label for="requestDate" [translate]="'DC.Date'">{{'DC.Date' | translate}} </label>
+                    {{reqObj.requestDate}}
+                </div>
+                <div class="field">
+                    <label for="documents" [translate]="'DC.Documents'">{{'DC.Documents' | translate}}</label>
+                    <p-table [value]="reqObj.listDocuments" dataKey="id">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="text-align: inherit;">{{ 'DC.FileName' | translate }}</th>
+                                <th style="text-align: inherit;">{{ 'DC.Title' | translate }}</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-createRequestDocument>
+                            <tr>
+                                <td style="text-align: inherit;">{{createRequestDocument.fileName}}</td>
+                                <td style="text-align: inherit;">{{createRequestDocument.title}}</td>
+                            </tr>
+                        </ng-template>
+
+                    </p-table>
+                </div>
+            </div>
+        </div>
+        <div class="field" *ngIf="hidden">
+            <label for="role">{{'DC.Role' | translate }}</label>
+            <div *ngFor="let role of lstUserRoles" class="field-checkbox" >
+                <p-radioButton name="roleId" [value]="role.name" (onClick)="onRoleChange($event)"  [(ngModel)]="selectedRole" [inputId]="role.name" />
+                <label for="role.name" class="ml-2">
+                    {{ role.name }}
+                </label>
+            </div>
+        </div>
+        <div class="field" *ngIf="hidden">
+            <label for="assignedTo">{{'DC.Doctor' | translate }}</label>
+            <select id="assignedTo" class="form-control" name="assignedTo" [(ngModel)]="trackObj.assignTo">
+                <option value="0">select doctor</option>
+                <option *ngFor="let doct of lstUserDoctors" [value]="doct.id">
+                    {{doct.userName}}
+                </option>
+            </select>            
+        </div>
+
+        <div class="field"  *ngIf="(isSuper || isAdmin)">
+            <button (click)="addRequestTracking()" color="primary">{{'DC.Save' | translate }}</button>
+        </div>
+
+    </div>
+</div>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+    <p-header style="color: rgb(181, 4, 4);"> {{ 'DC.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+        translate }}</span>
+    <br />
+    <br />
+    <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #fe7f83 !important;border-color:#fe7f83" (click)="closeDialogue()"> {{
+        'DC.Close' | translate }}</button>
+</p-dialog>

@@ -1,0 +1,30 @@
+<main class="main" [dir]="lang === 'ar' ? 'rtl' : 'ltr'" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+    <app-cdmenu></app-cdmenu>
+    <section>
+        <div class="d-flex align-items-start">
+            <div class="card-img-container">
+                <img class="border border-primary rounded image-with-margin" [src]="articleImg" alt="article" />
+            </div>
+
+            <div class="card-body flex-grow-1">
+                <div class="d-flex justify-content-between mb-2">
+
+                    <span class="fs-2 text-primary me-2">
+                        {{lang == 'en' ? articleObj.specialityName : articleObj.specialityNameAr}}
+                    </span>
+                    <span class="fs-1 text-900">
+                        {{articleObj.date}}
+                    </span>
+                </div>
+                <h5 class="font-base fs-lg-0 fs-xl-3 my-3">
+                    {{lang == 'en' ? articleObj.title : articleObj.titleAr}}
+                </h5>
+                <p>
+                    {{lang == 'en' ? articleObj.articleContent : articleObj.articleContentAr}}
+                </p>
+             <div [innerHTML]="safeHtml"></div>
+            </div>
+        </div>
+    </section>
+    <app-cdfooter></app-cdfooter>
+</main>

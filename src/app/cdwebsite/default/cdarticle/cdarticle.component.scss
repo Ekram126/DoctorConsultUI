@@ -1,0 +1,150 @@
+
+/* Ensure the carousel container takes full width */
+.article {
+  display: flex;
+  justify-content: center; /* Center the carousel horizontally */
+  padding: 20px; /* Adjust padding as needed */
+  width: 100%; /* Ensure container takes full width */
+}
+
+
+
+
+/* Ensure the card container is centered */
+.card-container {
+  display: flex;
+  justify-content: center; /* Center the card within the item */
+  align-items: center; /* Vertically center the card */
+  width: 100%; /* Ensure card container takes full width */
+  height: 100%; /* Match height of the owl-item */
+  padding: 0 10px; /* Adjust padding between cards */
+  box-sizing: border-box; /* Include padding in the height and width */
+}
+
+/* Style for card */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 320px; /* Fixed height */
+  margin: 0px 3px !important; /* Margin around the card */
+  width: 200px; /* Fixed width */
+  box-sizing: border-box; /* Ensure padding and border are included in the height */
+}
+
+/* Ensure images fit well within the fixed height */
+.card-img-top {
+  width: 100%; /* Ensure image takes full width of the card */
+ // height: 140px; /* Fixed height for the image */
+  object-fit: cover; /* Ensure the image covers the area */
+}
+
+.card-date {
+   margin-left: 0px !important; 
+  font-size: x-small !important;
+  font-weight: bold;
+}
+
+
+
+/* Container for date and specialty */
+.card-header {
+  display: flex;
+  justify-content: space-between; /* Space between date and specialty */
+  align-items: center; /* Vertically align items */
+  padding: 0 0px; /* Add padding on left and right */
+  background-color: transparent !important; /* Ensure background is transparent */
+  border-bottom: none; /* Remove the bottom border */
+}
+
+/* Styling for the date */
+.card-date {
+  /* Default position for LTR */
+  margin-left: 10px; /* Add space to the left of the date in LTR */
+  font-size: x-small  !important;
+  font-weight: bold; 
+}
+
+/* RTL adjustments for date */
+[dir="rtl"] .card-date {
+  margin-left: 0; /* Remove left margin in RTL */
+  margin-right: 5px; /* Add space to the right in RTL */
+  font-size: x-small !important;
+  font-weight: bold; 
+}
+
+.speciality-name {
+  /* Default color for LTR */
+  color: #1b71a1 !important;
+  font-size:13px !important;
+  font-weight: bold; /* Example color for LTR, adjust as needed */
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 576px) {
+  // .owl-carousel-o .owl-item {
+  //   flex: 1 0 100%; /* Full width for items on very small screens */
+  // }
+
+  .card-container {
+    padding: 0 5px; /* Less padding for small screens */
+  }
+
+  .card {
+    width: 100%; /* Full width within the container */
+  }
+}
+
+// .owl-theme .owl-nav .owl-prev {
+//   background: #283779 !important;
+// }
+.owl-nav {
+ 
+  background: #FF5733 !important; /* Override background color */
+
+}
+
+
+
+@media (max-width: 360px) {
+  .owl-carousel-o .owl-item {
+    flex: 1 0 100%; /* Full width for items on very small screens */
+  }
+
+  .article {
+    display: flex;
+    justify-content: center; /* Center the carousel horizontally */
+    padding: 10px; /* Adjust padding as needed */
+    width: 100%; /* Ensure container takes full width */
+  }
+  
+  
+
+  .card-container {
+    padding: 0 3px; /* Less padding for small screens */
+  }
+
+  .card {
+    width: 100%; /* Full width within the container */
+  }
+}
+
+@media (max-width: 412px) {
+
+
+  .article {
+    display: flex;
+    justify-content: center; /* Center the carousel horizontally */
+    padding: 0px; /* Adjust padding as needed */
+    width: 100%; /* Ensure container takes full width */
+  }
+  
+  
+
+  .card-container {
+    padding: 0 3px; /* Less padding for small screens */
+  }
+
+  .card {
+    width: 100%; /* Full width within the container */
+  }
+}

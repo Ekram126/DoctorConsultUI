@@ -1,0 +1,18 @@
+<app-cdmenu></app-cdmenu>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 py-5">
+                <h1 class="text-center">{{lang == 'en' ? contactSection.title:contactSection.titleAr}}  </h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row topspace">
+            <div style="color: white;" [innerHTML]="safeHtml"></div>
+        </div>
+    </div>
+</section>
+<app-cdfooter></app-cdfooter>

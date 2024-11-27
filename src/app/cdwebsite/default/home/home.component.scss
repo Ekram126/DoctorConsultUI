@@ -1,0 +1,192 @@
+/* Owl Carousel base styles */
+
+.owl-carousel {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.no-js .owl-carousel, .owl-carousel.owl-loaded {
+  display: block;
+}
+
+
+.owl-carousel .owl-stage {
+  display: flex;
+  align-items: center;
+  margin: 0 -15px; /* Adjust negative margin to create space between items */
+  transition: transform 0.3s ease;
+}
+
+.owl-carousel .owl-item {
+  min-width: 100%; /* Ensures each item takes full width */
+  padding: 0 10px; /* Horizontal padding between items */
+}
+
+
+
+.item-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.item-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(29, 42, 77, 0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.overlay h3 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.overlay h1 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+.text-center-carosel{
+  margin: 0px 10px;
+}
+
+.text-center-carosel-doctor{
+  margin: 0px 10px;
+}
+
+.text-center .btn-primary {
+  background-color: #13c5dd;
+  color: #ffffff;
+  border-radius: 20px;
+  // padding: 12px 24px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.text-center .btn-primary:hover {
+  background-color: #13c5dd;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Adjust gap as needed */
+}
+/* Responsive styles */
+@media (max-width: 992px) {
+  .overlay h1 {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 576px) {
+  .overlay h1 {
+    font-size: 24px;
+  }
+}
+
+.my-dialog-header {
+  /* Your custom header styles */
+  background-color: #3498db; /* Example: Blue background */
+  color: white;
+  font-weight: bold;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+
+/* CSS */
+.bg-holder {
+  position: relative;
+  width: 100%;
+  height: 100vh; /* Adjust height as needed */
+  overflow: hidden;
+}
+
+.bg-size {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../../../../assets/img/gallery/hero-bg.png');
+  background-size: cover;
+  background-position: center left; /* For LTR */
+  transform-origin: center;
+}
+
+/* For RTL */
+[dir="rtl"] .bg-size {
+  transform: scaleX(-1); /* Flip horizontally */
+  background-position: center right; /* Ensure correct alignment */
+}
+
+
+
+
+
+
+
+
+/* Base styles for buttons */
+.btn {
+  /* Default padding for LTR */
+  padding: 12px 24px;
+  margin: 10px;
+}
+
+/* Adjust padding for RTL direction */
+[dir="rtl"] .btn {
+  padding: 10px 4rem;
+  margin: 0px 150px;
+}
+
+/* You can also apply specific styles directly to RTL class */
+.bg-rtl .btn {
+  padding-right: 24px; /* Adjust padding for RTL */
+  padding-left: 12px;  /* Adjust padding for RTL */
+  margin-right: 10px;  /* Adjust margin for RTL */
+  margin-left: 5px;    /* Adjust margin for RTL */
+}
+
+
+
+.oval-container {
+  margin-top: 100px;
+  overflow: hidden; /* Ensure the image doesn't overflow the container */
+  width: 500px; /* Set the desired width */
+ // height: 800px; /* Set the desired height */
+}
+
+.oval-image {
+  width: 100%; /* Make the image responsive */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 50%; /* Make the image oval */
+  display: block; /* Remove bottom space from the image */
+}

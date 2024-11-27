@@ -1,0 +1,156 @@
+<!-- <div class="container">
+	<div class="col-12 bktitles d-flex justify-content-between align-items-center">
+		{{ 'DC.Videos' | translate }}
+		<div class="float-end">
+			<button class="btn btn-outline-info btn-sm" (click)="addVideo()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div>
+
+	<div class="grid responsive-grid">
+		<div class="col-12">
+			<div class="card">
+
+	
+
+				<p-dataView [value]="lstVideos" [rows]="5" [paginator]="true">
+					<ng-template let-video pTemplate="listItem" [ngIf]="loading">
+						<div class="col-12">
+							<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+								<youtube-player [videoId]="video.videoURL"  placeholderImageQuality="standard" width="200" height="200"/>
+								<div
+									class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+									<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+										<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? video.title :
+											video.titleAr}}</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<i class="pi pi-fw pi-list"></i>
+												<span class="font-semibold text-info">{{lang === 'en' ?
+													video.specialityName : video.specialityNameAr}}</span>
+											</span>
+										</div>
+
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<i class="pi pi-calendar"></i>
+												<span class="font-semibold">{{video.date | date:'dd-MM-yyyy'}}</span>
+											</span>
+										</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<span class="font-semibold">{{video.isActive}}</span>
+											</span>
+										</div>
+									</div>
+									<div
+										class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+										<span (click)="viewVideo(video.id)" pTooltip="{{'DC.View' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-eye-fill viewIcon"></i>
+										</span>
+										<span (click)="editVideo(video.id)" pTooltip="{{'DC.Edit' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-pencil-fill editIcon"></i>
+										</span>
+										<span (click)="deleteVideo(video.id)" pTooltip="{{'DC.Delete' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-trash-fill deleteIcon"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</p-dataView>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+ -->
+
+ <div class="container-fluid">
+	<!-- <div class="row bktitles">
+		{{ 'DC.Videos' | translate }}
+		<div class="float-end">
+			<button class="btn btn-outline-info btn-sm" (click)="addVideo()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div> -->
+
+
+
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Videos' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end" *ngIf="isAdmin">
+			<button class="btn btn-outline-info btn-sm" (click)="addVideo()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div>
+
+	<div class="row">
+			<div class="card">
+				<p-dataView [value]="lstVideos" [rows]="5" [paginator]="true">
+					<ng-template let-video pTemplate="listItem">
+						<div class="col-12">
+							<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+								<youtube-player [videoId]="video.videoURL"  placeholderImageQuality="standard" width="100%" height="200"/>
+								<div
+									class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+									<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+										<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? video.title :
+											video.titleAr}}</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<i class="pi pi-fw pi-list"></i>
+												<span class="font-semibold text-info">{{lang === 'en' ?
+													video.specialityName : video.specialityNameAr}}</span>
+											</span>
+										</div>
+
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<i class="pi pi-calendar"></i>
+												<span class="font-semibold">{{video.date | date:'dd-MM-yyyy'}}</span>
+											</span>
+										</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<span class="font-semibold">{{video.isActive}}</span>
+											</span>
+										</div>
+									</div>
+									<div
+										class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+										<span (click)="viewVideo(video.id)" pTooltip="{{'DC.View' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-eye-fill viewIcon"></i>
+										</span>
+										<span (click)="editVideo(video.id)" pTooltip="{{'DC.Edit' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-pencil-fill editIcon"></i>
+										</span>
+										<span (click)="deleteVideo(video.id)" pTooltip="{{'DC.Delete' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-trash-fill deleteIcon"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</p-dataView>
+
+			</div>
+		</div>
+	
+</div>

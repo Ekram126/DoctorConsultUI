@@ -1,0 +1,91 @@
+.card-span {
+    width: 70% !important;
+    height: 70% !important;
+  }
+
+
+  /* Ensure the carousel container is centered */
+.article {
+  display: flex;
+  justify-content: center; /* Center the carousel horizontally */
+  padding: 0; /* Remove padding */
+  width: 100%; /* Ensure container takes full width */
+}
+/* Ensure that each owl-item is centered and has consistent width */
+.owl-carousel-o .owl-item {
+  width: auto; /* Override any set width */
+  flex: 0 0 auto; /* Prevent item from stretching */
+  margin: 0 10px; /* Adjust spacing between items as needed */
+}
+
+/* Ensure the card takes full width within each item */
+.card {
+  width: 100%; /* Full width of the owl-item */
+  box-sizing: border-box; /* Include padding and border in width */
+}
+
+/* Optional: Ensure image fits well */
+.card-img-top {
+  max-width: 100%; /* Fit the image within the card */
+  height: auto; /* Maintain aspect ratio */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .owl-carousel-o .owl-item {
+      flex: 1 0 100%; /* Full width for items on very small screens */
+      padding: 0; /* Ensure no extra space */
+      margin: 0; /* Ensure no extra space */
+  }
+
+  .card {
+      max-width: 100%; /* Ensure card takes full width on small screens */
+  }
+}
+
+@media (min-width: 576px) {
+  .owl-carousel-o .owl-item {
+      flex: 1 0 50%; /* Half width for items on small screens */
+      padding: 0; /* Ensure no extra space */
+      margin: 0; /* Ensure no extra space */
+  }
+}
+
+@media (min-width: 768px) {
+  .owl-carousel-o .owl-item {
+      flex: 1 0 33.33%; /* One-third width for items on medium screens */
+      padding: 0; /* Ensure no extra space */
+      margin: 0; /* Ensure no extra space */
+  }
+}
+
+@media (min-width: 992px) {
+  .owl-carousel-o .owl-item {
+      flex: 1 0 25%; /* One-quarter width for large screens */
+      padding: 0; /* Ensure no extra space */
+      margin: 0; /* Ensure no extra space */
+  }
+}

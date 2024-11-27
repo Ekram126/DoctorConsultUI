@@ -1,0 +1,110 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Specialists' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end gap-3">
+			<button class="btn btn-outline-info btn-sm" (click)="addSpecial()">{{ 'DC.Create' | translate}}</button>
+			<button class="btn btn-outline-primary btn-sm" (click)="toggleContent()">{{'DC.Search'|translate}}</button>
+		</div>
+	</div>
+	<div class="row">
+		<div id="collapseExample" [hidden]="isCollapsed">
+			<form (ngSubmit)="onSearch()" #searchForm="ngForm">
+				<div class="row">
+
+					<div class="col-12">
+						<label for="specialityName" [translate]="'DC.Name'"></label>
+						<br />
+						<p-autoComplete [style]="{'width': '500px'}" [suggestions]="lstAutoCompleteSearch" type="search"
+							name="specialityId" id="specialityId" (completeMethod)="onSelectionChanged($event)"
+							(onSelect)="getItemName($event)" field="name" [dropdown]="false">
+							<ng-template let-itemObj pTemplate="item">
+								{{lang ==="en" ? itemObj.name:itemObj.nameAr}}
+							</ng-template>
+							<ng-template let-itemObj pTemplate="selectedItem">
+								{{lang=="en" ?itemObj.name:itemObj.nameAr}}
+							</ng-template>
+						</p-autoComplete>
+						<i class="pi pi-times-circle" style="color: rgb(102, 4, 4);font-size: 1rem;margin: 0px 20px;"
+							(click)="clearSearch()"></i>
+					</div>
+
+				</div>
+
+
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card">
+			<p-table [value]="lstSpecialists" name="tblSpeciality" responsiveLayout="scroll" [paginator]="true"
+				[lazy]="true" [rows]="10" [totalRecords]="count" pageLinks="10" (onLazyLoad)="loadSpecialities($event)"
+				[loading]="loading">
+
+				<ng-template pTemplate="header">
+					<tr>
+						<th></th>
+						<th style="text-align: inherit;"> {{ 'DC.Code' | translate }} <p-sortIcon
+								id="{{'DC.Code'| translate}}" (click)="sort($event)">
+							</p-sortIcon></th>
+						<th style="text-align: inherit;"> {{ 'DC.Name' | translate }} <p-sortIcon
+								id="{{'DC.Name'| translate}}" (click)="sort($event)">
+							</p-sortIcon></th>
+
+
+						<th style="text-align: inherit;"> {{ 'DC.IsActive' | translate }} <p-sortIcon
+								id="{{'DC.IsActive'| translate}}" (click)="sort($event)">
+							</p-sortIcon></th>
+
+
+						<th style="text-align: inherit;"> {{ 'DC.Actions' | translate }} </th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-specialItem>
+					<tr>
+						<td>
+							<img width="50" height="50" [src]="specialItem.pngIcon" [alt]="specialItem.pngIcon" />
+						</td>
+						<td style="text-align: inherit;">{{lang =='en' ?specialItem.code: (+specialItem.code)}}</td>
+						<td style="text-align: inherit;">{{lang =='en' ?specialItem.name:specialItem.nameAr}}</td>
+						<td style="text-align: inherit;">{{specialItem.isActive}}</td>
+						<td style="text-align: inherit;">
+							<span (click)="viewSpecial(specialItem.id)" pTooltip="{{'DC.View' | translate}}"
+								tooltipPosition="top">
+								<i class="bi bi-eye-fill viewIcon"></i>
+							</span>
+							<span (click)="editSpecial(specialItem.id)" pTooltip="{{'DC.Edit' | translate}}"
+								tooltipPosition="top">
+								<i class="bi bi-pencil-fill editIcon"></i>
+							</span>
+							<span (click)="deleteSpecial(specialItem.id)" pTooltip="{{'DC.Delete' | translate}}"
+								tooltipPosition="top">
+								<i class="bi bi-trash-fill deleteIcon"></i>
+							</span>
+						</td>
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>
+
+
+<p-confirmDialog #cd [style]="{ width: '50vw' }">
+	<ng-template pTemplate="header">
+		<h3> {{ 'DC.Special' | translate }}</h3>
+	</ng-template>
+	<ng-template pTemplate="icon">
+		<i class="pi pi-exclamation-triangle" style="color: rgb(224, 85, 10);font-size: 3rem; margin: 0px 10px;"></i>
+	</ng-template>
+	<ng-template pTemplate="message">
+		<p style="font-size: 14pt;">{{deleteMessage}}</p>
+	</ng-template>
+	<ng-template pTemplate="footer">
+		<button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"
+			style="margin: 0px 10px;"></button>
+
+		<button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+	</ng-template>
+</p-confirmDialog>

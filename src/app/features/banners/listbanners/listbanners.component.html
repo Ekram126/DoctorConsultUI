@@ -1,0 +1,98 @@
+<!-- 
+<div class="container">
+	<div class="col-12 bktitles d-flex justify-content-between align-items-center">
+	  {{ 'DC.Banners' | translate }}
+	  <div class="float-end">
+		<button class="btn btn-outline-info btn-sm" (click)="addBanner()">{{ 'DC.Create' | translate }}</button>
+	  </div>
+	</div>
+  
+	<div class="grid responsive-grid">
+	  <div class="col-12">
+		<div class="card">
+
+		<p-dataView [value]="lstBanners" [rows]="5" [paginator]="true" >
+			<ng-template let-banner pTemplate="listItem">
+			  <div class="col-12">
+				<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+					<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+					[src]="banner.bannerImg" [alt]="banner.bannerImg" />
+				  <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+					<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+					  <div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? banner.name : banner.nameAr}}</div>
+
+						<div class="flex align-items-center gap-3">
+						<span class="flex align-items-center gap-2">
+						  <i class="pi pi-calendar"></i>
+						  <span class="font-semibold">{{banner.bannerDate | date:'dd-MM-yyyy'}}</span>
+						</span>
+					  </div>
+					  <div class="flex align-items-center gap-3">
+						<span class="flex align-items-center gap-2">
+							<span class="font-semibold">{{banner.isActive}}</span>
+						  </span>
+					  </div>
+					</div>
+					<span (click)="editBanner(banner.id)" pTooltip="{{'DC.Edit' | translate}}"
+					tooltipPosition="top">
+					<i class="bi bi-pencil-fill editIcon" ></i>
+				</span>
+				  </div>
+				</div>
+			  </div>
+			</ng-template>
+		  </p-dataView>
+		
+		  </div>
+	  </div>
+	</div>
+  </div> -->
+
+
+  <div class="container-fluid">
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Banners' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end">
+			<button class="btn btn-outline-info btn-sm" (click)="addBanner()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="card">
+			<p-dataView [value]="lstBanners" [rows]="5" [paginator]="true">
+				<ng-template let-banner pTemplate="listItem">
+					<div class="col-12">
+						<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+							<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+								[src]="banner.bannerImg" [alt]="banner.bannerImg" />
+							<div
+								class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+								<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+									<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? banner.name :
+										banner.nameAr}}</div>
+									<div class="flex align-items-center gap-3">
+										<span class="flex align-items-center gap-2">
+											<i class="pi pi-calendar"></i>
+											<span class="font-semibold">{{banner.bannerDate | date:'dd-MM-yyyy'}}</span>
+										</span>
+									</div>
+									<div class="flex align-items-center gap-3">
+										<span class="flex align-items-center gap-2">
+											<span class="font-semibold">{{banner.isActive}}</span>
+										</span>
+									</div>
+								</div>
+								<span (click)="editBanner(banner.id)" pTooltip="{{'DC.Edit' | translate}}"
+									tooltipPosition="top">
+									<i class="bi bi-pencil-fill editIcon"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</p-dataView>
+
+		</div>
+	</div>
+</div>

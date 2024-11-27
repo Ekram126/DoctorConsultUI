@@ -1,0 +1,111 @@
+<!-- <section class="bg-primary">
+      <div class="bg-holder bg-size"
+        style="background-image:url(assets/img/gallery/cta-bg.png);background-position:center right;margin-top:-8.125rem;background-size:contain;">
+      </div>
+     
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <h2 class="fw-bold text-light">Get an update every week</h2>
+            <p class="text-soft-primary">Livedoc was created in order to improve the patient experience. <br />Providing
+              world-class tests, and a wide range of other services.</p>
+          </div>
+          <div class="col-lg-6">
+            <h5 class="mb-3 text-soft-primary">SUBSCRIBE TO NEWSLETTER </h5>
+            <form class="row gx-2 gy-2 align-items-center">
+              <div class="col">
+                <div class="input-group-icon">
+                  <label class="visually-hidden" for="inputEmailCta">Address</label>
+                  <input class="form-control form-livedoc-control form-cta-control text-soft-primary" id="inputEmailCta"
+                    type="email" placeholder="Email" />
+                </div>
+              </div>
+              <div class="d-grid gap-3 col-sm-auto">
+                <button class="btn btn-lg btn-light rounded-3 px-5 py-3" type="submit">Subscribe</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section> -->
+<section class="py-0">
+  <!-- <div class="bg-holder opacity-25"
+    style="background-image:url(assets/img/gallery/dot-bg.png);background-position:top left;margin-top:-3.125rem;background-size:auto;">
+  </div> -->
+
+  <div class="container">
+    <div class="row py-3">
+      <div class="col-12 col-sm-12 col-lg-6 mb-4 order-0 order-sm-0">
+        <a class="text-decoration-none" style="font-weight: 700;font-size:25pt; color:white">
+          {{'DC.DoctorMasry'| translate}}
+        </a>
+<br/>
+        <a class="navbar-brand" [routerLink]="'/'">
+          <img *ngIf="lang==='en'" src="../../../../assets/images/logo_en.png" width="120" height="120" />
+          <img *ngIf="lang==='ar'" src="../../../../assets/images/logo_ar.png" width="120" height="120" />
+        </a>
+        <!-- <p class="text-light my-4">The world's most trusted <br />telehealth company.</p> -->
+      </div>
+      <div class="col-6 col-sm-4 col-lg-2 mb-3 order-2 order-sm-1">
+         <h4 class="lh-lg fw-bold mb-2 font-sans-serif"  style="color: #004CA8;font-size: 16px;">{{'DC.Specialists'| translate}}</h4>
+      
+      
+      
+         <select class="form-control dropdown" id="specialistId" name="specialistId"
+          [value]="0" (change)="selectSpecialMedia($event)">
+         <option value="0">Select One</option>
+         <option *ngFor="let special of lstSpeciality" [value]="special.id">
+          {{lang=='en'?special.name:special.nameAr}}
+         </option>
+     </select>
+      
+         <!-- <ul class="list-unstyled mb-md-2 mb-lg-0" *ngFor="let special of lstSpeciality">
+          <li class="lh-lg"><a class="footer-link" (click)="selectMedia(special.id)">{{lang=='en'
+              ?special.name:special.nameAr}}</a></li>
+        </ul>  -->
+      </div>
+      <!-- <div class="col-6 col-sm-4 col-lg-2 mb-3 order-3 order-sm-2">
+            <h5 class="lh-lg fw-bold text-light mb-4 font-sans-serif">Membership</h5>
+            <ul class="list-unstyled mb-md-4 mb-lg-0">
+              <li class="lh-lg"><a class="footer-link">Free trial</a></li>
+              <li class="lh-lg"><a class="footer-link">Silver</a></li>
+              <li class="lh-lg"><a class="footer-link">Premium</a></li>
+            </ul>
+          </div> -->
+      <div class="col-6 col-sm-4 col-lg-2 mb-1 order-3 order-sm-2">
+        <h4 class="lh-lg fw-bold mb-2 font-sans-serif" style="color: #004CA8;font-size: 16px;"> Customer Care</h4>
+        <ul class="list-unstyled mb-md-2 mb-lg-0">
+          <li class="lh-lg" ><a class="footer-link" [routerLink]="'/mission'" style="color: #1B71A1;">{{'DC.AboutUs'| translate}}</a></li>
+          <li class="lh-lg" ><a class="footer-link" [routerLink]="'/contactus'" style="color: #1B71A1;">{{'DC.ContactUs'| translate}}</a></li>
+          <li class="lh-lg" ><a class="footer-link" [routerLink]="'/terms'" style="color: #1B71A1;">{{'DC.Terms'| translate}}</a></li>
+        </ul>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=61559510923341&mibextid=ZbWKwL">
+            <img src="../../../../assets/img/facebook.png" width="20" height="20" /></a>
+          <!-- <img src="../../../../assets/img/youtube.png"  width="20" height="20"/> -->
+          <a href="https://www.instagram.com/doctor.masry?igsh=MTl3b2VvMDdpa2QyNQ==">
+            <img src="../../../../assets/img/instagram.png" width="20" height="20" /></a>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+  <section class="py-0 bg-primary">
+
+    <div class="container">
+      <div class="row justify-content-md-between justify-content-evenly py-4">
+        <div class="col-12 col-sm-8 col-md-6 col-lg-auto text-center text-md-start">
+          <p class="fs--1 my-2 fw-bold text-200">All rights Reserved &copy; {{'DC.DoctorMasry'| translate}}, 2024</p>
+        </div>
+        <div class="col-12 col-sm-8 col-md-6">
+          <p class="fs--1 my-2 text-center text-md-end text-200"> Powered by
+            <a class="fw-bold text-info" href="http://almostakbal-technology.com/" target="_blank">{{'DC.Mostakbal'|
+              translate}}</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</section>

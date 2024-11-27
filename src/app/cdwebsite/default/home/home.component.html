@@ -1,0 +1,71 @@
+<main class="main" id="top" [dir]="lang === 'ar' ? 'rtl' : 'ltr'"
+  [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+  <app-cdmenu></app-cdmenu>
+
+
+  <section class="py-xxl-10 pb-0" id="home">
+    <div class="bg-holder bg-size" [ngClass]="{'bg-rtl': lang === 'ar'}"
+      style="background-image:url(assets/img/gallery/hero-bg.png);background-position:top center;background-size:cover; ">
+    </div>
+    <div class="container">
+      <div class="row min-vh-xl-100 min-vh-xxl-25">
+        <div class="col-md-5 col-xl-6 col-xxl-7 order-0 order-md-1 text-end oval-container">
+
+          <img class="pt-7 pt-md-0 w-100 oval-image" [src]="topSection.sectionImg" alt="header" />
+        </div>
+        <div class="col-md-75 col-xl-6 col-xxl-5 text-md-start text-center py-6">
+          <h1 class="fw-light font-base fs-6 fs-xxl-7"><strong>{{ lang == 'en' ? topSection.title : topSection.titleAr
+              }}</strong></h1>
+          <div class="fs-1 mb-5" style="color: #045581;" [innerHTML]="safeHtml"></div>
+          <a class="btn btn-lg btn-primary rounded-pill" role="button"
+            *ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor"
+            (click)="handleRegisterClick()" [ngClass]="{'btn-rtl': lang === 'ar'}"> {{ isPatient ? ('DC.RequestConsult' | translate) : ('DC.NeedConsult' | translate) }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-cdspeciality></app-cdspeciality>
+  <section class="pb-0" id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 py-3">
+          <h1 class="text-center">
+            <!-- {{'DC.AboutUsTitle' | translate}} -->
+
+            {{lang=='en'?aboutSection.title:aboutSection.titleAr}}
+
+
+
+          </h1>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- <section class="py-5" style="background-color: #1B71A1;"> -->
+
+    <section class="py-5" style="background-color: #2e80ac;">
+    <div class="bg-holder bg-size"
+      style="background-image:url(assets/images/Whitebg.png);background-position:top center;background-size:contain;">
+    </div>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 order-lg-1 mb-5 mb-lg-0">
+          <img class="fit-cover rounded-circle w-100" [src]="aboutSection.sectionImg" />
+        </div>
+        <div class="col-md-6 text-center text-md-start">
+          <h4 class="fw-bold mb-4" style="color: white;" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+            <div style="color: white;" [innerHTML]="aboutbriefsafeHtml"></div>
+          </h4>
+
+          <div style="color: white;" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}" [innerHTML]="aboutdescsafeHtml"></div>
+          <div class="py-3" style="color: white;cursor: pointer;" (click)="aboutPage()"  [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+         {{'DC.ReadMore' |translate}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <app-cdgallery></app-cdgallery>
+  <app-cdarticle></app-cdarticle>
+  <app-cdfooter></app-cdfooter>
+</main>

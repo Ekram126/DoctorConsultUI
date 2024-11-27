@@ -1,0 +1,51 @@
+<main class="main" [dir]="lang === 'ar' ? 'rtl' : 'ltr'" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+    <app-cdmenu></app-cdmenu>
+<!-- 
+    <section class="sec">
+        <div *ngFor="let section of lstSections">
+            <div class="d-flex flex-column align-items-center">
+                <h5 class="font-base fs-lg-0 fs-xl-4 my-4 text-center title">
+                    {{lang == 'en' ? section.title : section.titleAr}}
+                </h5>
+                <div class="card" style="text-align: justify;">
+                    {{lang == 'en' ? section.brief : section.briefAr}}
+                    <br />
+                    <br />
+                    <div style="text-align: justify;" [innerHTML]="lang == 'en' ? section.safeHtml : section.arabicSafeHtml"></div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+
+    <section class="sec">
+        <div *ngFor="let section of lstSections">
+    
+            <div class="d-flex flex-column align-items-center">
+                <h5 class="font-base fs-lg-0 fs-xl-4 my-4 text-center title">
+                    {{ lang == 'en' ? section.title : section.titleAr }}
+                </h5>
+                <div class="card" style="text-align: justify;">
+                    <div [ngClass]="{'d-flex': true, 'flex-row': lang === 'en', 'flex-row-reverse': lang !== 'en'}">
+                        <img *ngIf="section.sectionImg" 
+                             [src]="section.sectionImg" 
+                             alt="Image" 
+                             class="section-image mb-3"  
+                             width="150" 
+                             height="150" 
+                             style="margin-right: 15px;"/>
+                        <div style="flex-grow: 1;">
+                            {{ lang === 'en' ? section.brief : section.briefAr }} 
+                            <br/>
+                            <br/>
+                            <div style="text-align: justify;" [innerHTML]="lang === 'en' ? section.safeHtml : section.arabicSafeHtml"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </section>
+    
+    <app-cdfooter></app-cdfooter>
+</main>

@@ -1,0 +1,59 @@
+
+<div class="grid">
+    <div class="col-12">
+            <div class="card">
+                <div class="form-group row">
+                    <div class="field col-12">
+                        <label htmlFor="videoURL">{{'DC.URL' | translate }}</label>
+                      {{videoObj.videoURL}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="field col-6">
+                        <label htmlFor="title">{{'DC.Title' | translate }}</label>
+                       {{videoObj.title}}
+                    </div>
+                    <div class="field col-6">
+                        <label htmlFor="titleAr">{{'DC.TitleArabic' | translate }}</label>
+                        {{videoObj.titleAr}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="field col-4">
+                        <label for="orderId" [translate]="'DC.Order'"></label>
+                    {{videoObj.orderId}}
+                    </div>
+                    <div class="field col-4">
+                        <label for="specialistId" [translate]="'DC.Special'"></label>
+                        {{ lang == "en" ? videoObj.specialityName : videoObj.specialityNameAr }}
+                    </div>
+                    <div class="field col-4">
+                        <label htmlFor="dob">{{'DC.Date' | translate }}</label>
+                        {{videoObj.date | date:'yyyy-MM-dd'}}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="field col-6">
+                        <label htmlFor="brief">{{'DC.Content' | translate }}</label>
+                     {{videoObj.brief}}
+                    </div>
+                    <div class="field col-6">
+                        <label htmlFor="briefAr">{{'DC.ArabicContent' | translate }}</label>
+                        {{videoObj.briefAr}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="field col-6">
+                        <div class="form-check">
+                            <input type="checkbox" id="isActive" name="isActive" [(ngModel)]="videoObj.isActive" />
+                            {{videoObj.isActive}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+       
+    </div>
+</div>
+
+
+

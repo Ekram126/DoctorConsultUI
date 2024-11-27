@@ -1,0 +1,11 @@
+.social-icons {
+    display: flex;
+    gap: 10px; /* Adjusts space between icons */
+    margin-top: 10px; /* Optional: adds space above the icons */
+}
+
+.dropdown{
+    height: auto; /* This allows the height to fit content */
+    min-height: 25px; /* You can define a minimum height */
+    line-height: 0.8; /* Adjust line height for better appearance */
+}

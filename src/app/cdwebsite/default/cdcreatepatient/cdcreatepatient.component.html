@@ -1,0 +1,135 @@
+<form (ngSubmit)="onSubmit()">
+	<div class="fieldset">
+		<div class="form-group row">
+			<div class="col-4">
+				<div class="inline-label">
+					<label class="lblfont" htmlFor="name">{{'DC.Name' | translate }}</label>
+					<p class="text-danger">*</p>
+				</div>
+				<input pInputText id="name" type="text" class="form-control" [(ngModel)]="patientObj.name"
+					#name="ngModel" name="name" required />
+			</div>
+			<div class="col-4">
+				<div class="inline-label"><label class="lblfont" htmlFor="mobile">{{'DC.Mobile' | translate }}</label>
+					{{phoneCode}}
+				</div>
+				<input id="mobile" name="mobile" type="text" class="form-control" [(ngModel)]="patientObj.mobile"
+					#mobile="ngModel" />
+
+				<!-- <div *ngIf="mobile.invalid && mobile.errors?.required" class="text-danger">
+							{{'DC.MobileRequired' | translate}}
+						</div> -->
+			</div>
+			<div class="col-4">
+				<div class="inline-label">
+					<label htmlFor="email" class="lblfont">{{'DC.Email' | translate }}</label>
+					<p class="text-danger">*</p>
+				</div>
+				<input id="email" name="nameAr" type="email" class="form-control" [(ngModel)]="patientObj.email"
+					#email="ngModel" required />
+			</div>
+		</div>
+		<div class="form-group row">
+			<!-- <div class="col-4">
+						<label htmlFor="dob">{{'DC.DOB' | translate }}</label><br />				
+						<input type="date" class="form-control" id="dob" name="dob" [(ngModel)]="patientObj.dob" (ngModelChange)="patientObj.dob = $event"
+						[value]="patientObj.dob | date:'yyyy-MM-dd'" />
+					</div> -->
+			<div class="col-6">
+				<div class="inline-label">
+					<label class="lblfont" for="contry" [translate]="'DC.Country'"></label>
+					<p class="text-danger">*</p>
+				</div>
+				<select class="form-control" id="country" name="country" [(ngModel)]="patientObj.countryId" [value]="0"
+					#country="ngModel" (change)="getCountryPhoneCode($event.target.value)" required>
+					<option value="0">{{'DC.SelectOne' | translate}}</option>
+					<option *ngFor="let contry of lstCountries" [value]="contry.id">
+						{{ lang == "en" ? contry.name : contry.nameAr }}
+					</option>
+				</select>
+				<!-- <div *ngIf="country.value === 0" class="text-danger">
+							{{'DC.CountryRequired' | translate}}
+						</div> -->
+			</div>
+			<div class="col-6">
+				<div class="inline-label">
+					<label class="lblfont" for="genderId" [translate]="'DC.Gender'"></label>
+					<p class="text-danger">*</p>
+				</div>
+				<select class="form-control" id="genderId" name="genderId" [(ngModel)]="patientObj.genderId" [value]="0"
+					#genderId="ngModel" (change)="getGenderId($event.target.value)" required>
+					<option value="0">{{'DC.SelectOne' | translate}}</option>
+					<option *ngFor="let gen of lstGenders" [value]="gen.id">
+						{{ lang == "en" ? gen.name : gen.nameAr }}
+					</option>
+				</select>
+				<!-- <div *ngIf="genderId.value === 0" class="text-danger">
+							{{'DC.GenderRequired' | translate}}
+						</div> -->
+			</div>
+		</div>
+		<div class="col-12">
+			<div class="inline-label">
+				<label htmlFor="code" class="reflabel lblfont">{{'DC.PatientCode' | translate }}</label>
+
+				<input pInputText id="code" name="code" type="text" class="form-control noborder"
+					[(ngModel)]="patientObj.code" #code="ngModel" disabled />
+			</div>
+
+		</div>
+	</div>
+	<div class="fieldset">
+		<div class="form-group row">
+			<div class="field col-6">
+				<label class="lblfont" htmlFor="Username">{{'DC.Username' | translate }}</label>
+				<input type="text" class="form-control" id="userName" name="userName" #userName="ngModel"
+					[(ngModel)]="patientObj.userName">
+			</div>
+			<div class="field col-6">
+				<label class="lblfont" htmlFor="password">{{'DC.Password' | translate }}</label>
+				<input type="password" minlength="6" class="form-control" placeholder="Password" id="passwordHash"
+					name="passwordHash" #passwordHash="ngModel" [(ngModel)]="patientObj.passwordHash">
+			</div>
+
+			<div *ngIf="passwordHash.invalid && (passwordHash.dirty || passwordHash.touched)" class="text-danger">
+				<div *ngIf="passwordHash.errors?.required">
+					Password is required.
+				</div>
+				<div *ngIf="passwordHash.errors?.minlength">
+					Password must be at least 6 characters long.
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div>
+		<button class="btn" style="background-color: #aed6e7; color:navy" value="save" type="submit">
+			{{ 'DC.Submit' | translate }}
+		</button>
+	</div>
+</form>
+
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+	<ng-template pTemplate="header">
+		<h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+		</h6>
+	</ng-template>
+	<span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+		translate
+		}}</span>
+
+	<br />
+	<button type="button" pButton label="Close" icon="pi pi-times" class="p-button-danger"
+		(click)="closeDialogue()"></button>
+
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '500px' }">
+	<p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+	<span style="color: rgb(181, 4, 4); font-weight: bold">
+		{{ errorMessage }}</span>
+</p-dialog>

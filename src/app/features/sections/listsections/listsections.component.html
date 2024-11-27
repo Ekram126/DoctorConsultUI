@@ -1,0 +1,134 @@
+<!-- <div class="container">
+	<div class="col-12 bktitles d-flex justify-content-between align-items-center">
+		{{ 'DC.Sections' | translate }}
+		<div class="float-end" *ngIf="isAdmin">
+			<button class="btn btn-outline-info btn-sm" (click)="addSection()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div>
+
+	<div class="grid responsive-grid">
+		<div class="col-12">
+			<div class="card">
+				<p-dataView [value]="lstSetions" rows="5" [paginator]="true">
+					<ng-template let-section pTemplate="listItem">
+						<div class="col-12">
+							<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+								<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+									[src]="section.sectionImg" [alt]="section.sectionImg" />
+								<div
+									class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+									<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+										<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? section.title
+											: section.titleAr}}</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<span class="font-semibold text-info">
+													<div [innerHTML]="sanitizedHtmlForSection(section)"></div>
+												</span>
+											</span>
+										</div>
+
+									</div>
+									<div
+										class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+	
+										<span (click)="editSection(section.id)" pTooltip="{{'DC.Edit' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-pencil-fill editIcon"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</p-dataView>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<p-confirmDialog #cd [style]="{ width: '50vw' }">
+	<ng-template pTemplate="header">
+		<h3> {{ 'DC.section' | translate }}</h3>
+	</ng-template>
+	<ng-template pTemplate="icon">
+		<i class="pi pi-exclamation-triangle" style="color: rgb(224, 85, 10);font-size: 3rem; margin: 0px 10px;"></i>
+	</ng-template>
+	<ng-template pTemplate="message">
+		<p style="font-size: 14pt;">{{deleteMessage}}</p>
+	</ng-template>
+	<ng-template pTemplate="footer">
+		<button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"
+			style="margin: 0px 10px;"></button>
+		<button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+	</ng-template>
+</p-confirmDialog> -->
+
+
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Sections' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end" *ngIf="isAdmin">
+			<button class="btn btn-outline-info btn-sm" (click)="addSection()">{{ 'DC.Create' | translate }}</button>
+		</div>
+	</div>
+		<div class="row">
+			<div class="card">
+				<p-dataView [value]="lstSetions" rows="5" [paginator]="true">
+					<ng-template let-section pTemplate="listItem">
+						<div class="col-12">
+							<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+								<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+									[src]="section.sectionImg" [alt]="section.sectionImg" />
+								<div
+									class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+									<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+										<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? section.title
+											: section.titleAr}}</div>
+										<div class="flex align-items-center gap-3">
+											<span class="flex align-items-center gap-2">
+												<span class="font-semibold text-info">
+													<div [innerHTML]="sanitizedHtmlForSection(section)"></div>
+												</span>
+											</span>
+										</div>
+
+									</div>
+									<div
+										class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+										<span (click)="editSection(section.id)" pTooltip="{{'DC.Edit' | translate}}"
+											tooltipPosition="top">
+											<i class="bi bi-pencil-fill editIcon"></i>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</p-dataView>
+
+			</div>
+		</div>
+	</div>
+
+
+<p-confirmDialog #cd [style]="{ width: '50vw' }">
+	<ng-template pTemplate="header">
+		<h3> {{ 'DC.section' | translate }}</h3>
+	</ng-template>
+	<ng-template pTemplate="icon">
+		<i class="pi pi-exclamation-triangle" style="color: rgb(224, 85, 10);font-size: 3rem; margin: 0px 10px;"></i>
+	</ng-template>
+	<ng-template pTemplate="message">
+		<p style="font-size: 14pt;">{{deleteMessage}}</p>
+	</ng-template>
+	<ng-template pTemplate="footer">
+		<button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"
+			style="margin: 0px 10px;"></button>
+		<button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+	</ng-template>
+</p-confirmDialog>

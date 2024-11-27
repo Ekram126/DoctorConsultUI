@@ -1,0 +1,18 @@
+<main class="main" [dir]="lang === 'ar' ? 'rtl' : 'ltr'" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+    <app-cdmenu></app-cdmenu>
+    <section>
+        <div class="d-flex align-items-start">
+            <!-- <div class="card-img-container">
+                <img class="border border-primary rounded image-with-margin" [src]="sectionObj.sectionImg" alt="article" />
+            </div> -->
+            <div class="card-body flex-grow-1">
+                        <h5 class="font-base fs-lg-0 fs-xl-3 my-3">
+                    {{lang == 'en' ? sectionObj.title : sectionObj.titleAr}}
+                </h5>
+             
+             <div [innerHTML]="safeHtml"></div>
+            </div>
+        </div>
+    </section>
+    <app-cdfooter></app-cdfooter>
+</main>

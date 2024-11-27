@@ -1,0 +1,62 @@
+ <section class="py-5" id="cdarticles">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 py-1">
+        <div class="bg-holder bg-size"
+          style="background-image:url(assets/images/Whitebg.png);background-position:top center;background-size:contain;">
+        </div>
+        <h1 class="text-center">{{'DC.RecentArticles' | translate}}</h1>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="article">
+ <div class="container">
+    <div class="row">     
+  <!-- <owl-carousel-o [options]="articleOptions">
+    <ng-container *ngFor="let art of lstArticles">
+      <ng-template carouselSlide [id]="art.id">
+        <div class="col-sm-4 col-md-6 col-lg-4 mb-3 mx-1">
+          <div class="card  shadow card-span rounded-3">
+            <img [src]="art.articleImg"  [alt]="art.articleImg" 
+            class="card-img-top rounded-top-3"
+              style="object-fit: cover; width: 100%; height: 120px;"/>
+            <div class="card-body">            
+              <div class="card-header">
+                <span class="fs-1 text-primary speciality-name">{{lang=='en' ? art.specialityName:art.specialityNameAr}}</span>
+                <span class="fs--1 text-900 card-date">{{art.date}}</span>
+              </div>
+              <h4 style="font-size: 16px;">{{lang=='en' ? art.title:art.titleAr}}</h4>
+              <a class="stretched-link" [routerLink]="['/articledetail/',art.id]">{{'DC.ReadFullArt' | translate}}</a>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o> -->
+  <owl-carousel-o [options]="articleOptions">
+    <ng-container *ngFor="let art of lstArticles">
+        <ng-template carouselSlide [id]="art.id">
+            <div class="col-sm-4 col-md-6 col-lg-4 mb-3 mx-1"    [ngStyle]="{'width.px': 200, 'margin-right.px': 5}">
+                <div class="card shadow card-span rounded-3">
+                    <!-- Image with object-fit contain to maintain aspect ratio -->
+                    <img [src]="art.articleImg" [alt]="art.articleImg" 
+                         class="card-img-top rounded-top-3" style="object-fit: fill; width: 150px; height: 110px;"/>
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="fs-1 text-primary speciality-name">{{lang == 'en' ? art.specialityName : art.specialityNameAr}}</span>                          
+                        </div>
+                        <h4 style="font-size: 16px;">{{lang == 'en' ? art.title : art.titleAr}}</h4>
+                        <span class="fs--1 text-900 card-date">{{art.date}}</span>
+                        <br/>
+                        <a class="stretched-link" [routerLink]="['/articledetail/', art.id]">{{'DC.ReadFullArt' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </ng-container>
+</owl-carousel-o>
+
+ </div>
+  </div> 
+</section> 

@@ -1,0 +1,142 @@
+<div class="grid">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="field col-4">
+                        <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Patient' |
+                            translate}}:</label>
+                        {{reqObj.userName}}
+                    </div>
+                    <div class="field col-4">
+                        <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
+                            }}:</label>{{reqObj.requestCode}}
+                    </div>
+                    
+                    <div class="field col-4">
+                        <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
+                            translate}}:</label>
+                        {{reqObj.subject}}
+                    </div>
+                    <div class="field col-12">
+                        <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
+                            translate}}:</label>
+                    </div>
+                
+                    <div class="field col-12">
+                        {{reqObj.complain}}
+                    </div>
+                </div>
+
+                <div class="row" >
+
+                    <!-- <div class="field" *ngIf="isSupervisorDoctor">
+                        <label for="assignedTo">{{'DC.Doctor' | translate }}</label>
+                        <select id="assignedTo" class="form-control" name="assignedTo" [(ngModel)]="trackObj.assignTo">
+                            <option value="0">select doctor</option>
+                            <option *ngFor="let doct of lstDoctors" [value]="doct.id">
+                                {{  doct.userName}}
+                            </option>
+                        </select>
+                    </div> -->
+            
+                    <div class="p-field col-md-12">
+                        <label for="advice" [translate]="'DC.Advice'">complain</label>
+                        <textarea class="form-control" id="advice" [(ngModel)]="trackObj.advice" pInputTextarea
+                            name="complain" rows="3" [ngModelOptions]="{standalone: true}" cols="63"
+                            style="font-size: 13px;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-12">
+                        <input type="file" #file multiple placeholder="Choose file"
+                            (change)="uploadMultipleFile($event)" style="display:none;">
+                        <button type="button" class="btn btn-outline-success"
+                            style="margin-top: 20px;margin-left: 10px;" (click)="file.click()" [disabled]="isDisabled">
+                            <i class="fa fa-upload"
+                                style="color: #448c10; cursor: pointer;margin: 0px 5px;"></i>{{'DC.SelectDocuments'
+                            |
+                            translate }}
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+
+                        <p-table [value]="lstCreateRequestDocument" dataKey="id">
+                            <ng-template pTemplate="header">
+                                <tr>
+                                    <th style="text-align: inherit;">{{ 'DC.FileName' | translate }}</th>
+                                    <th style="text-align: inherit;">{{ 'DC.Title' | translate }}</th>
+                                    <th></th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-createRequestDocument let-rowIndex="rowIndex"
+                                let-editing="editing">
+                                <tr>
+                                    <td style="text-align: inherit;">{{createRequestDocument.fileName}}</td>
+                                    <td style="text-align: inherit;" [pEditableColumn]="createRequestDocument.title"
+                                        pEditableColumnField="title" [pEditableColumnRowIndex]="rowIndex">
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText [(ngModel)]="createRequestDocument.title"
+                                                    [ngModelOptions]="{standalone: true}" />
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{createRequestDocument.title}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td style="text-align: inherit;">
+                                        <span (click)="removeFileFromObjectArray(rowIndex)"><i
+                                                class="pi pi-times-circle" style="color: rgb(123, 9, 9);"></i></span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="emptymessage">
+                                <tr *ngIf="lstCreateRequestDocument.length == 0">
+                                    <td colspan="3" style="color: rgb(102, 97, 23);text-align: inherit;"
+                                        [translate]="'DC.NoData'">
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button (click)="addResponse()" color="primary">{{'DC.Save' | translate }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+    <p-header style="color: rgb(181, 4, 4);"> {{ 'DC.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>
+<p-dialog appendTo="body" modal="true" [(visible)]="dateError">
+    <ng-template pTemplate="header">
+        <h4 style="color: red;">{{ 'DC.DateError' | translate }}</h4>
+    </ng-template>
+    <span style="color: red;">
+        {{errorMessage}}
+    </span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+        translate }}</span>
+    <br />
+    <br />
+    <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #fe7f83 !important;border-color:#fe7f83" (click)="closeDialogue()"> {{
+        'DC.Close' | translate }}</button>
+</p-dialog>

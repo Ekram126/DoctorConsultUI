@@ -1,0 +1,134 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"> -->
+
+    <div class="container">
+        <form (ngSubmit)="onSubmit()">
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="title">{{'DC.Title' | translate }}</label>
+                        <input id="title" type="text" class="form-control" [(ngModel)]="articleObj.title"
+                            #title="ngModel" name="title" />
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="titleAr">{{'DC.TitleArabic' | translate }}</label>
+                        <input id="titleAr" type="text" class="form-control" [(ngModel)]="articleObj.titleAr"
+                            #titleAr="ngModel" name="titleAr" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-sm-12">
+                        <label for="orderId" [translate]="'DC.Order'"></label>
+                        <input pInputText id="orderId" name="orderId" type="number" class="form-control"
+                            [(ngModel)]="articleObj.orderId" #orderId="ngModel" />
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label for="specialistId" [translate]="'DC.Special'"></label>
+                        <select class="form-control" id="specialistId" name="specialistId"
+                            [(ngModel)]="articleObj.specialityId" [value]="0">
+                            <option value="0">Select One</option>
+                            <option *ngFor="let spec of lstSpecialists" [value]="spec.id">
+                                {{ lang == "en" ? spec.name : spec.nameAr }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <label htmlFor="dob">{{'DC.Date' | translate }}</label><br />
+                        <p-calendar inputStyleClass="form-control" [(ngModel)]="articleDate" name="date"
+                            [showIcon]="true" [yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true"
+                            (onSelect)="getArticleDate($event)" inputId="date" showButtonBar="true" appendTo="body">
+                        </p-calendar>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="content">{{'DC.Content' | translate }}</label>
+                        <textarea id="content" type="text" class="form-control" [(ngModel)]="articleObj.articleContent"
+                            #content="ngModel" name="content"></textarea>
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="contentAr">{{'DC.ArabicContent' | translate }}</label>
+                        <textarea id="contentAr" name="contentAr" type="text" class="form-control"
+                            [(ngModel)]="articleObj.articleContentAr" #contentAr="ngModel" name="contentAr"></textarea>
+                    </div>
+                </div>
+
+                 <div class="row">
+                    <div class="col-12">
+                        <label htmlFor="articleDesc">{{'DC.DESC' | translate }}</label>
+                        <angular-editor id="articleDesc" [(ngModel)]="articleObj.articleDesc" [config]="editorConfig"
+                            [ngModelOptions]="{standalone: true}">
+                        </angular-editor>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label htmlFor="articleDescAr">{{'DC.DESC' | translate }}</label>
+                        <angular-editor id="articleDescAr" [(ngModel)]="articleObj.articleDescAr" [config]="editorConfig"
+                            [ngModelOptions]="{standalone: true}">
+                        </angular-editor>
+                    </div>
+
+                </div> 
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="form-check">
+                            <input  type="checkbox" id="isActive" name="isActive"
+                            [(ngModel)]="articleObj.isActive" />
+                            <label class="form-check-label" for="isActive">{{ 'DC.IsActive' | translate}}</label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                    <input #fileInput type="file" class="file-input" (change)="onFileSelected($event,fileInput)" accept=".jpeg,.jpg,.png,.webp,.jfif,.gif">
+                            </div>
+
+                            <div class="col-lg-6">
+                                <button type="button" class="form-control" (click)="resetFile()" [hidden]="btnHidden">
+                                    <h5> {{ 'DC.Reset' | translate }}</h5>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6" >
+                        <img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
+                    </div>
+
+                    <div class="col-6" >
+                        <img src="{{imgURL}}" width="80" height="80"  />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button class="btn"  style="background-color: #aed6e7; color:navy" value="save" type="submit">
+                        {{ 'DC.Save' | translate }}
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+        translate
+        }}</span>
+</p-dialog>

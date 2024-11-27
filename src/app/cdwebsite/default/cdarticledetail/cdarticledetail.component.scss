@@ -1,0 +1,53 @@
+.main {
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
+// .card-img-container {
+//   width: 150px; /* Reduced size of the image container */
+//   margin-right: 1rem;
+// }
+
+.card-img-container img {
+  width: 150px; /* Make sure the image fits the container */
+  height: 110px; /* Maintain aspect ratio */
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  /* Stack the image and text vertically on small screens */
+  .d-flex {
+    flex-direction: column;
+    align-items: center; /* Center the content */
+  }
+
+  .card-img-container {
+    width: 95%; /* Adjust width to create space on both sides */
+    margin: 0; /* Remove right margin */
+    padding: 0 0.5rem; /* Add padding to create space on both sides */
+    margin-bottom: 1rem; /* Add space below the image */
+  }
+
+  .card-body {
+    padding: 0.5rem;
+  }
+
+  .fs-2 {
+    font-size: 1.5rem; /* Adjust font size for better readability */
+  }
+
+  .fs-1 {
+    font-size: 1.25rem; /* Adjust font size for better readability */
+  }
+
+  .fs-lg-0 {
+    font-size: 1.25rem; /* Adjust font size for better readability */
+  }
+
+  .fs-xl-3 {
+    font-size: 1.5rem; /* Adjust font size for better readability */
+  }
+}

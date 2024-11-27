@@ -1,0 +1,58 @@
+.card {
+    width: 100%;
+    /* Adjust as needed */
+    max-width: 700px;
+    /* Example max width */
+    margin: 0 auto;
+    /* Center the card */
+}
+
+.title {
+    font-size: 1.25rem;
+    /* Adjust the font size as needed */
+    text-decoration: underline;
+}
+.sec
+{
+    margin-top: 5px;
+}
+
+// .section-image {
+//     margin-left: 10px;
+//     margin-right: 10px;
+// }
+
+@media (max-width: 400px) {
+    .sec {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 412px) {
+    .sec {
+        margin-top: 60px;
+    }
+}
+@media (max-width: 500px) {
+    .sec {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 300px) {
+    .sec {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 700px) {
+    .sec {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sec {
+        margin-top: 60px;
+    }
+}

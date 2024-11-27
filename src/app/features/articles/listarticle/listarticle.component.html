@@ -1,0 +1,202 @@
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Articles' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end gap-3" *ngIf="isAdmin">
+			<button class="btn btn-outline-info btn-sm" (click)="addArticle()">{{ 'DC.Create' | translate }}</button>
+			<button class="btn btn-outline-info btn-sm" (click)="toggleCollapse()">{{ 'DC.Search' | translate}}</button>
+		</div>
+	</div>
+	<div class="row card-filter" *ngIf="isOpen">
+		<fieldset>
+			<legend>{{'DC.Search' | translate }}</legend>
+			<form (ngSubmit)="onSearch()" #searchForm="ngForm">
+				<div class=" row">
+					<div class="col-6" *ngIf="lang=='en'">
+						<label for="title" [translate]="'DC.Name'"> {{'DC.Name' | translate }}</label>
+						<input type="text" name="title" id="title" class="form-control"
+							[(ngModel)]="sortFilterObjects.searchObj.title" />
+					</div>
+					<div class="col-6" *ngIf="lang == 'ar'">
+						<label for="titleAr" [translate]="'DC.ArabicName'"> {{'DC.ArabicName' | translate }}</label>
+						<input type="text" name="titleAr" id="titleAr" class="form-control"
+							[(ngModel)]="sortFilterObjects.searchObj.titleAr" />
+					</div>
+
+					<div class="col-6">
+						<label for="specialityId" [translate]="'DC.Special'"></label>
+						<select class="form-control" id="specialityId" name="specialityId"
+							[(ngModel)]="sortFilterObjects.searchObj.specialityId" [value]="0">
+							<option value="0">{{'DC.SelectOne' | translate }}</option>
+							<option *ngFor="let spec of lstSpecialists" [value]="spec.id">
+								{{ lang == "en" ? spec.name : spec.nameAr }}
+							</option>
+						</select>
+					</div>
+
+				</div>
+
+
+
+
+				<div class="row">
+					<div class="col-6">
+						<label for="start">{{'DC.From' | translate }}</label>
+						<p-calendar [(ngModel)]="sortFilterObjects.searchObj.startDate" name="startDate"
+							[showIcon]="true" [yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true"
+							[ngModelOptions]="{standalone: true}" (onSelect)="getStartDate($event)" inputId="startDate"
+							appendTo="body" showButtonBar="true">
+						</p-calendar>
+					</div>
+					<div class="col-6">
+						<label for="end">{{'DC.To' | translate }}</label>
+						<p-calendar [(ngModel)]="sortFilterObjects.searchObj.endDate" name="endDate" [showIcon]="true"
+							[yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true"
+							(onSelect)="getEndDate($event)" inputId="endDate" appendTo="body" showButtonBar="true">
+						</p-calendar>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-8"></div>
+					<div class="col-2">
+						<button class="btn btn-outline-info  btn-sm" value="save" type="submit">
+							{{'DC.Search' | translate }}<i class="bi bi-search"></i>
+						</button>
+					</div>
+					<div class="col-2">
+						<button type="button" class="btn  btn-outline-danger  btn-sm" (click)="reset()">
+							{{'DC.Reset' | translate }} <i class="bi bi-eraser-fill"></i>
+						</button>
+					</div>
+				</div>
+			</form>
+		</fieldset>
+	</div>
+	<div class="card">
+		<p-dataView [value]="lstArticles" rows="5" [paginator]="true" (onPage)="loadArticles()" [sortField]="sortField"
+			[sortOrder]="sortOrder">
+			<ng-template pTemplate="header">
+				<div class="flex flex-column md:flex-row md:justify-content-between">
+					<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort"
+						(onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
+				</div>
+			</ng-template>
+			<ng-template let-article pTemplate="listItem">
+				<div class="col-12">
+					<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+						<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+							[src]="article.articleImg" [alt]="article.articleImg" />
+						<div
+							class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+							<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+								<div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? article.title
+									: article.titleAr}}</div>
+								<div class="flex align-items-center gap-3">
+									<span class="flex align-items-center gap-2">
+										<i class="pi pi-fw pi-list"></i>
+										<span class="font-semibold text-info">
+											{{lang === 'en' ? article.specialityName :
+											article.specialityNameAr}}</span>
+									</span>
+								</div>
+
+								<div class="flex align-items-center gap-3">
+									<span class="flex align-items-center gap-2">
+										<i class="pi pi-calendar"></i>
+										<span class="font-semibold">{{'DC.Date'| translate}}: {{article.date |
+											date:'dd-MM-yyyy'}}</span>
+									</span>
+								</div>
+								<div class="flex align-items-center gap-3">
+									<span class="flex align-items-center gap-2">
+										<span class="font-semibold">{{'DC.IsActive'| translate}}:
+											{{article.isActive}}</span>
+									</span>
+								</div>
+								<div class="flex align-items-center gap-3">
+									<span class="flex align-items-center gap-2">
+										<span class="font-semibold">{{'DC.Order'| translate}}:
+											{{article.orderId}}</span>
+									</span>
+								</div>
+							</div>
+							<div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+								<span (click)="viewArticle(article.id)" pTooltip="{{'DC.View' | translate}}"
+									tooltipPosition="top">
+									<i class="bi bi-eye-fill viewIcon"></i>
+								</span>
+								<span (click)="editArticle(article.id)" pTooltip="{{'DC.Edit' | translate}}"
+									tooltipPosition="top">
+									<i class="bi bi-pencil-fill editIcon"></i>
+								</span>
+								<span (click)="deleteArticle(article.id)" pTooltip="{{'DC.Delete' | translate}}"
+									tooltipPosition="top">
+									<i class="bi bi-trash-fill deleteIcon"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</ng-template>
+		</p-dataView>
+
+	</div>
+</div>
+<p-confirmDialog #cd [style]="{ width: '50vw' }">
+	<ng-template pTemplate="header">
+		<h3> {{ 'DC.Article' | translate }}</h3>
+	</ng-template>
+	<ng-template pTemplate="icon">
+		<i class="pi pi-exclamation-triangle" style="color: rgb(224, 85, 10);font-size: 3rem; margin: 0px 10px;"></i>
+	</ng-template>
+	<ng-template pTemplate="message">
+		<p style="font-size: 14pt;">{{deleteMessage}}</p>
+	</ng-template>
+	<ng-template pTemplate="footer">
+		<button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"
+			style="margin: 0px 10px;"></button>
+		<button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+	</ng-template>
+</p-confirmDialog>
+
+
+		<!-- <div class="field col-6">
+					<div class="form-check">
+						<input type="checkbox" id="isActive" name="isActive" [(ngModel)]="sortFilterObjects.searchObj.isActive" />
+						<label class="form-check-label" for="isActive">{{ 'DC.IsActive' | translate}}</label>
+					</div>
+				</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<div class="container">
+	<div class="row bktitles d-flex justify-content-between align-items-center">
+	  {{ 'DC.Specialists' | translate }}
+	  <div class="float-end">
+		<button class="btn btn-outline-info btn-sm" (click)="addSpecial()">{{ 'DC.Create' | translate }}</button>
+	  </div>
+	</div>
+  
+	<div class="grid responsive-grid">
+	  <div class="row">
+		<div class="card">
+
+		
+		  </div>
+	  </div>
+	</div>
+  </div> -->

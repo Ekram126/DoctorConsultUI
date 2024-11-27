@@ -1,0 +1,332 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+// //Front
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@import'./assets/css/theme.css';
+
+// @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+//ngx-owl-carousel-o
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
+
+
+///Backend
+@import "./src/assets/styles/layout/layout.scss";
+ @import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import '~primeng/resources/themes/saga-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+
+
+
+
+
+body {
+  padding-top: 20px; /* Adjust this value according to your navbar height */
+}
+
+.navbar {
+  margin-bottom: 3rem; /* Adjust this value for desired space below the navbar */
+}
+
+.is-invalid {
+  border-color: #dc3545;
+}
+.is-valid {
+  border-color: #28a745;
+}
+.fieldset {
+  border: 1px solid #ddd;
+  margin-top: 1em;
+  padding: 5px 5px;
+}
+
+.titlefontbold {
+  font-weight: bold;
+}
+
+
+.innertitlefontbold {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+
+.regbutton {
+  background: none !important;
+  border: none;
+  padding: 0 !important;
+  font-family: arial, sans-serif;
+  color: #8d448b;
+  cursor: pointer;
+}
+
+
+.iconsocialcolor {
+  color: white;
+}
+
+
+
+
+.icon-box .deparment-icon:hover {
+  display: block !important;
+  filter: invert(32%) sepia(78%) saturate(811%) hue-rotate(165deg) brightness(60%) contrast(85%);
+
+}
+
+.backdrop {
+  background-color: #aed6e7;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #283779 ;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+}
+
+
+.form-control {
+  background-color: #fff !important;
+  // line-height: 0.8 !important;
+}
+
+
+.form-check-input {
+  width: 1.4rem m !important;
+  height: 1.4rem m !important;
+  background-color: #fff !important;
+}
+
+.image-with-margin {
+  margin:  0px 7px;
+}
+
+
+.mat-badge-content {
+  width: auto;
+  display: grid;
+  min-width: 25px;
+  text-align: center;
+  align-items: center;
+  top: -20px;
+  right: -22px;
+}
+
+
+
+.mat-list-test {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-test {
+  display: initial;
+  width: auto;
+  padding: 0px 5px;
+}
+
+.statusbuttonspace {
+  margin: 0px 12px;
+}
+
+.bktitles {
+  color: #1B71A1;
+  font-size: 16pt;
+  font-weight: bold;
+  width: 100%;
+}
+
+
+.title {
+  flex-grow: 1; /* This ensures the title takes up all available space on the left */
+}
+
+
+
+
+
+
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 0.5rem;
+}
+
+@media (max-width: 768px) {
+
+  /* Adjust grid layout for smaller screens here, e.g., single column */
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .overlay h1 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 360px) {
+  body {
+    padding-top: 80px; /* Adjust this value according to your navbar height */
+  }
+  
+  .navbar {
+    margin-bottom: 1rem; /* Adjust this value for desired space below the navbar */
+  }
+
+}
+
+
+.even-row {
+  background-color: #f2f2f2;
+}
+
+.odd-row {
+  background-color: #ffffff;
+}
+
+.layout-topbar .layout-topbar-logo img {
+  height: 5rem !important;
+  width: 5rem !important;
+}
+
+.editIcon {
+  color: #1f74c4;
+  cursor: pointer;
+  margin: 0px 5px;
+}
+
+.viewIcon {
+  color: #448c10;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
+.deleteIcon {
+  color: #ba3135;
+  cursor: pointer;
+  margin: 0px 5px;
+}
+
+.saveIcon {
+  background-color: #aed6e7; 
+  color:navy;
+  margin-top: 5px;
+}
+.saveIcon:hover {
+ color: #aed6e7; 
+ background-color:#02026b;
+  margin-top: 5px;
+}
+.p-autocomplete .p-autocomplete-input {
+  width: 100%;
+}
+
+.topspace {
+  margin-top: 1rem;
+}
+
+
+.p-datatable-striped {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    text-align: left;
+    padding: 8px;
+  }
+
+  td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+
+  .p-cell-editor-input {
+    border: 1px solid #ccc;
+    padding: 4px;
+    outline: none; // Remove default browser focus outline
+  }
+
+  .p-cell-editor-input:focus {
+    border-color: blue;
+  }
+
+  .p-emptymessage td {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+
+// Variables
+$border-color: #ccc;
+$table-font-family: Arial, sans-serif;
+
+.p-datatable-striped {
+  border: 1px solid $border-color;
+  font-family: $table-font-family;
+}
+
+.en-rotate-180 {
+  transform: rotate(0deg);
+}
+
+.ar-rotate-180 {
+  transform: rotate(0deg);
+}
+
+.arttitle {
+  color: #054d74 !important;
+  font-size: 14px !important;
+}
+
+fieldset {
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin: 0;
+  margin-top: 2px;
+  position: relative;
+  padding: 5px; /* Increase padding to accommodate the legend */
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 7px;
+
+}
+
+legend {
+  padding: 0 7px; /* Horizontal padding for spacing */
+  color: #135c87;
+  background-color: white; /* Optional: for visibility */
+  position: absolute; /* Position it relative to the fieldset */
+  top: -15px; /* Move the legend above the fieldset */
+  left: 20px; /* Align with the padding of the fieldset */
+  font-weight: bold; /* Make the text stand out */
+  font-size: 1.1em; /* Optional: adjust size for emphasis */
+  width: 70px;
+}
+
+.navbar-light .navbar-nav .nav-link{
+  font-size: 16px !important;
+  color: #283779 !important;
+  font-weight: bold !important;
+}
+
+.owl-theme .owl-nav [class*=owl-] {
+
+  background-color: #1f74c4 !important;
+
+}
+

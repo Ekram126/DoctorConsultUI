@@ -1,0 +1,163 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col bktitles">
+            {{ 'DC.Requests' | translate }}
+        </div>
+        <div class="col d-flex justify-content-end" *ngIf="isPatient">
+            <button class="btn btn-outline-info btn-sm" (click)="addRequest()">{{ 'DC.Create' | translate }}</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="row">
+                <div class="col-12">
+
+                    <button mat-stroked-button name="btnAll" pBadge [value]="countAll"
+                        (click)="getRequestsByStatusId(0)" style="margin: 0px 15px;">{{'DC.All'
+                        |translate}}</button>
+
+                    <mat-nav-list id="app-nav" aria-label="Status" *ngFor="let sts of lstStatuses">
+                        <a mat-list-item class="mat-list-item-test statusbuttonspace" *ngIf=" sts.id==1"
+                            (click)="getRequestsByStatusId(sts.id)" pBadge [value]="countOpen" mat-stroked-button
+                            [ngStyle]="{'color': sts.color}" autofocus>
+                            <span mat-line>
+                                <span><i [ngClass]="sts.icon"></i></span>
+                                {{lang=="en"?sts.name:sts.nameAr}}
+                            </span>
+                        </a>
+                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==2"
+                            (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
+                            pBadge [value]="countClosed">
+                            <span mat-line>
+                                <span><i [ngClass]="sts.icon"></i></span>
+                                {{lang=="en"?sts.name:sts.nameAr}}
+                            </span>
+                        </a>
+                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==3"
+                            (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
+                            pBadge [value]="countInProgress">
+                            <span mat-line>
+                                <span><i [ngClass]="sts.icon"></i></span>
+                                {{lang=="en"?sts.name:sts.nameAr}}
+                            </span>
+                        </a>
+                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==4"
+                            (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
+                            pBadge [value]="countSolved">
+                            <span mat-line>
+                                <span><i [ngClass]="sts.icon"></i></span>
+                                {{lang=="en"?sts.name:sts.nameAr}}
+                            </span>
+                        </a>
+
+                    </mat-nav-list>
+                </div>
+            </div>
+
+            <hr />
+
+
+ 
+
+
+            <p-dataView [value]="lstRequests" [rows]="5" [paginator]="true">
+                <ng-template let-request pTemplate="listItem">
+                    <div class="col-12">
+                        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+
+                            <div
+                                class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                                    <div class="text-xl font-bold text-900 arttitle">{{request.subject}}
+                                    </div>
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <i class="pi pi-fw pi-list"></i>
+                                            <span class="font-semibold text-info"> {{lang == 'en'
+                                                ?request.specialityName : request.specialityNameAr}}</span>
+                                        </span>
+                                    </div>
+
+
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <i class="pi pi-user"></i>
+                                            <span class="font-semibold">{{request.createdBy}}</span>
+                                        </span>
+                                    </div>
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <i class="pi pi-calendar"></i>
+                                            <span class="font-semibold">{{request.requestDate |
+                                                date:'dd-MM-yyyy'}}</span>
+                                        </span>
+                                    </div>
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <span class="font-semibold">{{request.isActive}}</span>
+                                        </span>
+                                    </div>
+
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <span class="font-semibold">{{request.requestCode}}</span>
+                                        </span>
+                                    </div>
+
+
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <span [ngStyle]="{'color':request.statusColor}">
+                                                <span><i [ngClass]="request.statusIcon"></i></span>
+                                                {{lang=="en" ? request.statusName:request.statusNameAr}}
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+
+
+
+                                    <i class="pi pi-eye viewIcon" (click)="viewRequest(request.id)"
+                                        pTooltip="{{'DC.View' | translate}}" tooltipPosition="top"
+                                        style="cursor: pointer;"></i>
+
+
+                                    <i class="pi pi-user " (click)="assignRequest(request.id)"
+                                        pTooltip="{{'DC.Assign' | translate}}" tooltipPosition="top"
+                                        *ngIf="request.statusId < 4 && (isSupervisor || isAdmin)"
+                                        style="color: rgb(3, 15, 143);margin: 0px 10px;cursor: pointer;"></i>
+
+
+
+
+                                    <i class="pi pi-verified"
+                                        *ngIf="request.statusId < 4 && (isDoctor || isSupervisor || isAdmin)"
+                                        (click)="doctorReply(request.id)" pTooltip="{{'DC.Reply' | translate}}"
+                                        tooltipPosition="top"
+                                        style="color: rgb(139, 116, 1);margin: 0px 10px;cursor: pointer;"></i>
+
+
+
+                                    <i class="pi pi-stop-circle" *ngIf="request.statusId < 4 && (isAdmin)"
+                                        pTooltip="{{'DC.Close' | translate}}" tooltipPosition="top"
+                                        (click)="closeRequest(request.id)"
+                                        style="color: rgb(169, 6, 131);margin: 0px 10px;cursor: pointer;"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+    </div>
+</div>
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+        translate }}</span>
+</p-dialog>

@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top backdrop shadow-transition mb-2"
+     data-navbar-on-scroll="data-navbar-on-scroll" style="background-color: white;">
+
+
+
+    <a class="navbar-brand" [routerLink]="'/'" >
+    <img *ngIf="lang==='en'" src="../../../../assets/images/logo_en.png" width="120" height="120" />
+    <img *ngIf="lang==='ar'" src="../../../../assets/images/logo_ar.png" width="120" height="120" />
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+            class="navbar-toggler-icon"> </span></button>
+
+            
+
+    <!-- <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent"> -->
+
+      <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <!-- #283779 -->
+        <li class="nav-item px-3"><a class="nav-link" aria-current="page" href="#">{{'DC.Home' | translate}}</a></li>
+        <li class="nav-item px-3"><a class="nav-link" href="#about"> {{'DC.AboutUs' | translate}}</a></li>
+        <li class="nav-item px-3"><a class="nav-link" href="#departments"> {{'DC.Special' | translate}}</a></li>
+        <li class="nav-item px-3"><a class="nav-link" href="#cdarticles"> {{'DC.Articles' | translate}} </a></li>
+        <!-- <li class="nav-item px-2"><a class="nav-link" href="#cddoctors">{{'DC.Doctors' | translate}} </a></li> -->
+        <li class="nav-item px-3"><a class="nav-link" [routerLink]="'/contactus'"> {{'DC.ContactUs' | translate}}</a></li>
+      </ul>
+
+      <a class="btn btn-sm order-2 order-lg-0 ms-lg-4 me-3">{{helloUser}}</a>
+      <button class="p-link layout-topbar-button  me-3" *ngIf="currentUser != null" (click)="logout()">
+        <i class="pi pi-power-off"></i>
+      </button>
+      <button  class="btn btn-xs me-3" role="button"
+      *ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor"
+      (click)="handleRegisterClick()" >{{ isPatient ? ('DC.RequestConsult' | translate) : ('DC.NeedConsult' | translate) }}</button>
+
+      <div class="language-switcher">
+        <a class="btn btn-sm order-3 order-lg-0 me-3" [ngClass]="{'active': language === translate.currentLang}"
+           *ngFor="let language of translate.getLangs()" (click)="switchWebLang(language)"
+           [hidden]="language === translate.currentLang">
+          {{ translate.instant(translate.currentLang === 'en' ? 'العربية' : 'English') }}
+        </a>
+      </div>
+      <a *ngIf="currentUser == null" class="btn btn-xs me-3" (click)="login()">{{'DC.SignIn' | translate}} ​ <i class="pi pi-sign-in"></i></a>
+      <a *ngIf="currentUser != null" class="btn btn-sm btn-outline-primary order-lg-0 ms-lg-4 me-2"
+         [routerLink]="'/dash'">{{'DC.ControlPanel' | translate}}</a>
+    </div>
+
+</nav>
+
+

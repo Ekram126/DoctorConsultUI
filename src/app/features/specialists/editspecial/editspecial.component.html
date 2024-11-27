@@ -1,0 +1,79 @@
+<form (ngSubmit)="addSpecialForm.valid  && onSubmit()" #addSpecialForm="ngForm">
+	<div class="card">
+		<div class="row">
+			<div class="col-12">
+				<label htmlFor="code">{{'DC.Code' | translate }}</label>
+				<input pInputText id="code" name="code" type="text" class="form-control" [(ngModel)]="specialObj.code"
+					#code="ngModel" [class.is-invalid]="(code.touched && code.errors) || addSpecialForm.submitted"
+					[class.is-valid]="code.valid && addSpecialForm.submitted" required />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<label htmlFor="name">{{'DC.Name' | translate }}</label>
+				<input pInputText id="name" type="text" class="form-control" [(ngModel)]="specialObj.name"
+					#name="ngModel" name="name"
+					[class.is-invalid]="(name.touched && name.errors) || addSpecialForm.submitted"
+					[class.is-valid]="name.valid && addSpecialForm.submitted" required />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<label htmlFor="nameAr">{{'DC.ArabicName' | translate }}</label>
+				<input pInputText id="nameAr" name="nameAr" type="text" class="form-control"
+					[(ngModel)]="specialObj.nameAr" #nameAr="ngModel"
+					[class.is-invalid]="(nameAr.touched && nameAr.errors) || addSpecialForm.submitted"
+					[class.is-valid]="nameAr.valid && addSpecialForm.submitted" required />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="form-check">
+					<input type="checkbox" id="isActive" name="isActive" [(ngModel)]="specialObj.isActive" />
+					<label class="form-check-label" for="isActive">{{ 'DC.IsActive' | translate}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<input #fileInput type="file" class="file-input" (change)="onFileSelected($event,fileInput)"
+					accept=".jpeg,.jpg,.png,.webp,.jfif,.gif">
+
+				<button type="button" class="form-control" (click)="resetFile()" [hidden]="btnHidden">
+					<h5> {{ 'DC.Reset' | translate }}</h5>
+				</button>
+
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
+			</div>
+
+			<div class="col-md-4 col-sm-12">
+				<img src="{{imgURL}}" width="80" height="80" />
+			</div>
+		</div>
+
+
+		<button class="btn saveIcon"  value="save" type="submit">
+			{{ 'DC.Save' | translate }}
+		</button>
+
+	</div>
+</form>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+	<ng-template pTemplate="header">
+		<h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+		</h6>
+	</ng-template>
+	<span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+		translate
+		}}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+	<p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+	<span style="color: rgb(181, 4, 4); font-weight: bold">
+		{{ errorMessage }}</span>
+</p-dialog>

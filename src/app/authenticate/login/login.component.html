@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-5">
+					<div class="login-wrap p-4 p-md-5">
+						<div class="icon d-flex align-items-center justify-content-center">
+							<span class="fa fa-user-o"></span>
+						</div>
+						<h3 class="text-center mb-4">Have an account?</h3>
+						<div    style="margin: 0 auto; text-align: center;">
+							 <!-- <a   [routerLink]="'/dash/patients/createpatient'">Register Now</a>  -->
+							 <button class="regbutton" (click)="addPatient()">Register Now</button> 
+						</div>
+
+						<form class="login-form" (ngSubmit)="form.valid && login()" #form="ngForm">
+							<div class="form-group">
+								<input type="text" class="form-control rounded-left" placeholder="Username"
+									id="userName" name="userName" #userName="ngModel"
+									[(ngModel)]="loggingUserObj.userName" autofocus required
+									[class.is-invalid]="(userName.touched && userName.errors) || form.submitted"
+									[class.is-valid]="userName.valid && form.submitted">
+							</div>
+							<div class="form-group d-flex">
+								<input type="password" class="form-control rounded-left" placeholder="Password"
+									id="passwordHash" name="passwordHash" #passwordHash="ngModel"
+									[(ngModel)]="loggingUserObj.passwordHash" autofocus required
+									[class.is-invalid]="(passwordHash.touched && passwordHash.errors) || (passwordHash.untouched && passwordHash.errors) || form.submitted"
+									[class.is-valid]="passwordHash.valid && form.submitted">
+							</div>
+							<!-- <div class="form-group d-md-flex">
+								<div class="w-50">
+									<label class="checkbox-wrap checkbox-primary">Remember Me
+										<input type="checkbox" checked>
+										<span class="checkmark"></span>
+									</label>
+								</div>
+								<div class="w-50 text-md-right">
+									<a href="#">Forgot Password</a>
+								</div>
+							</div> -->
+
+						
+							<div class="form-group">
+								<button type="submit" 
+									class="btn btn-primary rounded submit p-3 px-5">Login</button>
+							</div>
+						</form>
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+</html>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{ width: '350px' }">
+	<p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+	<span style="color: rgb(181, 4, 4); font-weight: bold">
+		{{ displayerror }}</span>
+</p-dialog>

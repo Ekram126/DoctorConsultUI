@@ -1,0 +1,79 @@
+<div class="card">
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="code">{{'DC.Code' | translate }}</label>
+            {{doctorObj.code}}
+        </div>
+
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="name">{{'DC.Name' | translate }}</label>
+            {{doctorObj.name}}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="nameAr">{{'DC.ArabicName' | translate }}</label>
+            {{doctorObj.nameAr}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label for="genderId" [translate]="'DC.Gender'"></label>
+            {{ doctorObj.gender }}
+        </div>
+
+
+        <div class="col-md-4 col-sm-12">
+            <label for="specialistId" [translate]="'DC.Special'"></label>
+            {{ lang == "en" ? doctorObj.specialityName : doctorObj.specialityNameAr }}
+        </div>
+
+
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="mobile">{{'DC.Mobile' | translate }}</label>
+            {{doctorObj.mobile}}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="dob">{{'DC.DOB' | translate }}</label><br />
+            {{doctorObj.dob | date:'yyyy-MM-dd'}}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="joinDate">{{'DC.JoinDate' | translate }}</label><br />
+            {{doctorObj.joinDate | date:'yyyy-MM-dd'}}
+        </div>
+        <div class="col-md-4 col-sm-12">
+            <label htmlFor="gradDate">{{'DC.GradDate' | translate }}</label><br />
+            {{doctorObj.gradDate | date:'yyyy-MM-dd'}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+            <label htmlFor="address">{{'DC.Address' | translate }}</label>
+            {{doctorObj.address}}
+        </div>
+        <div class="col-md-6 col-sm-12">
+            <label htmlFor="addressAr">{{'DC.ArabicAddress' | translate }}</label>
+            {{doctorObj.addressAr}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 form-check">
+            <label class="form-check-label" for="isActive">{{ 'DC.IsActive' | translate}}</label>
+            {{doctorObj.isActive}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <label htmlFor="remarks">{{'DC.Remarks' | translate }}</label>
+            {{doctorObj.remarks}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 d-flex justify-content-end align-items-center">
+            <div class="image-container">
+                <img [src]="doctorObj.doctorImg" width="100" height="100" />
+            </div>
+        </div>
+    </div>
+</div>

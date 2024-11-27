@@ -1,0 +1,49 @@
+// /* Base styles */
+// .table-responsive {
+//     overflow-x: auto; /* Allow horizontal scrolling */
+//     -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+//   }
+  
+//   .table-responsive table {
+//     width: 100%; /* Ensure table takes full width */
+//     border-collapse: collapse; /* Collapse borders for a cleaner look */
+//   }
+  
+//   .table-responsive th, .table-responsive td {
+//     padding: 8px; /* Add padding for better readability */
+//     text-align: left; /* Align text to the left */
+//   }
+  
+//   /* Responsive adjustments */
+//   @media (max-width: 768px) {
+//     .table-responsive table, .table-responsive thead, .table-responsive tbody, .table-responsive th, .table-responsive td, .table-responsive tr {
+//       display: block; /* Stack elements for small screens */
+//     }
+    
+//     .table-responsive thead {
+//       display: none; /* Hide table headers on small screens */
+//     }
+  
+//     .table-responsive td {
+//       position: relative;
+//       padding-left: 50%; /* Space for labels */
+//       white-space: nowrap; /* Prevent text wrapping */
+//       text-align: right; /* Align text to the right */
+//     }
+  
+//     .table-responsive td::before {
+//       content: attr(data-label); /* Show label before content */
+//       position: absolute;
+//       left: 0;
+//       width: 45%; /* Space for labels */
+//       padding-right: 10px; /* Add space between label and content */
+//       white-space: nowrap;
+//       font-weight: bold; /* Make labels bold */
+//       text-align: left; /* Align labels to the left */
+//     }
+//   }
+
+// .card-filter {
+//     margin-top: 10px; /* Optional styling */
+// }
+

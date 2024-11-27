@@ -1,0 +1,118 @@
+// /* Flex container layout */
+// .layout-wrapper {
+//     display: flex;
+//     /* Use flexbox for horizontal alignment */
+//     width: 100%;
+//     /* Ensure full width */
+// }
+
+// /* Sidebar styling */
+// .layout-sidebar {
+//     flex: 0 0 250px;
+//     /* Fixed width for the sidebar, adjust as needed */
+//     position: relative;
+//     z-index: 10;
+//     /* Ensure sidebar is below main content */
+//     margin-right: 3rem;
+//     /* Space between sidebar and main content for LTR */
+//     margin-left: 0;
+//     /* Ensure no margin on the left side in LTR */
+
+//     margin-top: 40px;
+
+// }
+
+
+
+// /* Main container styling */
+// .layout-main-container {
+//     flex: 1;
+//     /* Take up remaining width */
+//     display: flex;
+//     /* Use flexbox to align children */
+//     flex-direction: column;
+//     /* Ensure children are stacked vertically */
+//     position: relative;
+//     z-index: 20;
+//     /* Ensure main content is above the sidebar */
+//     overflow: hidden;
+//     /* Handle overflow of main content */
+// }
+
+// /* Main content styling */
+// .layout-main {
+//     flex: 1;
+//     /* Ensure it takes up the available space */
+//     display: flex;
+//     /* Use flexbox to align children */
+//     flex-direction: column;
+//     /* Ensure children are stacked vertically */
+//     position: relative;
+//     z-index: 20;
+//     /* Ensure it is stacked above the sidebar */
+// }
+
+// /* Cards container styling */
+// .cards-container {
+//     flex: 1;
+//     /* Take up remaining space inside the main content */
+//     position: relative;
+//     z-index: 20;
+//     /* Ensure it is above the sidebar */
+//     height: 100%;
+//     /* Ensure it fills the available height */
+//     overflow: auto;
+//     /* Handle overflow of content */
+// }
+
+// .layout-wrapper.layout-static .layout-main-container {
+//     margin-left: 0rem !important;
+// }
+
+// .layout-main-container {
+//     padding: 5rem 0rem 0rem 0rem !important;
+// }
+
+// .layout-wrapper.layout-mobile-active .layout-mask {
+//     display: block;
+//     animation: fadein 0.2s;
+// }
+
+
+
+
+// @media  (min-width: 400px) and (max-width: 420px)  {
+//     .layout-sidebar {
+
+//         margin-top: 100px;
+//     }
+// }
+
+// @media  (min-width: 425px) and (max-width: 430px)  {
+//     .layout-sidebar {
+
+//         margin-top: 105px;
+//     }
+// }
+
+
+// @media  (min-width: 300px) and (max-width: 400px) {
+//     .layout-sidebar {
+
+//         margin-top: 100px;
+//     }
+// }
+
+// @media  (min-width: 768px)  {
+//     .layout-sidebar {
+
+//         margin-top: 105px;
+//     }
+// }
+
+// @media (min-width: 1201px) {
+//     .layout-sidebar {
+//         /* Your styles for screens over 1200px */
+//         margin-top: 40px;
+//     }
+// }

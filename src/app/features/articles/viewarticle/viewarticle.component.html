@@ -1,0 +1,60 @@
+
+          <div class="card">
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-end align-items-center">
+                <div class="image-container">
+                    <img src="{{imgURL}}" width="80" height="80" />
+                  </div>
+                </div>
+              </div>
+            <div class="row">
+                
+                <div class="col-md-4 col-sm-12">
+                    <label for="specialistId" [translate]="'DC.Special'"></label>
+                    {{ lang == "en" ? articleObj.specialityName : articleObj.specialityNameAr }}
+                </div>
+                <div class="col-md-4 col-sm-12">
+                    <label htmlFor="dob">{{'DC.Date' | translate }}</label>
+                   {{  articleObj.date | date:'dd-MM-yyyy'}}
+                </div>
+
+                <div class="col-md-4 col-sm-12">
+                    <label for="orderId" [translate]="'DC.Order'"></label>
+                    {{articleObj.orderId}}
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="title">{{'DC.Title' | translate }}</label>
+                      {{articleObj.title}}
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="titleAr">{{'DC.TitleArabic' | translate }}</label>
+                        {{articleObj.titleAr}}
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="content">{{'DC.Content' | translate }}</label>
+                   {{articleObj.articleContent}}
+                    </div>
+                    <div class="col-md-6 col-sm-12">
+                        <label htmlFor="contentAr">{{'DC.ArabicContent' | translate }}</label>
+                         {{articleObj.articleContentAr}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                      
+                        <label for="ny"  style="margin-top: 5px;" >{{ 'DC.IsActive' | translate}}</label> 
+
+                        {{articleObj.isActive}}
+                    </div>
+                </div>              
+            </div>
+        
+
+

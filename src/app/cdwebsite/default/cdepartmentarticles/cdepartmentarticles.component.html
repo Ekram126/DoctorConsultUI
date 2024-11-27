@@ -1,0 +1,103 @@
+<div [dir]="lang === 'ar' ? 'rtl' : 'ltr'" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}">
+  <app-cdmenu></app-cdmenu>
+  <!-- <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 py-5">
+          <h1 class="text-center">{{'DC.Articles' | translate}} - <span
+              class="custom-text-primary">{{specialName}}</span> </h1>
+        </div>
+      </div>
+
+      <div class="topspace">
+        <mat-grid-list [cols]="gridCols" rowHeight="210px" gutterSize="16px">
+          <mat-grid-tile *ngFor="let art of lstSpecialityArticles">
+            <mat-card class="card">
+              <img [src]="art.articleImg" class="article-image" style="object-fit: fill; width: 150px; height: 110px;">
+              <mat-card-subtitle class="fs-smaller text-primary me-1">
+                {{ art.date }} - <span>{{ lang=='en' ? art.specialityName : art.specialityNameAr }}</span>
+              </mat-card-subtitle>
+              <mat-card-content>
+                <mat-card-title>
+                  <h5 class="font-base fs-md-0 fs-1 my-1">
+                    {{ lang=='en' ? art.title : art.titleAr }}
+                  </h5>
+                </mat-card-title>
+                <button type="button" class="btn btn-info custom-button" (click)="artDetails(art.id)">
+                  {{ 'DC.ReadMore' | translate }}
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+
+    </div>
+  </section> -->
+ 
+ 
+ 
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 py-5">
+          <h1 class="text-center">{{'DC.Articles' | translate}} - <span
+            class="custom-text-primary">{{specialName}}</span> </h1>
+        </div>
+      </div>
+  
+      <div class="topspace">
+        <!-- <mat-grid-list [cols]="gridCols" rowHeight="210px" gutterSize="16px">
+          <mat-grid-tile *ngFor="let art of lstSpecialityArticles">
+            <mat-card class="card">
+              <img [src]="art.articleImg" class="article-image" style="object-fit: cover; width: 150px; height: 110px;">
+              <mat-card-subtitle class="fs-smaller text-primary me-1">
+                {{ art.date }} - <span>{{ lang === 'en' ? art.specialityName : art.specialityNameAr }}</span>
+              </mat-card-subtitle>
+              <mat-card-content>
+                <mat-card-title>
+                  <h5 class="font-base fs-md-0 fs-1 my-1">
+                    {{ lang === 'en' ? art.title : art.titleAr }}
+                  </h5>
+                </mat-card-title>
+                <button type="button" class="btn btn-info custom-button" (click)="artDetails(art.id)">
+                  {{ 'DC.ReadMore' | translate }}
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
+        <mat-grid-list [cols]="gridCols" rowHeight="260px" gutterSize="16px">
+          <mat-grid-tile *ngFor="let art of lstSpecialityArticles">
+            <mat-card class="card">
+              <img [src]="art.articleImg" class="mat-card-image" style="object-fit: fill; width: 100%; height: 110px;">
+              <mat-card-subtitle class="fs-smaller text-primary me-1">
+                {{ art.date }} - <span>{{ lang === 'en' ? art.specialityName : art.specialityNameAr }}</span>
+              </mat-card-subtitle>
+              <mat-card-content>
+                <mat-card-title>
+                  <h5 class="font-base fs-md-0 fs-1 my-1">
+                    {{ lang === 'en' ? art.title : art.titleAr }}
+                  </h5>
+                </mat-card-title>
+                <button type="button" class="btn btn-info custom-button"  style="margin-top: 10px;" (click)="artDetails(art.id)">
+                  {{ 'DC.ReadMore' | translate }}
+                </button>
+              </mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+        
+      </div>
+    </div>
+  </section>
+  
+ 
+  <div class="d-flex justify-content-center mt-5 mb-5">
+    <button class="btn btn-outline-dark" (click)="goBack()">{{'DC.Back' | translate}}</button>
+    <button *ngIf="isPatient" class="btn btn-outline-dark" (click)="needConsult()">{{'DC.NeedConsult' |
+      translate}}</button>
+  </div>
+  <app-cdfooter></app-cdfooter>
+</div>

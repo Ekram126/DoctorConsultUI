@@ -1,0 +1,31 @@
+<!-- <div class="layout-wrapper" [ngClass]="containerClass"  [dir]="lang === 'ar' ? 'rtl' : 'ltr'">
+  <app-navbar></app-navbar>
+  <div class="layout-sidebar" *ngIf="currentUser !== null">
+      <app-sidebar></app-sidebar>
+  </div>
+  <div class="layout-main-container">
+      <div class="layout-main">
+        <div class="cards-container">
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+  </div>
+ <div class="layout-mask"></div> 
+</div> 
+ -->
+
+ <div class="layout-wrapper" [ngClass]="containerClass" [ngStyle]="{'text-align': lang === 'en' ? 'left': 'right'}" [dir]="lang === 'ar' ? 'rtl' : 'ltr'">
+  <app-navbar></app-navbar>
+  <div class="layout-sidebar" *ngIf="currentUser !== null">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="layout-main-container">
+    <div class="layout-main">
+      <div class="cards-container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="layout-mask"></div>
+</div>
+

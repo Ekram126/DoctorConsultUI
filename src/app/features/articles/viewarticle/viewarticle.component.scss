@@ -1,0 +1,18 @@
+.image-container {
+    position: absolute;
+    top: 0;
+    justify-content: flex-end;
+    margin: 10px 0px;
+  }
+
+  .d-flex {
+    display: flex; /* Enable flexbox layout */
+  }
+  
+  .justify-content-end {
+    justify-content: flex-end; /* Align items to the right */
+  }
+  
+  .align-items-center {
+    align-items: center; /* Align items vertically in the center */
+  }

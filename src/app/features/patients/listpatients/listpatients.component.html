@@ -1,0 +1,93 @@
+<!-- <div class="container">
+	<div class="col-12 bktitles d-flex justify-content-between align-items-center">
+	  {{ 'DC.Patients' | translate }}
+	  <div class="float-end">
+	  </div>
+	</div>
+  
+	<div class="grid responsive-grid">
+	  <div class="col-12">
+		<div class="card">
+
+			<p-table [value]="lstPatients" scrollDirection="both" [scrollable]="true" scrollHeight="400px"
+			styleClass="mt-3" responsiveLayout="scroll" [paginator]="true" [lazy]="true" [rows]="10"
+			[totalRecords]="count" pageLinks="10" (onLazyLoad)="clicktbl($event)" [loading]="loading">
+			<ng-template pTemplate="header">
+				<tr>
+					
+					<th style="text-align: inherit;"> {{ 'DC.Name' | translate }}<p-sortIcon id="{{'DC.Name'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+				<th style="text-align: inherit;"> {{ 'DC.Mobile' | translate }}<p-sortIcon id="{{'DC.Mobile'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+					<th style="text-align: inherit;"> {{ 'DC.Email' | translate }}<p-sortIcon id="{{'DC.Email'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+					<th style="text-align: inherit;"> {{ 'DC.Actions' | translate }}</th>
+				</tr>
+			</ng-template>
+			<ng-template pTemplate="body" let-patient>
+				<tr>
+				
+					<td style="text-align: inherit;">{{patient.name}}</td>
+				
+					<td style="text-align: inherit;">{{patient.mobile}}</td>
+					<td style="text-align: inherit;">{{patient.email}}</td>
+
+					<td style="text-align: inherit;">
+						<span (click)="editPatient(patient.id)" pTooltip="{{'DC.Edit' | translate}}"
+						tooltipPosition="top">
+						<i class="bi bi-pencil-fill editIcon"></i>
+					</span>
+					</td>
+
+				</tr>
+			</ng-template>
+		</p-table>
+		  </div>
+	  </div>
+	</div>
+  </div> -->
+
+  <div class="container-fluid">
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Patients' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end">
+		</div>
+	</div>
+	<div class="row">
+		<div class="card">
+
+			<p-table [value]="lstPatients" scrollDirection="both" [scrollable]="true" scrollHeight="400px"
+				styleClass="mt-3" responsiveLayout="scroll" [paginator]="true" [lazy]="true" [rows]="10"
+				[totalRecords]="count" pageLinks="10" (onLazyLoad)="clicktbl($event)" [loading]="loading">
+				<ng-template pTemplate="header">
+					<tr>
+
+						<th style="text-align: inherit;"> {{ 'DC.Name' | translate }}<p-sortIcon
+								id="{{'DC.Name'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+						<th style="text-align: inherit;"> {{ 'DC.Mobile' | translate }}<p-sortIcon
+								id="{{'DC.Mobile'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+						<th style="text-align: inherit;"> {{ 'DC.Email' | translate }}<p-sortIcon
+								id="{{'DC.Email'| translate}}" (click)="sort($event)"></p-sortIcon></th>
+						<th style="text-align: inherit;"> {{ 'DC.Actions' | translate }}</th>
+					</tr>
+				</ng-template>
+				<ng-template pTemplate="body" let-patient>
+					<tr>
+
+						<td style="text-align: inherit;">{{patient.name}}</td>
+
+						<td style="text-align: inherit;">{{patient.mobile}}</td>
+						<td style="text-align: inherit;">{{patient.email}}</td>
+
+						<td style="text-align: inherit;">
+							<span (click)="editPatient(patient.id)" pTooltip="{{'DC.Edit' | translate}}"
+								tooltipPosition="top">
+								<i class="bi bi-pencil-fill editIcon"></i>
+							</span>
+						</td>
+
+					</tr>
+				</ng-template>
+			</p-table>
+		</div>
+	</div>
+</div>

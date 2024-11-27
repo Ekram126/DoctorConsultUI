@@ -1,0 +1,93 @@
+<form (ngSubmit)="onSubmit()">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <label htmlFor="title">{{'DC.Title' | translate }}</label>
+                <input id="title" type="text" class="form-control" [(ngModel)]="sectionObj.title" #title="ngModel"
+                    name="title" />
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label htmlFor="titleAr">{{'DC.TitleArabic' | translate }}</label>
+                <input id="titleAr" type="text" class="form-control" [(ngModel)]="sectionObj.titleAr" #titleAr="ngModel"
+                    name="titleAr" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <label htmlFor="brief">{{'DC.Brief' | translate }}</label>
+                <textarea id="brief" type="text" class="form-control" [(ngModel)]="sectionObj.brief" #brief="ngModel"
+                    name="brief"></textarea>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <label htmlFor="brieftAr">{{'DC.BriefAr' | translate }}</label>
+                <textarea id="briefAr" name="briefAr" type="text" class="form-control" [(ngModel)]="sectionObj.briefAr"
+                    #briefAr="ngModel" name="briefAr"></textarea>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label htmlFor="sectionDesc">{{'DC.SectionDESC' | translate }}</label>
+                <angular-editor id="sectionDesc" [(ngModel)]="sectionObj.sectionDesc" [config]="editorConfig"
+                    [ngModelOptions]="{standalone: true}">
+                </angular-editor>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label htmlFor="sectionDescAr">{{'DC.SectionDESCAr' | translate }}</label>
+                <angular-editor id="sectionDescAr" [(ngModel)]="sectionObj.sectionDescAr" [config]="editorConfig"
+                    [ngModelOptions]="{standalone: true}">
+                </angular-editor>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-check">
+                    <input type="checkbox" id="isActive" name="isActive" [(ngModel)]="sectionObj.isInAbout" />
+                    <label class="form-check-label" for="isActive">{{ 'DC.IsInAbout' | translate}}</label>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <input #fileInput type="file" class="file-input" (change)="onFileSelected($event,fileInput)"
+                    accept=".jpeg,.jpg,.png,.webp,.jfif,.gif">
+
+                <button type="button" class="form-control" (click)="resetFile()" [hidden]="btnHidden">
+                    <h5>{{ 'DC.Reset' | translate }}</h5>
+                </button>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
+            </div>
+        </div>
+
+                <button class="btn saveIcon" value="save" type="submit">
+                    {{ 'DC.Save' | translate }}
+                </button>
+         
+    </div>
+</form>
+
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+    <p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4); font-weight: bold">
+        {{ errorMessage }}</span>
+</p-dialog>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+    <ng-template pTemplate="header">
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        </h6>
+    </ng-template>
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+        translate
+        }}</span>
+</p-dialog>

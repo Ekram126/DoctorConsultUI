@@ -1,0 +1,24 @@
+.form-control{
+padding: 7px !important
+}
+
+.custom-title {
+    color: #283779; /* Change this to any color you like */
+  }
+
+
+.col-12 {
+    margin-bottom: 2px; /* Tighter spacing between items */
+  }
+
+  
+  
+  .oval-image {
+    border-radius: 50%; /* Makes the image round */
+    width: 100%; /* Ensures the image maintains the desired width */
+    height: auto; /* Ensures the image's aspect ratio is preserved */
+    object-fit: cover; /* Makes sure the image fits nicely inside the oval shape */
+  }
+
+  
+  

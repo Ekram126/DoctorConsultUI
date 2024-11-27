@@ -1,0 +1,133 @@
+<form (ngSubmit)="onSubmit()">
+	<div class="card">
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="code">{{'DC.Code' | translate }}</label>
+				<input pInputText id="code" name="code" type="text" class="form-control" [(ngModel)]="doctorObj.code"
+					#code="ngModel" />
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="name">{{'DC.Name' | translate }}</label>
+				<input pInputText id="name" type="text" class="form-control" [(ngModel)]="doctorObj.name"
+					#name="ngModel" name="name" />
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="nameAr">{{'DC.ArabicName' | translate }}</label>
+				<input pInputText id="nameAr" name="nameAr" type="text" class="form-control"
+					[(ngModel)]="doctorObj.nameAr" #nameAr="ngModel" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<label for="genderId" [translate]="'DC.Gender'"></label>
+				<select class="form-control" id="genderId" name="genderId" [(ngModel)]="doctorObj.genderId" [value]="0">
+					<option value="0">Select One</option>
+					<option *ngFor="let gen of lstGenders" [value]="gen.id">
+						{{ lang == "en" ? gen.name : gen.nameAr }}
+					</option>
+				</select>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label for="specialistId" [translate]="'DC.Special'"></label>
+				<select class="form-control" id="specialistId" name="specialistId" [(ngModel)]="doctorObj.specialistId"
+					[value]="0">
+					<option value="0">Select One</option>
+					<option *ngFor="let spec of lstSpecialists" [value]="spec.id">
+						{{ lang == "en" ? spec.name : spec.nameAr }}
+					</option>
+				</select>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="mobile">{{'DC.Mobile' | translate }}</label>
+				<input pInputText id="mobile" name="nameAr" type="text" class="form-control"
+					[(ngModel)]="doctorObj.mobile" #nationalId="ngModel" />
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="dob">{{'DC.DOB' | translate }}</label><br />
+				<p-calendar [(ngModel)]="doctorObj.dob" name="dob" [showIcon]="true" [yearNavigator]="true"
+					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getdob($event)" inputId="dob"
+					showButtonBar="true" appendTo="body">
+				</p-calendar>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="joinDate">{{'DC.JoinDate' | translate }}</label><br />
+				<p-calendar [(ngModel)]="doctorObj.joinDate" name="dob" [showIcon]="true" [yearNavigator]="true"
+					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getjoinDate($event)" inputId="joinDate"
+					showButtonBar="true" appendTo="body">
+				</p-calendar>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<label htmlFor="gradDate">{{'DC.GradDate' | translate }}</label><br />
+				<p-calendar [(ngModel)]="doctorObj.gradDate" name="dob" [showIcon]="true" [yearNavigator]="true"
+					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getgradDate($event)" inputId="gradDate"
+					showButtonBar="true" appendTo="body">
+				</p-calendar>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-sm-12">
+				<label htmlFor="address">{{'DC.Address' | translate }}</label>
+				<textarea id="address" type="text" class="form-control" [(ngModel)]="doctorObj.address"
+					#address="ngModel" name="address"></textarea>
+			</div>
+			<div class="col-md-6 col-sm-12">
+				<label htmlFor="addressAr">{{'DC.ArabicAddress' | translate }}</label>
+				<textarea id="addressAr" type="text" class="form-control" [(ngModel)]="doctorObj.addressAr"
+					#addressAr="ngModel" name="addressAr"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<label htmlFor="remarks">{{'DC.Remarks' | translate }}</label>
+				<textarea id="remarks" type="text" class="form-control" [(ngModel)]="doctorObj.remarks"
+					#remarks="ngModel" name="remarks"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="form-check">
+					<input type="checkbox" id="isActive" name="isActive" [(ngModel)]="doctorObj.isActive" />
+					<label class="form-check-label" for="isActive">{{ 'DC.IsActive' | translate}}</label>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4 col-sm-12">
+				<input #fileInput type="file" class="file-input" (change)="onFileSelected($event,fileInput)"
+					accept=".jpeg,.jpg,.png,.webp,.jfif,.gif">
+
+
+				<button type="button" class="form-control" (click)="resetFile()" [hidden]="btnHidden">
+					<h5> {{ 'DC.Reset' | translate }}</h5>
+				</button>
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
+			</div>
+			<div class="col-md-4 col-sm-12">
+				<img [src]="doctorObj.doctorImg" width="80" height="80" />
+			</div>
+		</div>
+		<button class="btn saveIcon"  value="save" type="submit">
+			{{ 'DC.Save' | translate }}
+		</button>
+	</div>
+</form>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+	<ng-template pTemplate="header">
+		<h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+		</h6>
+	</ng-template>
+	<span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+		translate
+		}}</span>
+</p-dialog>
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">
+	<p-header style="color: rgb(181, 4, 4)"> {{ 'DC.Error' | translate }} </p-header>
+	<span style="color: rgb(181, 4, 4); font-weight: bold">
+		{{ errorMessage }}</span>
+</p-dialog>
