@@ -146,22 +146,50 @@ export class AddrequestComponent implements OnInit {
   }
 
   uploadMultipleFile = (event: any) => {
+
     const files: FileList = event.target.files;
     if (files.length === 0) {
       return;
-    }
-    else {
-      for (var i = 0; i < files.length; i++) {
+    } else {
+      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpg','image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
+      
+      for (let i = 0; i < files.length; i++) {
         let fileToUpload = <File>files[i];
-        var requestDocumentObj = new CreateRequestDocumentVM();
+        
+        // Validate file type
+        if (!validFileTypes.includes(fileToUpload.type)) {
+          alert(`Invalid file type: ${fileToUpload.name}. Only PDF, DOC, JPEG, JPG, PNG, WEBP, JFIF, GIF and DOCX are allowed.`);
+          continue;
+        }
+    
+        const requestDocumentObj = new CreateRequestDocumentVM();
         this.formData.append('file', fileToUpload, fileToUpload.name);
         requestDocumentObj.fileName = fileToUpload.name;
         requestDocumentObj.requestFile = fileToUpload;
         requestDocumentObj.title = fileToUpload.name.split('.')[0];
         this.lstCreateRequestDocument.push(requestDocumentObj);
       }
+      
       this.addMultiFilesToList();
     }
+    
+
+    // const files: FileList = event.target.files;
+    // if (files.length === 0) {
+    //   return;
+    // }
+    // else {
+    //   for (var i = 0; i < files.length; i++) {
+    //     let fileToUpload = <File>files[i];
+    //     var requestDocumentObj = new CreateRequestDocumentVM();
+    //     this.formData.append('file', fileToUpload, fileToUpload.name);
+    //     requestDocumentObj.fileName = fileToUpload.name;
+    //     requestDocumentObj.requestFile = fileToUpload;
+    //     requestDocumentObj.title = fileToUpload.name.split('.')[0];
+    //     this.lstCreateRequestDocument.push(requestDocumentObj);
+    //   }
+    //   this.addMultiFilesToList();
+    // }
   }
   addMultiFilesToList() {
     this.lstCreateRequestDocument.forEach((element, index) => {

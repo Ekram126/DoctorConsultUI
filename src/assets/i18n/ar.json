@@ -74,15 +74,8 @@
         "Image": "الصورة",
         "DESC": "تفاصيل المقال",
         "ArabicDESC": "تفاصيل المقال بالعريي",
-
-
-
         "SectionDESC": "تفاصيل القسم",
         "SectionDESCAr": "تفاصيل القسم بالعريي",
-
-
-
-
         "All": "الكل",
         "Articles": "مقالات",
         "Article": "مقال",
@@ -126,8 +119,9 @@
         "WhatsApp": "الواتس اب",
         "Sections": "الأقسام",
         "Section": "قسم",
-        "IsInAbout":"تحت نبذة عنا",
-        "UploadMany":"يمكن رفع ملف أو أكثر",
-        "ControlPanel":"لوحة التحكم"
+        "IsInAbout": "تحت نبذة عنا",
+        "UploadMany": "يمكن رفع ملف أو أكثر",
+        "ControlPanel": "لوحة التحكم",
+        "ValidFiles": "لا يمكن رفع ملفات فيديو"
     }
 }

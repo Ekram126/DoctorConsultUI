@@ -96,6 +96,8 @@ export const environment = {
   downloadRequestFiles: 'http://localhost:40378/api/RequestDocument/DownloadRequestFiles/',
   getAllTrackingsByRequestId: 'http://localhost:40378/api/RequestTracking/GetAllTrackingsByRequestId/',
 
+  sendMailToPatient: 'http://localhost:40378/api/RequestTracking/sendMailToPatient',
+
   getRequestStatusByUserId: 'http://localhost:40378/api/RequestStatus/GetRequestStatusByUserId/',
   getRequestStatusByUserIdAndSpecialityId: 'http://localhost:40378/api/RequestStatus/GetRequestStatusByUserIdAndSpecialityId/',
 

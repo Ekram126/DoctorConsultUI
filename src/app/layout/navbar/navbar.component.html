@@ -52,6 +52,14 @@
     </button>
     <div #topbarmenu class="layout-topbar-menu"
         [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
+
+
+        <button class="p-link layout-topbar-button" style="width: 120px;">
+            {{helloUser}}
+         </button>
+
+
+
         <button class="p-link layout-topbar-button" (click)="logout()">
             <i class="pi pi-power-off" style="font-size: 1rem; color: #5d0101; font-weight: bold;"></i>
         </button>
@@ -60,9 +68,7 @@
             [hidden]="language === translate.currentLang">
             {{ translate.instant(translate.currentLang === 'en' ? 'العربية' : 'English') }}
         </button>
-        <button class="p-link layout-topbar-button">
-            <span>{{helloUser}}</span>
-        </button>
+   
     </div>
 
 </div>

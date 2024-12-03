@@ -102,9 +102,6 @@ export class CdmenuComponent {
   createRequest() {
     const dialogRef2 = this.dialogService.open(AddrequestComponent, {
       header: this.lang == "en" ? 'Please Register for Consultation' :  "سجل هنا للتواصل مع الطبيب المختص",
-
-      width: '70%',
-
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",
         "text-align": this.lang == "en" ? 'left' : "right",
@@ -120,7 +117,6 @@ export class CdmenuComponent {
   registerPatient() {
     const dialogRef2 = this.dialogService.open(CdcreatepatientComponent, {
       header: this.lang == "en" ? 'Register for Consultation' :  "سجل للتواصل مع الطبيب المختص",
-      width: '90%',
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",
         "text-align": this.lang == "en" ? 'left' : "right",

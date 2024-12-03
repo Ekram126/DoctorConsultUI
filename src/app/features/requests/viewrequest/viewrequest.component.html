@@ -1,5 +1,4 @@
-<div class="grid">
-    <div class="col-12">
+
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -35,26 +34,25 @@
 
 
                 <div class="row">
-                    <div class="field col-12">
-
+                    <div class="col-12">
                         {{reqObj.complain}}
                     </div>
                 </div>
-                <div class="field">
+                <div class="row">
                     <label for="track" [translate]="'DC.Track'">{{'DC.Track' | translate}}</label>
                     <p-table [value]="lstTracks" dataKey="id" styleClass="p-datatable-striped">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="text-align: inherit;">{{ 'DC.Advice' | translate }}</th>
                                 <th style="text-align: inherit;">{{ 'DC.Date' | translate }}</th>
-                                <th style="text-align: center;">{{'DC.Status' | translate }}</th>
+                                <th style="text-align: center;"  >{{'DC.Status' | translate }}</th>
                                 <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.CreatedBy' | translate }}</th>
                                 <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.AssignedTo' | translate }}</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-track>
                             <tr>
-                                <td style="text-align: inherit;">{{track.advice}}</td>
+                                <td class="text-wrap" style="text-align: inherit;">{{track.advice}}</td>
                                 <td style="text-align: inherit;">{{track.responseDate | date:'yyyy-MM-dd'}}</td>
                                 <td style="text-align: center;">  <span [ngStyle]="{'color':track.statusColor}">
                                     <span><i [ngClass]="track.statusIcon"></i></span>
@@ -104,5 +102,4 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+ 

@@ -1,11 +1,27 @@
-.btn-outline-info1 {
-    border-color: #6046af;
-    color: #6046af;
-    background-color: transparent;
+// .btn-outline-info1 {
+//     border-color: #6046af;
+//     color: #6046af;
+//     background-color: transparent;
 
-    &:hover {
-        border-color: #6046af;
-        color: #fff;
-        background-color: #6046af;
-    }
+//     &:hover {
+//         border-color: #6046af;
+//         color: #fff;
+//         background-color: #6046af;
+//     }
+// }
+
+
+.p-dialog .p-dialog-header {
+    padding: 0.7rem !important;
+}
+
+.p-dialog .p-dialog-content {
+
+    padding: 0 0.5rem 0.5rem 0.5rem !important;
+}
+
+.card {
+
+    padding: 0.3rem !important;
+   margin-bottom: 0.3rem !important;
 }

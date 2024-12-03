@@ -1,70 +1,62 @@
-<div class="grid">
-    <div class="col-12">
+
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <div class="field col-4">
+                    <div class="col-md-4 col-sm-12">
                         <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Patient' |
                             translate}}:</label>
                         {{reqObj.userName}}
                     </div>
-                    <div class="field col-4">
+                    <div class="col-md-4 col-sm-12">
                         <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
                             }}:</label>{{reqObj.requestCode}}
                     </div>
                     
-                    <div class="field col-4">
+                    <div class="col-md-4 col-sm-12">
                         <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
                             translate}}:</label>
                         {{reqObj.subject}}
                     </div>
-                    <div class="field col-12">
+                    <div class="col-12">
                         <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
                             translate}}:</label>
                     </div>
                 
-                    <div class="field col-12">
+                    <div class="col-12">
                         {{reqObj.complain}}
                     </div>
                 </div>
 
-                <div class="row" >
-
-                    <!-- <div class="field" *ngIf="isSupervisorDoctor">
-                        <label for="assignedTo">{{'DC.Doctor' | translate }}</label>
-                        <select id="assignedTo" class="form-control" name="assignedTo" [(ngModel)]="trackObj.assignTo">
-                            <option value="0">select doctor</option>
-                            <option *ngFor="let doct of lstDoctors" [value]="doct.id">
-                                {{  doct.userName}}
-                            </option>
-                        </select>
-                    </div> -->
-            
-                    <div class="p-field col-md-12">
+                <div class="row" >            
+                    <div class="col-12">
                         <label for="advice" [translate]="'DC.Advice'">complain</label>
                         <textarea class="form-control" id="advice" [(ngModel)]="trackObj.advice" pInputTextarea
-                            name="complain" rows="3" [ngModelOptions]="{standalone: true}" cols="63"
-                            style="font-size: 13px;"></textarea>
+                            name="complain" rows="2" [ngModelOptions]="{standalone: true}"></textarea>
                     </div>
                 </div>
                 <div class="row">
 
-                    <div class="col-12">
+                    <div class="col-md-6 col-sm-12">
                         <input type="file" #file multiple placeholder="Choose file"
-                            (change)="uploadMultipleFile($event)" style="display:none;">
-                        <button type="button" class="btn btn-outline-success"
-                            style="margin-top: 20px;margin-left: 10px;" (click)="file.click()" [disabled]="isDisabled">
+                            (change)="uploadMultipleFile($event)" style="display:none;" accept=".doc,.docx,.pdf,.jpeg,.jpg,.png,.webp,.jfif,.gif">
+                        <button type="button" class="btn btn-outline-success btn-sm py-1"
+                            style="margin-left: 10px;" (click)="file.click()" [disabled]="isDisabled">
                             <i class="fa fa-upload"
-                                style="color: #448c10; cursor: pointer;margin: 0px 5px;"></i>{{'DC.SelectDocuments'
+                                style="color: #448c10; cursor: pointer;"></i>{{'DC.SelectDocuments'
                             |
                             translate }}
                         </button>
                     </div>
+                    <div class="col-md-6 col-sm-12" style="color: #f44b51;">
+                        {{'DC.UploadMany' | translate }}
+                        <br/>
+                        {{'DC.ValidFiles' | translate }} 
+                </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
 
-                        <p-table [value]="lstCreateRequestDocument" dataKey="id">
+                        <p-table [value]="lstCreateRequestDocument" dataKey="id" styleClass="p-datatable-striped">
                             <ng-template pTemplate="header">
                                 <tr>
                                     <th style="text-align: inherit;">{{ 'DC.FileName' | translate }}</th>
@@ -91,6 +83,8 @@
                                     <td style="text-align: inherit;">
                                         <span (click)="removeFileFromObjectArray(rowIndex)"><i
                                                 class="pi pi-times-circle" style="color: rgb(123, 9, 9);"></i></span>
+
+
                                     </td>
                                 </tr>
                             </ng-template>
@@ -106,13 +100,12 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button (click)="addResponse()" color="primary">{{'DC.Save' | translate }}</button>
+                        <button (click)="addResponse()" class="btn btn-sm py-1 saveIcon">{{'DC.Save' | translate }}</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 
 <p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
     <p-header style="color: rgb(181, 4, 4);"> {{ 'DC.Error' | translate }} </p-header>

@@ -76,12 +76,8 @@
     "Image": "Image",
     "DESC": "Article Description",
     "ArabicDESC": "Arabic Article Description",
-
-
     "SectionDESC": "Section Description",
     "SectionDESCAr": "Section Description in arabic",
-
-
     "All": "All",
     "Articles": "Articles",
     "Article": "Article",
@@ -125,8 +121,9 @@
     "WhatsApp": "Whats App",
     "Sections": "Sections",
     "Section": "Section",
-     "IsInAbout":"Is under about",
-      "UploadMany":"You can upload one file or more",
-         "ControlPanel":"Control Panel"
+    "IsInAbout": "Is under about",
+    "UploadMany": "Add More than 1 file",
+    "ControlPanel": "Control Panel",
+    "ValidFiles": "Can't upload video files"
   }
 }

@@ -57,7 +57,7 @@
             <hr />
 
 
- 
+
 
 
             <p-dataView [value]="lstRequests" [rows]="5" [paginator]="true">
@@ -121,6 +121,11 @@
                                     <i class="pi pi-eye viewIcon" (click)="viewRequest(request.id)"
                                         pTooltip="{{'DC.View' | translate}}" tooltipPosition="top"
                                         style="cursor: pointer;"></i>
+
+
+
+                                    <i class="bi bi-pencil-fill editIcon"  style="cursor: pointer;" (click)="editRequest(request.id)"
+                                        pTooltip="{{'DC.Edit' | translate}}" tooltipPosition="top"></i>
 
 
                                     <i class="pi pi-user " (click)="assignRequest(request.id)"

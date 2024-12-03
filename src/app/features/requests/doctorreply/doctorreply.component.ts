@@ -126,6 +126,10 @@ export class DoctorreplyComponent {
     this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
       next: (trackId) => {
         this.reqTrackId = trackId;
+
+        this.requestTrackingService.sendEMailToPateint(this.trackObj).subscribe();
+
+
         if (this.lstCreateRequestDocument.length > 0) {
           this.lstCreateRequestDocument.forEach((item, index) => {
             item.requestTrackingId = Number(this.reqTrackId);
@@ -159,22 +163,50 @@ export class DoctorreplyComponent {
 
 
   uploadMultipleFile = (event: any) => {
+
+
     const files: FileList = event.target.files;
     if (files.length === 0) {
       return;
-    }
-    else {
-      for (var i = 0; i < files.length; i++) {
+    } else {
+      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpg','image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
+      
+      for (let i = 0; i < files.length; i++) {
         let fileToUpload = <File>files[i];
-        var requestDocumentObj = new CreateRequestDocumentVM();
+        
+        // Validate file type
+        if (!validFileTypes.includes(fileToUpload.type)) {
+          alert(`Invalid file type: ${fileToUpload.name}. Only PDF, DOC, JPEG, JPG, PNG, WEBP, JFIF, GIF and DOCX are allowed.`);
+          continue;
+        }
+    
+        const requestDocumentObj = new CreateRequestDocumentVM();
         this.formData.append('file', fileToUpload, fileToUpload.name);
         requestDocumentObj.fileName = fileToUpload.name;
         requestDocumentObj.requestFile = fileToUpload;
         requestDocumentObj.title = fileToUpload.name.split('.')[0];
         this.lstCreateRequestDocument.push(requestDocumentObj);
       }
+      
       this.addMultiFilesToList();
     }
+
+    // const files: FileList = event.target.files;
+    // if (files.length === 0) {
+    //   return;
+    // }
+    // else {
+    //   for (var i = 0; i < files.length; i++) {
+    //     let fileToUpload = <File>files[i];
+    //     var requestDocumentObj = new CreateRequestDocumentVM();
+    //     this.formData.append('file', fileToUpload, fileToUpload.name);
+    //     requestDocumentObj.fileName = fileToUpload.name;
+    //     requestDocumentObj.requestFile = fileToUpload;
+    //     requestDocumentObj.title = fileToUpload.name.split('.')[0];
+    //     this.lstCreateRequestDocument.push(requestDocumentObj);
+    //   }
+    //   this.addMultiFilesToList();
+    // }
   }
   addMultiFilesToList() {
     this.lstCreateRequestDocument.forEach((element, index) => {
@@ -204,5 +236,27 @@ export class DoctorreplyComponent {
   }
   closeDialogue() {
     this.ref.close();
+  }
+
+  removeFileFromObjectArray(rowIndex) {
+
+    if (rowIndex >= 0 && rowIndex < this.lstCreateRequestDocument.length) {
+      this.lstCreateRequestDocument.splice(rowIndex, 1);
+
+      this.lstCreateRequestDocument.forEach((element, index) => {
+        element.requestTrackingId = Number(this.reqTrackId)
+        if (this.itmIndex.length === 0) {
+          last_element = 1;
+        }
+        else if (this.itmIndex.length > 0 && this.lstCreateRequestDocument.length == 0) {
+          var last_element = this.itmIndex[this.itmIndex.length - 1];
+          last_element = last_element + 1;
+        }
+        this.itmIndex.push(last_element);
+        element.fileName = element.fileName;
+        element = { id: 0, fileName: '', requestTrackingId: 0, title: '', requestFile: File };
+      });
+
+    }
   }
 }

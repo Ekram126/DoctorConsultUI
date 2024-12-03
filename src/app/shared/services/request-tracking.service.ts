@@ -24,4 +24,9 @@ export class RequestTrackingService {
   getRequestTrackByRequestId(reqId:number): Observable<MainClass> {
     return this.httpClient.get<MainClass>(`${environment.getAllTrackingsByRequestId}${reqId}`, this.httpHeader);
   }
+
+
+  sendEMailToPateint(trackObj:CreateRequestTrackingVM): Observable<any> {
+    return this.httpClient.post<any>(`${environment.sendMailToPatient}`, trackObj, this.httpHeader);
+  }
 }

@@ -1,0 +1,12 @@
+.roles-container {
+    display: flex;
+    flex-wrap: wrap; /* Optional: Wraps to the next line if the width exceeds the container */
+    gap: 1rem; /* Optional: Adds spacing between items */
+    align-items: center; /* Aligns items vertically */
+  }
+  
+  .field-checkbox {
+    display: flex;
+    align-items: center; /* Vertically aligns the radio button and label */
+  }
+

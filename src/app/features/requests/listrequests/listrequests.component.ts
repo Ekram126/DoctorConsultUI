@@ -15,6 +15,7 @@ import { DoctorreplyComponent } from '../doctorreply/doctorreply.component';
 import { CreateRequestTrackingVM } from 'src/app/shared/models/requestTrackingVM';
 import { RequestTrackingService } from 'src/app/shared/services/request-tracking.service';
 import { DatePipe } from '@angular/common';
+import { EditrequestComponent } from '../editrequest/editrequest.component';
 
 @Component({
   selector: 'app-listrequests',
@@ -101,18 +102,18 @@ export class ListrequestsComponent {
     });
   }
 
-  clicktbl(event: any) {
-    this.page.pagenumber = (event.first + 10) / 10;
-    this.page.pagesize = event.rows;
-    this.sortFilterObjects.searchObj.userId = this.currentUser.id;
-    this.sortFilterObjects.searchObj.statusId = this.statusId;
-    this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
-    this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-      this.lstRequests = items.results;
-      this.count = items.count;
-      this.loading = false;
-    });
-  }
+  // clicktbl(event: any) {
+  //   this.page.pagenumber = (event.first + 10) / 10;
+  //   this.page.pagesize = event.rows;
+  //   this.sortFilterObjects.searchObj.userId = this.currentUser.id;
+  //   this.sortFilterObjects.searchObj.statusId = this.statusId;
+  //   this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
+  //   this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
+  //     this.lstRequests = items.results;
+  //     this.count = items.count;
+  //     this.loading = false;
+  //   });
+  // }
   getRequestsByStatusId(id: number) {
     this.statusId = id;
     this.page.pagenumber = 1;
@@ -160,12 +161,13 @@ export class ListrequestsComponent {
       data: {
         reqId: requestId
       },
+      width:"60%",
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",
         "text-align": this.lang == "en" ? 'left' : "right",
         "direction": this.lang == "en" ? 'ltr' : "rtl",
         "font-family": "sans-serif",
-        "font-size": 40
+        "font-size": 30
       }
     });
 
@@ -176,7 +178,8 @@ export class ListrequestsComponent {
 
   viewRequest(requestId: number) {
     const dialogRef2 = this.dialogService.open(ViewrequestComponent, {
-      header: this.lang == "en" ? 'Assign Ticket' : "تعيين السؤال",
+      header: this.lang == "en" ? 'View Ticket' : "بيان السؤال",
+      width:'70%',
       data: {
         reqId: requestId
       },
@@ -185,7 +188,7 @@ export class ListrequestsComponent {
         "text-align": this.lang == "en" ? 'left' : "right",
         "direction": this.lang == "en" ? 'ltr' : "rtl",
         "font-family": "sans-serif",
-        "font-size": 40
+        "font-size": 20
       }
     });
 
@@ -213,6 +216,31 @@ export class ListrequestsComponent {
     });
   }
 
+
+  editRequest(id: number) {
+    const ref = this.dialogService.open(EditrequestComponent, {
+      header: this.lang == "en" ? "Edit Ticket" : "تعديل بيان",
+
+      data: {
+        id: id,
+        statusId: this.statusId
+      },
+      style: {
+        'dir': this.lang == "en" ? 'ltr' : "rtl",
+        "text-align": this.lang == "en" ? 'left' : "right",
+        "direction": this.lang == "en" ? 'ltr' : "rtl",
+        "font-family": "sans-serif",
+        "font-size": 40
+
+      }
+
+    });
+    ref.onClose.subscribe((statusId: number) => {
+
+
+
+    });
+  }
   closeRequest(requestId: number) {
 
 

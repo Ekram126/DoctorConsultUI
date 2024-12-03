@@ -1,18 +1,16 @@
-<div class="grid">
-    <div class="col-12">
+
         <div class="card">
-            <div class="card-body">
+            <!-- <div class="card-body"> -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6 col-12">
                         <label for="code" [translate]="'DC.Code'">{{'DC.SRNumber' | translate }}
                         </label>
                         <input type="text" id="code" class="form-control" name="code" [(ngModel)]="reqObj.requestCode"
                             #code="ngModel" [value]="0" pTooltip="Request Code" tooltipPosition="bottom" disabled
                             style="font-size: 13px;" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
+
+                    <div class="col-md-6 col-12">
                         <label for="subject" [translate]="'DC.Special'"> {{'DC.Special' | translate}}</label>
                         <select class="form-control" id="specialistId" name="specialistId"
                         [(ngModel)]="reqObj.specialityId" [value]="0">
@@ -24,6 +22,7 @@
 
                     </div>
                 </div>
+          
                 <div class="row">
                     <div class="col-12">
                         <label for="subject" [translate]="'DC.Subject'"> {{'DC.Subject' | translate}}</label>
@@ -41,33 +40,29 @@
                     </p-calendar>
                 </div>
                 <div class="row">
-                    <div class="p-field col-md-12">
+                    <div class="col-md-12">
                         <label for="complain" [translate]="'DC.Complain'">complain</label>
                         <textarea class="form-control" id="complain" [(ngModel)]="reqObj.complain" pInputTextarea
-                            name="complain" rows="3" [ngModelOptions]="{standalone: true}" cols="63"
-                            style="font-size: 13px;" [disabled]="isDisabled"></textarea>
+                            name="complain" rows="1" [ngModelOptions]="{standalone: true}"
+                    [disabled]="isDisabled"></textarea>
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-3">
+                    <div class="col-md-6 col-sm-12">
                         <input type="file" #file multiple placeholder="Choose file"
-                            (change)="uploadMultipleFile($event)" style="display:none;">
-                        <button type="button" class="btn btn-outline-info  btn-sm"
-                            style="margin-top: 2px;margin-left:2px;" (click)="file.click()" [disabled]="isDisabled">
-                            <i class="pi pi-cloud-upload " style="color: #0DAFCA; cursor: pointer;margin: 0px 1px;font-size: 1.2rem"></i>{{'DC.SelectDocuments'| translate }}
-                        </button>
-                        
-
-
-                        
+                            (change)="uploadMultipleFile($event)" style="display:none;" accept=".doc,.docx,.pdf,.jpeg,.jpg,.png,.webp,.jfif,.gif">
+                        <button type="button" class="btn btn-outline-info  btn-sm py-1"
+                            style="margin-top: 3px;margin-left:2px;" (click)="file.click()" [disabled]="isDisabled">
+                            <i class="pi pi-cloud-upload " style="color: #0DAFCA; cursor: pointer;margin: 0px 1px;font-size: 1rem"></i>{{'DC.SelectDocuments'| translate }}
+                        </button>                       
                     </div>
-                    <div class="col-9" style="color: #f44b51;margin-top: 12px;">
-
-                   
-                            {{'DC.UploadMany' | translate }}
-                       
+                    <div class="col-md-6 col-sm-12" style="color: #f44b51;margin-top: 2px; font-size: 11px;">
+                            {{'DC.UploadMany' | translate }} 
+                            <br/>
+                            {{'DC.ValidFiles' | translate }} 
                     </div>
+                    
+                  
                 </div>
                 <div class="row">
                     <div class="col-12">
@@ -113,14 +108,13 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <button (click)="addRequest()" class="btn btn-outline-info1 btn-sm">{{'DC.Save' | translate }}</button>
+                    <div class="col-12">
+                        <button (click)="addRequest()" class="btn btn-sm py-2 saveIcon">{{'DC.Save' | translate }}</button>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
-    </div>
-</div>
+
 
 <p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
     <p-header style="color: rgb(181, 4, 4);"> {{ 'DC.Error' | translate }} </p-header>
@@ -138,6 +132,6 @@
     <br />
     <br />
     <button class="btn btn-primary pull-center btn-md"
-        style="margin: 0px 5px;background-color: #fe7f83 !important;border-color:#fe7f83" (click)="closeDialogue()"> {{
+        style="margin: 0px 5px;background-color: #7fdcfe !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
         'DC.Close' | translate }}</button>
 </p-dialog>

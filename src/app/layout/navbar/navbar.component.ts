@@ -39,7 +39,7 @@ export class NavbarComponent {
       this.helloUser = "Hello Guest";
     else
       this.helloUser = "Hello " + this.currentUser.userName;
-
+console.log(this.helloUser )
 
 
       

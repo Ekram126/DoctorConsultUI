@@ -118,7 +118,6 @@ export class CdspecialityComponent implements OnInit {
   selectMedia(specialId: number) {
     const dialogRef2 = this.dialogService.open(CdepartmentsmediaComponent, {
       responsive: true, // Enable responsiveness
-      width: 'auto', // Allow automatic width adjustment
       data: {
         specialityId: specialId
       },
