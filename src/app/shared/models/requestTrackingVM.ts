@@ -12,14 +12,12 @@ export class CreateRequestTrackingVM {
   assignTo:string;
 }
 
-// export class EditRequestTrackingVM {
-//   id: number;
-//   description: string;
-//   descriptionDate: Date;
-//   requestStatusId: number;
-//   requestId: number;
-//   createdById: string;
-// }
+export class EditRequestTrackingVM {
+  id: number;
+  advice: string;
+  responseDate: Date;
+  strResponseDate: string;
+}
 
  export class ListRequestTrackingVM {
   id?: number;

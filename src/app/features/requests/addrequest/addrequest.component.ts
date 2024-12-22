@@ -57,10 +57,10 @@ export class AddrequestComponent implements OnInit {
 
     if (this.currentUser == null) {
       this.errorDisplay = true;
-      this.errorMessage = this.lang=="en"? "Please Login first":"الرجاء تسجيل الدخول أولا";
+      this.errorMessage = this.lang == "en" ? "Please Login first" : "الرجاء تسجيل الدخول أولا";
     }
 
-    
+
     if (this.config.data != null) {
       let specialityId = this.config.data.id;
       this.reqObj.specialityId = specialityId;
@@ -84,65 +84,75 @@ export class AddrequestComponent implements OnInit {
     }
     if (this.currentUser == null) {
       this.errorDisplay = true;
-      this.errorMessage = this.lang=="en"? "Please Login first":"الرجاء تسجيل الدخول أولا";
+      this.errorMessage = this.lang == "en" ? "Please Login first" : "الرجاء تسجيل الدخول أولا";
       return false;
     }
-
-    this.reqObj.createdById = this.currentUser.id;
-    this.reqObj.strRequestDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm");
-    this.requestService.addRequest(this.reqObj).subscribe({
-      next: (itemId) => {
-        this.reqId = itemId;
-        this.trackObj.requestId = Number(this.reqId)
-        this.trackObj.statusId = 1;
-        this.trackObj.advice = this.reqObj.complain;
-        this.trackObj.createdById = this.currentUser.id;
-        this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm");
-        this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
-          next: (trackId) => {
-            this.reqTrackId = trackId;
-            if (this.lstCreateRequestDocument.length > 0) {
-              this.lstCreateRequestDocument.forEach((item, index) => {
-                item.requestTrackingId = Number(this.reqTrackId);
-                this.requestDocumentService.createRequestDocuments(item).subscribe(fileObj => {
-                  this.uploadService.uploadRequestFiles(item.requestFile, item.fileName).subscribe(
-                    (event) => {
-                      this.display = true;
-                      this.isDisabled = true;
-                    },
-                    (err) => {
-                      if (this.lang == "en") {
-                        this.errorDisplay = true;
-                        this.errorMessage = 'Could not upload the file:' + item[index].fileName;
-                      }
-                      else {
-                        this.errorDisplay = true;
-                        this.errorMessage = 'لا يمكن رفع ملف ' + item[index].fileName;
-                      }
-                    });
+    if (this.reqObj.specialityId == 0) {
+      this.errorDisplay = true;
+      this.errorMessage = this.lang == "en" ? "Please select speciality" : "من فضلك اختر تخصص";
+      return false;
+    }
+    else {
+      this.reqObj.createdById = this.currentUser.id;
+      this.reqObj.strRequestDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm:ss");
+      this.requestService.addRequest(this.reqObj).subscribe({
+        next: (itemId) => {
+          this.reqId = itemId;
+          this.trackObj.requestId = Number(this.reqId)
+          this.trackObj.statusId = 1;
+          this.trackObj.advice = this.reqObj.complain;
+          this.trackObj.createdById = this.currentUser.id;
+          this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm:ss");
+          this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
+            next: (trackId) => {
+              this.reqTrackId = trackId;
+              if (this.lstCreateRequestDocument.length > 0) {
+                this.lstCreateRequestDocument.forEach((item, index) => {
+                  item.requestTrackingId = Number(this.reqTrackId);
+                  this.requestDocumentService.createRequestDocuments(item).subscribe(fileObj => {
+                    this.uploadService.uploadRequestFiles(item.requestFile, item.fileName).subscribe(
+                      (event) => {
+                        this.display = true;
+                        this.isDisabled = true;
+                        this.ref.close();
+                      },
+                      (err) => {
+                        if (this.lang == "en") {
+                          this.errorDisplay = true;
+                          this.errorMessage = 'Could not upload the file:' + item[index].fileName;
+                          return false;
+                        }
+                        else {
+                          this.errorDisplay = true;
+                          this.errorMessage = 'لا يمكن رفع ملف ' + item[index].fileName;
+                          return false;
+                        }
+                      });
+                  });
                 });
-              });
-              this.lstCreateRequestDocument = [];
+                this.lstCreateRequestDocument = [];
+              }
+              else {
+                this.display = true;
+                this.isDisabled = true;
+                this.ref.close();
+              }
             }
-            else {
-              this.display = true;
-              this.isDisabled = true;
-            }
-          }
-        })
-      },
-      error: (e) => {
-        this.errorDisplay = true;
+          })
+        },
+        error: (e) => {
+          this.errorDisplay = true;
 
-        if (this.lang == 'en') {
-          if (e.error.status == 'code') {
-            this.errorMessage = e.error.message;
+          if (this.lang == 'en') {
+            if (e.error.status == 'code') {
+              this.errorMessage = e.error.message;
+            }
           }
-        }
-        return false;
-      },
-      complete: () => console.info('complete')
-    });
+          return false;
+        },
+        complete: () => console.info('complete')
+      });
+    }
   }
 
   uploadMultipleFile = (event: any) => {
@@ -151,17 +161,17 @@ export class AddrequestComponent implements OnInit {
     if (files.length === 0) {
       return;
     } else {
-      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpg','image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
-      
+      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
+
       for (let i = 0; i < files.length; i++) {
         let fileToUpload = <File>files[i];
-        
+
         // Validate file type
         if (!validFileTypes.includes(fileToUpload.type)) {
           alert(`Invalid file type: ${fileToUpload.name}. Only PDF, DOC, JPEG, JPG, PNG, WEBP, JFIF, GIF and DOCX are allowed.`);
           continue;
         }
-    
+
         const requestDocumentObj = new CreateRequestDocumentVM();
         this.formData.append('file', fileToUpload, fileToUpload.name);
         requestDocumentObj.fileName = fileToUpload.name;
@@ -169,10 +179,10 @@ export class AddrequestComponent implements OnInit {
         requestDocumentObj.title = fileToUpload.name.split('.')[0];
         this.lstCreateRequestDocument.push(requestDocumentObj);
       }
-      
+
       this.addMultiFilesToList();
     }
-    
+
 
     // const files: FileList = event.target.files;
     // if (files.length === 0) {

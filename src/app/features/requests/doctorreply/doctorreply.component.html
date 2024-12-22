@@ -29,7 +29,7 @@
 
                 <div class="row" >            
                     <div class="col-12">
-                        <label for="advice" [translate]="'DC.Advice'">complain</label>
+                        <label for="advice" [translate]="'DC.Advice'">Advice</label>
                         <textarea class="form-control" id="advice" [(ngModel)]="trackObj.advice" pInputTextarea
                             name="complain" rows="2" [ngModelOptions]="{standalone: true}"></textarea>
                     </div>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <button (click)="addResponse()" class="btn btn-sm py-1 saveIcon">{{'DC.Save' | translate }}</button>
+                        <button (click)="addResponse()" class="btn btn-sm py-1 saveIcon">{{'DC.Send' | translate }}</button>
                     </div>
                 </div>
             </div>
@@ -120,16 +120,15 @@
     </span>
 </p-dialog>
 
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
     <ng-template pTemplate="header">
-        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Send' | translate }}
         </h6>
     </ng-template>
-    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SendSuccess' |
         translate }}</span>
-    <br />
-    <br />
-    <button class="btn btn-primary pull-center btn-md"
-        style="margin: 0px 5px;background-color: #fe7f83 !important;border-color:#fe7f83" (click)="closeDialogue()"> {{
+        <br />
+        <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
         'DC.Close' | translate }}</button>
 </p-dialog>

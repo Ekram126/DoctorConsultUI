@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CreateRequestVM, GeneratedRequestNumberVM, MainClass, RequestVM, SortAndFilterRequestVM } from '../models/requestVM';
+import { CreateRequestVM, EditRequestVM, GeneratedRequestNumberVM, MainClass, RequestVM, SortAndFilterRequestVM } from '../models/requestVM';
 
 @Injectable({
   providedIn: 'root'
@@ -32,19 +32,13 @@ export class RequestService {
     return this.httpClient.get<RequestVM>(`${environment.getRequestById}${requestId}`, this.httpHeader);
   }
 
- 
-  // updateRequest(editRequestVM: EditRequest): Observable<EditRequest> {
-  //   return this.httpClient.put<EditRequest>(`${environment.UpdateRequest}`, editRequestVM, this.httpHeader);
-  // }
-  // DeleteRequest(id: Number): Observable<any> {
-  //   return this.httpClient.delete<any>(`${environment.DeleteRequest}${id}`, this.httpHeader);
-  // }
+  getUnreadNotificationsCount(userId: String, specialityId: number): Observable<any> {
+    return this.httpClient.get<any>(`${environment.getUnreadNotificationsCount}${userId}/${specialityId}`, this.httpHeader);
+  }
 
 
-  // DeleteRequestDocument(id: Number): Observable<any> {
-  //   return this.httpClient.delete<any>(`${environment.DeleteRequestDocument}${id}`, this.httpHeader);
-  // }
- 
- 
+  updateIsReadRequest(reqObj: EditRequestVM): Observable<any> {
+    return this.httpClient.put<any>(`${environment.updateIsReadRequest}`, reqObj, this.httpHeader);
+  }
 
 }

@@ -9,9 +9,9 @@
             alt="Videos">
         <p>{{'DC.Videos' | translate}}</p>
     </div>
-    <div class="context-item">
+    <div class="context-item"  >
         <img src="../../../../assets/images/consult.jpeg"
-            *ngIf="(!isLoggedIn || (isLoggedIn && isPatient)) && !isAdmin &&  !isSupervisor && !isDoctor" width="50"
+           width="50"
             height="50" (click)="handleRegisterClick(specialityId)" alt="Request">
         <p> {{ isPatient ? ('DC.RequestConsult' | translate) : ('DC.NeedConsult' | translate) }}</p>
     </div>

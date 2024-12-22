@@ -48,7 +48,7 @@ export class DoctorreplyComponent {
     this.currentUser = this.authenticationService.currentUserValue;
   }
   ngOnInit(): void {
-    this.reqObj = { strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, listDocuments: [], userName: '', specialityName: '', specialityNameAr: '', specialityId: 0 }
+    this.reqObj = { isRead: false, statusId: 0, actionDate: new Date(), strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, listDocuments: [], userName: '', specialityName: '', specialityNameAr: '', specialityId: 0 }
     this.createRequestDocument = { id: 0, requestTrackingId: 0, fileName: '', title: '', requestFile: File }
     this.trackObj = { advice: '', createdById: '', respondDate: new Date(), strRespondDate: '', requestId: 0, statusId: 0, assignTo: '' }
 
@@ -61,21 +61,11 @@ export class DoctorreplyComponent {
       this.isDoctor = (['Doctor'].some(r => this.lstRoleNames.includes(r)));
     }
 
-
-
-
-
-
-
-
     if (this.config.data != null) {
       let requestId = this.config.data.reqId;
       this.requestService.getRequestById(requestId).subscribe({
         next: (reqItem) => {
           this.reqObj = reqItem;
-
-
-
           if (this.isSupervisorDoctor) {
             this.userService.listOfRegisteredDoctorsBySpecialityId(this.reqObj.specialityId).subscribe({
               next: (items) => {
@@ -90,75 +80,68 @@ export class DoctorreplyComponent {
         },
       });
     }
-
-
-
-
-    // if (this.isSupervisorDoctor) {
-    //   // this.doctorService.getDoctorsBySpecialityId(this.reqObj.specialityId).subscribe({
-    //   //   next: (doctors) => { this.lstDoctors = doctors; },
-    //   //   error: (e) => { console.log(e); }
-    //   // });
-
-    //   this.userService.listOfRegisteredDoctorsBySpecialityId(this.reqObj.specialityId).subscribe({
-    //     next: (items) => {
-    //       this.lstDoctors = items;
-    //     },
-    //     error: (e) => { }
-    //   });
-    // }
-
   }
 
 
-  addResponse() {
+  addResponse(): any {
 
-    this.trackObj.requestId = this.reqObj.id;
-    this.trackObj.createdById = this.currentUser.id;
-    if (this.trackObj.assignTo == null)
-      this.trackObj.assignTo = this.trackObj.assignTo;
-    else
-      this.trackObj.assignTo = this.currentUser.id;
+    if (this.trackObj.advice == "") {
+      this.errorDisplay = true;
+      this.errorMessage = this.lang == "en" ? "Please write advice" : "من فضلك اكتب نصيحة";
+      return false;
+    }
+    else {
+      this.trackObj.requestId = this.reqObj.id;
+      this.trackObj.createdById = this.currentUser.id;
+      if (this.trackObj.assignTo == null)
+        this.trackObj.assignTo = this.trackObj.assignTo;
+      else
+        this.trackObj.assignTo = this.currentUser.id;
+
+      this.trackObj.statusId = 3;
+
+      this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm:ss");
+      this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
+        next: (trackId) => {
+          this.reqTrackId = trackId;
+
+          this.requestTrackingService.sendEMailToPateint(this.trackObj).subscribe();
 
 
-
-    this.trackObj.statusId = 3;
-    this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
-      next: (trackId) => {
-        this.reqTrackId = trackId;
-
-        this.requestTrackingService.sendEMailToPateint(this.trackObj).subscribe();
-
-
-        if (this.lstCreateRequestDocument.length > 0) {
-          this.lstCreateRequestDocument.forEach((item, index) => {
-            item.requestTrackingId = Number(this.reqTrackId);
-            this.requestDocumentService.createRequestDocuments(item).subscribe(fileObj => {
-              this.uploadService.uploadRequestFiles(item.requestFile, item.fileName).subscribe(
-                (event) => {
-                  this.display = true;
-                  this.isDisabled = true;
-                },
-                (err) => {
-                  if (this.lang == "en") {
-                    this.errorDisplay = true;
-                    this.errorMessage = 'Could not upload the file:' + item[index].fileName;
-                  }
-                  else {
-                    this.errorDisplay = true;
-                    this.errorMessage = 'لا يمكن رفع ملف ' + item[index].fileName;
-                  }
-                });
+          if (this.lstCreateRequestDocument.length > 0) {
+            this.lstCreateRequestDocument.forEach((item, index) => {
+              item.requestTrackingId = Number(this.reqTrackId);
+              this.requestDocumentService.createRequestDocuments(item).subscribe(fileObj => {
+                this.uploadService.uploadRequestFiles(item.requestFile, item.fileName).subscribe(
+                  (event) => {
+                    this.display = true;
+                    this.isDisabled = true;
+                    this.ref.close();
+                  },
+                  (err) => {
+                    if (this.lang == "en") {
+                      this.errorDisplay = true;
+                      this.errorMessage = 'Could not upload the file:' + item[index].fileName;
+                      return false;
+                    }
+                    else {
+                      this.errorDisplay = true;
+                      this.errorMessage = 'لا يمكن رفع ملف ' + item[index].fileName;
+                      return false;
+                    }
+                  });
+              });
             });
-          });
-          this.lstCreateRequestDocument = [];
+            this.lstCreateRequestDocument = [];
+          }
+          else {
+            this.display = true;
+            this.isDisabled = true;
+            this.ref.close();
+          }
         }
-        else {
-          this.display = true;
-          this.isDisabled = true;
-        }
-      }
-    })
+      });
+    }
   }
 
 
@@ -169,17 +152,17 @@ export class DoctorreplyComponent {
     if (files.length === 0) {
       return;
     } else {
-      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpg','image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
-      
+      const validFileTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
+
       for (let i = 0; i < files.length; i++) {
         let fileToUpload = <File>files[i];
-        
+
         // Validate file type
         if (!validFileTypes.includes(fileToUpload.type)) {
           alert(`Invalid file type: ${fileToUpload.name}. Only PDF, DOC, JPEG, JPG, PNG, WEBP, JFIF, GIF and DOCX are allowed.`);
           continue;
         }
-    
+
         const requestDocumentObj = new CreateRequestDocumentVM();
         this.formData.append('file', fileToUpload, fileToUpload.name);
         requestDocumentObj.fileName = fileToUpload.name;
@@ -187,7 +170,7 @@ export class DoctorreplyComponent {
         requestDocumentObj.title = fileToUpload.name.split('.')[0];
         this.lstCreateRequestDocument.push(requestDocumentObj);
       }
-      
+
       this.addMultiFilesToList();
     }
 
@@ -237,7 +220,6 @@ export class DoctorreplyComponent {
   closeDialogue() {
     this.ref.close();
   }
-
   removeFileFromObjectArray(rowIndex) {
 
     if (rowIndex >= 0 && rowIndex < this.lstCreateRequestDocument.length) {
@@ -258,5 +240,8 @@ export class DoctorreplyComponent {
       });
 
     }
+  }
+  close() {
+    this.ref.close();
   }
 }

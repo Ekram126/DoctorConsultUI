@@ -14,6 +14,7 @@ export class ListDoctorVM {
      doctorImg: string;
     isActive: boolean;
     joinDate: string;
+    doctorRole:string;
 }
 
 
@@ -27,7 +28,7 @@ export class CreateDoctorVM {
     joinDate: Date;
     gradDate: Date;
 
-    strdob: string;
+    strDob: string;
     strJoinDate: string;
     strGradDate: string;
 
@@ -60,11 +61,11 @@ export class EditDoctorVM {
     remarks: string;
     address: string;
     addressAr: string;
-   
+
     dob: Date;
     joinDate: Date;
     gradDate:Date;
-    strdob: string;
+    strDob: string;
     strJoinDate: string;
     strGradDate: string;
     doctorImg: string;
@@ -110,9 +111,12 @@ export class SortAndFilterDoctorVM {
     searchObj: SearchDoctorVM;
 }
 export class SortDoctorVM {     sortBy: string;    sortStatus:string;}
-export class SearchDoctorVM { }
+export class SearchDoctorVM { userId:string;  specialityId:number; }
 
 export class DoctorUserRole {
     roleName: String;
     specialityId: number;
+}
+export class GeneratedDoctorCodeVM {
+    code: string;
 }

@@ -13,6 +13,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { ViewdoctorComponent } from './viewdoctor/viewdoctor.component';
 import { DataViewModule } from 'primeng/dataview';
 import { TooltipModule } from 'primeng/tooltip';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { TooltipModule } from 'primeng/tooltip';
     DialogModule,
     CalendarModule,
     DataViewModule,
-    TooltipModule
+    TooltipModule,
+    DropdownModule
   ]
 })
 export class DoctorsModule { }

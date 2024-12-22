@@ -11,6 +11,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { AddsectionComponent } from './addsection/addsection.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AddsectionComponent } from './addsection/addsection.component';
     TranslateModule,
     ConfirmDialogModule,
     DialogModule,
-    AngularEditorModule
+    AngularEditorModule,
+    DropdownModule
   ]
 })
 export class SectionsModule { }

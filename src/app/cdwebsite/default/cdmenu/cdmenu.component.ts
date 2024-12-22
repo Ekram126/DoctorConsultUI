@@ -7,6 +7,9 @@ import { LoggedUser } from 'src/app/shared/models/userVM';
 import { AuthenticationService } from 'src/app/shared/services/guards/authentication.service';
 import { ReloadPageService } from 'src/app/shared/services/reloadpage.service';
 import { CdcreatepatientComponent } from '../cdcreatepatient/cdcreatepatient.component';
+import { RequestService } from 'src/app/shared/services/request.service';
+import { EditRequestVM, ListRequestVM } from 'src/app/shared/models/requestVM';
+import { ViewrequestComponent } from 'src/app/features/requests/viewrequest/viewrequest.component';
 
 @Component({
   selector: 'app-cdmenu',
@@ -28,10 +31,16 @@ export class CdmenuComponent {
   userRole: string = '';
   isLoggedIn: boolean = false;
 
-  constructor(private authenticationService: AuthenticationService,  private reloadService: ReloadPageService,private dialogService: DialogService,private route: Router, public translate: TranslateService, private reloadPageService: ReloadPageService) {
+    unreadNotificationsCount: number=0;
+    lstRequests: ListRequestVM[] = [];
+    editRequestObj :EditRequestVM;
+    showDropdown = false;
+    dropdownPosition = { x: 0, y: 0 };
+    
+  constructor(private requestService: RequestService,private authenticationService: AuthenticationService,  private reloadService: ReloadPageService,private dialogService: DialogService,private route: Router, public translate: TranslateService, private reloadPageService: ReloadPageService) {
 
     this.currentUser = this.authenticationService.currentUserValue;
-
+    this.editRequestObj={id:0, isRead:false}
 
 
     translate.addLangs(['en', 'ar']);
@@ -72,9 +81,6 @@ export class CdmenuComponent {
         else
           this.helloUser = "Hello " + this.currentUser.userName;
       }
-
-
-
     }
 
           
@@ -87,7 +93,18 @@ export class CdmenuComponent {
       this.isAdmin = (['Admin'].some(r => this.lstRoleNames.includes(r)));
       this.isSupervisor = (['SupervisorDoctor'].some(r => this.lstRoleNames.includes(r)));
       this.isDoctor = (['Doctor'].some(r => this.lstRoleNames.includes(r)));
+
+
+      requestService.getUnreadNotificationsCount(this.currentUser.id, this.currentUser.specialityId).subscribe({
+        next: (items) => {
+          this.unreadNotificationsCount = items.count;
+          this.lstRequests = items.results;
+        }
+      });
     }
+
+
+  
   }
 
   handleRegisterClick(){
@@ -128,17 +145,48 @@ export class CdmenuComponent {
     });
   }
 
+    showNotifications(event: MouseEvent): void {
+      this.showDropdown = !this.showDropdown;
+      if (this.showDropdown) {
+        const rect = (event.target as HTMLElement).getBoundingClientRect();
+        this.dropdownPosition = { x: rect.left, y: rect.bottom };
+      }
+    }
+    viewRequest(requestId: number) {
+      this.editRequestObj.id = requestId;
+      this.editRequestObj.isRead = true;
+      this.requestService.updateIsReadRequest(this.editRequestObj).subscribe({
+        next: (reqObj) => {
+  
+        }
+      });
+      const dialogRef2 = this.dialogService.open(ViewrequestComponent, {
+        header: this.lang == "en" ? 'View Ticket' : "بيان السؤال",
+        width: '70%',
+        data: {
+          reqId: requestId
+        },
+        style: {
+          'dir': this.lang == "en" ? 'ltr' : "rtl",
+          "text-align": this.lang == "en" ? 'left' : "right",
+          "direction": this.lang == "en" ? 'ltr' : "rtl",
+          "font-family": "sans-serif",
+          "font-size": 20
+        }
+      });
+      dialogRef2.onClose.subscribe((res) => {
+        this.reloadPageService.reload();
+      });
+   
+  
+    }
   logout() {
     this.authenticationService.logout();
     this.reloadPageService.reload();
   }
-
   login() {
     this.route.navigate(["/adminlog"])
   }
-
-
-
   switchWebLang(lang: string) {
     this.textDir = '';
     if (lang == 'en') {

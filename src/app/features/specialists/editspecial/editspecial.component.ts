@@ -32,7 +32,7 @@ export class EditspecialComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService,private ref: DynamicDialogRef, private uploadService: UploadFilesService,
     private specialistService: SpecialistService,private config: DynamicDialogConfig) {   this.currentUser = this.authenticationService.currentUserValue;}
   ngOnInit(): void { 
-    this.specialObj = { id:0,code: "", name: "", nameAr: "" ,pngIcon:'', isActive:false}
+    this.specialObj = { id:0,code: 0, name: "", nameAr: "" ,pngIcon:'', isActive:false}
 
 
     
@@ -102,9 +102,18 @@ export class EditspecialComponent implements OnInit {
       error: (e) => {
               this.errorDisplay = true;
 
-        if (this.lang == 'en') {
-          if (e.error.status == 'code') {
+        // if (this.lang == 'en') {
+        //   if (e.error.status == 'code') {
+        //     this.errorMessage = e.error.message;
+        //   }
+        // }
+
+        if (e.error.status == 'special') {
+          if (this.lang == 'en') {
             this.errorMessage = e.error.message;
+          }
+          else if (this.lang == 'ar') {
+            this.errorMessage = e.error.messageAr;
           }
         }
         return false;
@@ -112,7 +121,7 @@ export class EditspecialComponent implements OnInit {
       complete: () => console.info('complete')
     });
   }
-  close() {
+  closeDialogue() {
     this.ref.close();
   }
 
@@ -139,4 +148,6 @@ export class EditspecialComponent implements OnInit {
     this.imgVisible = true;
     this.btnHidden = true;
   }
+
+
 }

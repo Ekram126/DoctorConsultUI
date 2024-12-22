@@ -77,9 +77,8 @@ export class AddvideoComponent implements OnInit {
 
   }
 
-  close() {
+  closeDialogue() {
     this.ref.close();
   }
-
 
 }

@@ -20,6 +20,7 @@ import { ViewvideoComponent } from './viewvideo/viewvideo.component';
 import { DataViewModule } from 'primeng/dataview';
 import { SafeUrlPipe } from 'src/app/shared/safeUrlPipe.pipe';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { DropdownModule } from 'primeng/dropdown';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     CheckboxModule,
     MatSnackBarModule,
     DataViewModule ,
-    YouTubePlayerModule
+    YouTubePlayerModule,
+    DropdownModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA]
 })

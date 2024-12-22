@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppMenuitemComponent } from './sidebar/app.menuitem.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { BadgeModule } from 'primeng/badge';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     HttpClientModule,
     LayoutRoutingModule,
-    TranslateModule
+    TranslateModule,
+    BadgeModule
   ],
   exports: [
     NavbarComponent,

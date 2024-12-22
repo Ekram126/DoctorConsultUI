@@ -1,83 +1,90 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3">
+                <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
+                    }}:</label>{{reqObj.requestCode}}
+            </div>
+            <div class="col-3">
+                <label for="complain" class="titlefontbold" [translate]="'DC.Patient'">{{'DC.Patient' |
+                    translate}}:</label>
+                {{reqObj.userName}}
+            </div>
+            <div class="col-3">
+                <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
+                    translate}}:</label>
+                {{reqObj.subject}}
+            </div>
+            <div class="col-3">
+                <label for="special" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Special' |
+                    translate}}:</label>
+                {{lang == 'en' ? reqObj.specialityName : reqObj.specialityNameAr}}
+            </div>
+            <div class="col-4" hidden>
+                <label for="requestDate" [translate]="'DC.Date'">{{'DC.Date' | translate}} </label>
+                {{reqObj.requestDate}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
+                    translate}}:</label>
+            </div>
+        </div>
 
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="field col-3">
-                        <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
-                            }}:</label>{{reqObj.requestCode}}
-                    </div>
-                    <div class="field col-3">
-                        <label for="complain" class="titlefontbold" [translate]="'DC.Patient'">{{'DC.Patient' |
-                            translate}}:</label>
-                        {{reqObj.userName}}
-                    </div>
-                    <div class="field col-3">
-                        <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
-                            translate}}:</label>
-                        {{reqObj.subject}}
-                    </div>
-                    <div class="field col-3">
-                        <label for="special" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Special' |
-                            translate}}:</label>
-                        {{lang == 'en' ? reqObj.specialityName : reqObj.specialityNameAr}}
-                    </div>
 
-
-
-                </div>
-                <div class="row">
-                    <div class="field col-12">
-                        <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
-                            translate}}:</label>
-                    </div>
-                </div>
-
-
-                <div class="row">
-                    <div class="col-12">
-                        {{reqObj.complain}}
-                    </div>
-                </div>
-                <div class="row">
-                    <label for="track" [translate]="'DC.Track'">{{'DC.Track' | translate}}</label>
-                    <p-table [value]="lstTracks" dataKey="id" styleClass="p-datatable-striped">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="text-align: inherit;">{{ 'DC.Advice' | translate }}</th>
-                                <th style="text-align: inherit;">{{ 'DC.Date' | translate }}</th>
-                                <th style="text-align: center;"  >{{'DC.Status' | translate }}</th>
-                                <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.CreatedBy' | translate }}</th>
-                                <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.AssignedTo' | translate }}</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-track>
-                            <tr>
-                                <td class="text-wrap" style="text-align: inherit;">{{track.advice}}</td>
-                                <td style="text-align: inherit;">{{track.responseDate | date:'yyyy-MM-dd'}}</td>
-                                <td style="text-align: center;">  <span [ngStyle]="{'color':track.statusColor}">
+        <div class="row">
+            <div class="col-12">
+                {{reqObj.complain}}
+            </div>
+        </div>
+        <div class="row" *ngIf="(isSupervisor || isAdmin) && (reqObj.statusId < 3)">
+            <div class="field col-2">
+                <button pButton pRipple type="button" (click)="assignRequest(reqObj.id)">{{'DC.Create' |
+                    translate }}<i class="pi pi-user-plus"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <label for="track" [translate]="'DC.Track'">{{'DC.Track' | translate}}</label>
+                <p-table [value]="lstTracks" dataKey="id" styleClass="p-datatable-striped">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="text-align: inherit;">{{ 'DC.Advice' | translate }}</th>
+                            <th style="text-align: inherit;">{{ 'DC.Date' | translate }}</th>
+                            <th style="text-align: center;">{{'DC.Status' | translate }}</th>
+                            <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.CreatedBy' | translate
+                                }}</th>
+                            <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.AssignedTo' |
+                                translate }}</th>
+                            <th style="text-align: center;">{{'DC.Documents' | translate }}</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-track>
+                        <tr>
+                            <td class="text-wrap" style="text-align: inherit;">{{track.advice}}</td>
+                            <td style="text-align: inherit;">{{track.responseDate | date:'yyyy-MM-dd'}}</td>
+                            <td style="text-align: center;"> <span [ngStyle]="{'color':track.statusColor}">
                                     <span><i [ngClass]="track.statusIcon"></i></span>
                                     {{lang=="en" ? track.statusName:track.statusNameAr}}
                                 </span></td>
-                                <td style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{track.createdByName}}</td>
-                                <td style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{track.assignedToUser}}</td>
-                            </tr>
-                        </ng-template>
+                            <td style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{track.createdByName}}</td>
+                            <td style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{track.assignedToUser}}
+                            </td>
+                            <td style="text-align: center;">
 
-                    </p-table>
-                </div>
+                                <a (click)="getDocuments(track.id)" pTooltip="View Files" tooltipPosition="bottom">
+                                    <i class="pi pi-cloud-upload"
+                                        style="color: #107794; cursor: pointer;margin: 0px 5px;"></i></a>
+                            </td>
+                        </tr>
+                    </ng-template>
 
-                <div class="row"  *ngIf="isSupervisor || isAdmin">
-                    <div class="field col-2">
-                        <button pButton pRipple type="button" (click)="assignRequest(reqObj.id)">{{'DC.Create' |
-                            translate }}<i class="pi pi-user-plus"></i></button>
-                    </div>
-                </div>
+                </p-table>
+            </div>
+        </div>
 
-                <div class="col-4" hidden>
-                    <label for="requestDate" [translate]="'DC.Date'">{{'DC.Date' | translate}} </label>
-                    {{reqObj.requestDate}}
-                </div>
-                <div class="field">
+        <!-- <div class="field">
                     <label for="documents" [translate]="'DC.Documents'">{{'DC.Documents' | translate}}</label>
                     <p-table [value]="reqObj.listDocuments" dataKey="id" styleClass="p-datatable-striped">
                         <ng-template pTemplate="header">
@@ -99,7 +106,41 @@
                         </ng-template>
 
                     </p-table>
-                </div>
+                </div> -->
+
+        <div class="row">
+            <div class="col-12" *ngIf="isShowFiles">
+
+                <label for="track" [translate]="'DC.Documents'">{{'DC.Documents' | translate}}</label>
+                <p-table [value]="lstDocuments" dataKey="id" styleClass="p-datatable-striped">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th> {{'DC.Name' | translate }}</th>
+                            <th> {{'DC.Title' | translate }}</th>
+                            <th style="text-align: center;"> {{'DC.Download' | translate }}</th>
+
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-doc>
+                        <tr>
+                            <td> {{doc.fileName}}</td>
+                            <td>{{doc.title}}</td>
+                            <td style="text-align: center;">
+                                <a (click)="downloadFile(doc.fileName)" pTooltip="{{'DC.Download' | translate }}"
+                                    tooltipPosition="bottom">
+                                    <i class="pi pi-download" style="color: #0b7988;"></i></a>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
             </div>
         </div>
- 
+    </div>
+</div>
+
+
+<p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{width: '350px'}">
+    <p-header style="color: rgb(181, 4, 4);"> {{ 'DC.Error' | translate }} </p-header>
+    <span style="color: rgb(181, 4, 4);font-weight: bold;"> {{errorMessage}}</span>
+</p-dialog>

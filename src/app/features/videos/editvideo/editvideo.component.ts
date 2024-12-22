@@ -116,6 +116,8 @@ export class EditvideoComponent {
   }
 
 
-
+  closeDialogue() {
+    this.ref.close();
+  }
 
 }

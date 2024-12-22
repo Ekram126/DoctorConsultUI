@@ -91,7 +91,7 @@
 </p-dialog>
 
 
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
     <ng-template pTemplate="header">
         <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
         </h6>
@@ -99,4 +99,9 @@
     <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
         translate
         }}</span>
+
+        <br />
+        <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+        'DC.Close' | translate }}</button>
 </p-dialog>

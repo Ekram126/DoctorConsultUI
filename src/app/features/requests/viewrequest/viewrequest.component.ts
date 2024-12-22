@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { CreateRequestDocumentVM } from 'src/app/shared/models/requestDocumentVM';
+import { CreateRequestDocumentVM, ListRequestDocumentVM } from 'src/app/shared/models/requestDocumentVM';
 import { RequestVM } from 'src/app/shared/models/requestVM';
 import { LoggedUser } from 'src/app/shared/models/userVM';
 import { AuthenticationService } from 'src/app/shared/services/guards/authentication.service';
@@ -24,27 +24,32 @@ export class ViewrequestComponent implements OnInit {
   currentUser: LoggedUser;
   formData = new FormData();
   reqObj: RequestVM;
-  lstTracks :ListRequestTrackingVM[]=[];
+  lstTracks: ListRequestTrackingVM[] = [];
+  lstDocuments: ListRequestDocumentVM[] = [];
   createRequestDocument: CreateRequestDocumentVM;
   lstCreateRequestDocument: CreateRequestDocumentVM[] = [];
   mainRequestId: number = 0;
 
-  isPatient:boolean= false;
-  isSupervisor:boolean= false;
-  isDoctor:boolean= false;
-  isAdmin:boolean= false;
+  isPatient: boolean = false;
+  isShowFiles: boolean = false;
+  isSupervisor: boolean = false;
+  isDoctor: boolean = false;
+  isAdmin: boolean = false;
   lstRoleNames: string[] = [];
 
-  constructor(private requestService: RequestService, private requestTrackingService: RequestTrackingService,private config: DynamicDialogConfig, private reloadPage: ReloadPageService, public dialogService: DialogService, private authenticationService: AuthenticationService, private uploadService: UploadFilesService) {
+  errorDisplay: boolean = false;
+  errorMessage: string = "";
+
+  constructor(private requestService: RequestService, private requestDocumentService: RequestDocumentService, private requestTrackingService: RequestTrackingService, private config: DynamicDialogConfig, private reloadPage: ReloadPageService, public dialogService: DialogService, private authenticationService: AuthenticationService, private uploadService: UploadFilesService) {
 
     this.currentUser = this.authenticationService.currentUserValue;
   }
   ngOnInit(): void {
 
-    this.reqObj = { strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName:'',specialityNameAr:'',specialityId:0,  listDocuments: [] }
+    this.reqObj = { isRead: false, statusId: 0, actionDate: new Date(), strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName: '', specialityNameAr: '', specialityId: 0, listDocuments: [] }
 
-    
-    
+
+
     if (this.currentUser) {
       this.currentUser["roleNames"].forEach(element => {
         this.lstRoleNames.push(element["name"]);
@@ -54,9 +59,6 @@ export class ViewrequestComponent implements OnInit {
       this.isSupervisor = (['SupervisorDoctor'].some(r => this.lstRoleNames.includes(r)));
       this.isDoctor = (['Doctor'].some(r => this.lstRoleNames.includes(r)));
     }
-
-
-
     if (this.config.data != null) {
       let requestId = this.config.data.reqId;
       this.mainRequestId = requestId;
@@ -64,11 +66,11 @@ export class ViewrequestComponent implements OnInit {
         next: (reqItem) => {
           this.reqObj = reqItem;
 
-          this.requestTrackingService.getRequestTrackByRequestId(  this.reqObj .id).subscribe({
-            next:(elements)=>{
-              this.lstTracks= elements.results;
+          this.requestTrackingService.getRequestTrackByRequestId(this.reqObj.id).subscribe({
+            next: (elements) => {
+              this.lstTracks = elements.results;
             }
-          })
+          });
         },
         error: (err) => {
           console.error("Error fetching data", err);
@@ -81,22 +83,33 @@ export class ViewrequestComponent implements OnInit {
   downloadFile(fileName) {
 
     var filePath = `${environment.Domain}UploadedAttachments/`;
-
-
     this.uploadService.downloadRequestTrackFile(fileName).subscribe(
       file => {
         var dwnldFile = filePath + 'RequestDocuments/' + fileName;
         if (fileName && fileName !== "") {
           window.open(dwnldFile);
         } else {
-          console.error('Filename does not exist or corrupted:', fileName);
+
+          this.errorDisplay = true;
+          this.errorMessage = 'File does not exist or corrupted  ' + fileName;
+
         }
       },
       error => {
-        console.error('Filename does not exist or corrupted:', fileName);
+        this.errorDisplay = true;
+        this.errorMessage = 'File does not exist or corrupted ' + fileName;
       }
     );
   }
+
+  getDocuments(trackid: number) {
+    this.requestDocumentService.GetRequestDocumentsByRequestTrackingId(trackid).subscribe(lstdocs => {
+      this.lstDocuments = lstdocs;
+    });
+
+    this.isShowFiles = true;
+  }
+
 
   assignRequest(requestId: number) {
     const dialogRef2 = this.dialogService.open(AssignrequestComponent, {

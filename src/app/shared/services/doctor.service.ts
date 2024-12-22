@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CreateDoctorVM, DoctorUserRole, EditDoctorVM, ListDoctorVM, MainClass, SortAndFilterDoctorVM, ViewDoctorVM } from '../models/doctorVM';
+import { CreateDoctorVM, DoctorUserRole, EditDoctorVM, GeneratedDoctorCodeVM, ListDoctorVM, MainClass, SortAndFilterDoctorVM, ViewDoctorVM } from '../models/doctorVM';
 import { ListUserVM, LoggedUser } from '../models/userVM';
 
 
@@ -42,7 +42,9 @@ export class DoctorService {
     return this.httpClient.get<EditDoctorVM>(`${environment.getDoctorById}${id}`, this.httpHeader);
   }
 
-
+  GenerateDoctorCode(): Observable<GeneratedDoctorCodeVM> {
+    return this.httpClient.get<GeneratedDoctorCodeVM>(`${environment.generateDoctorCode}`, this.httpHeader);
+  }
   
 
 

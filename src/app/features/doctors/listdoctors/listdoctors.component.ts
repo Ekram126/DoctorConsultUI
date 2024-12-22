@@ -10,6 +10,7 @@ import { LoggedUser } from 'src/app/shared/models/userVM';
 import { EditdoctorComponent } from '../editdoctor/editdoctor.component';
 import { environment } from 'src/environments/environment';
 import { ViewdoctorComponent } from '../viewdoctor/viewdoctor.component';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-listdoctors',
@@ -25,42 +26,64 @@ export class ListdoctorsComponent implements OnInit {
   sortFilterObjects: SortAndFilterDoctorVM;
   count: number = 0;
   loading: boolean = true;
-  isAdmin:boolean= false;
+  isAdmin: boolean = false;
+  isSupervisor: boolean = false;
   lstRoleNames: string[] = [];
   sortStatus: string = "ascending";
   layout: string = 'list';
-  constructor(private authenticationService: AuthenticationService,private doctorService: DoctorService,
-    private reloadService:ReloadPageService,  public dialogService: DialogService) { 
-         this.currentUser = this.authenticationService.currentUserValue;}
+
+  sortOptions!: SelectItem[];
+  sortOrder!: number;
+  sortField!: string;
+
+  constructor(private authenticationService: AuthenticationService, private doctorService: DoctorService,
+    private reloadService: ReloadPageService, public dialogService: DialogService) {
+    this.currentUser = this.authenticationService.currentUserValue;
+  }
 
   ngOnInit() {
     this.sortFilterObjects = {
-      searchObj: {},
-      sortObj: {sortBy:'',sortStatus:''}
+      searchObj: {specialityId:0, userId:''},
+      sortObj: { sortBy: '', sortStatus: '' }
     };
 
     this.page = {
       pagenumber: 1,
       pagesize: 10,
     }
- 
-   if (this.currentUser) {
+
+    if (this.currentUser) {
       this.currentUser["roleNames"].forEach(element => {
         this.lstRoleNames.push(element["name"]);
       });
       this.isAdmin = (['Admin'].some(r => this.lstRoleNames.includes(r)));
+      this.isSupervisor = (['SupervisorDoctor'].some(r => this.lstRoleNames.includes(r)));
     }
 
     this.loadDoctors();
+
+
+    const specialityName = this.lang === 'ar' ? 'specialityNameAr' : 'specialityName';
+    const doctorName = this.lang === 'ar' ? 'nameAr' : 'name';
+
+    this.sortOptions = [
+      { label: 'Speciality Name ASC', value: specialityName },
+      { label: 'Speciality Name DESC', value: `!${specialityName}` },
+      { label: 'Doctor Name ASC', value: doctorName },
+      { label: 'Doctor Name DESC', value: `!${doctorName}` },
+      { label: 'Join Date ASC', value: 'joinDate' },
+      { label: 'Join Date DESC', value: '!joinDate' },
+    ];
   }
 
-  loadDoctors(){
-    
-    this.doctorService.GetDoctors(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-      this.lstDoctors = items.results;
+  loadDoctors() {
 
-      this.lstDoctors.forEach(element => {        
-        if (element.doctorImg == null) {
+    this.sortFilterObjects.searchObj.userId = this.currentUser.id;
+    this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
+    this.doctorService.GetDoctors(this.sortFilterObjects, 0, 0).subscribe(items => {
+      this.lstDoctors = items.results;
+      this.lstDoctors.forEach(element => {
+          if (element.doctorImg == null) {
           element.doctorImg = "../../../../assets/images/unknowndoctor.png";
         }
         else if (element.doctorImg == "") {
@@ -76,7 +99,7 @@ export class ListdoctorsComponent implements OnInit {
   }
 
 
-  
+
 
   addDoctor() {
     const dialogRef2 = this.dialogService.open(AdddoctorComponent, {
@@ -91,8 +114,6 @@ export class ListdoctorsComponent implements OnInit {
       this.reloadService.reload();
     });
   }
-
-
   editDoctor(id: number) {
     const ref = this.dialogService.open(EditdoctorComponent, {
       data: {
@@ -109,9 +130,7 @@ export class ListdoctorsComponent implements OnInit {
       this.reloadService.reload();
     });
   }
-
-  
- viewDoctor(id: number) {
+  viewDoctor(id: number) {
     const ref = this.dialogService.open(ViewdoctorComponent, {
       data: {
         id: id,
@@ -124,37 +143,16 @@ export class ListdoctorsComponent implements OnInit {
       }
     });
   }
+  onSortChange(event: any) {
+    let value = event.value;
 
-  // sort(field) {
-  //   if (this.sortStatus == "descending") {
-  //     this.sortStatus = "ascending";
-  //     this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-  //   }
-  //   else {
-  //     this.sortStatus = "descending";
-  //     this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-  //   }
-
-
-  //   this.sortFilterObjects.sortObj.sortBy = field.currentTarget.id;
-  //   this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-  //   this.doctorService.GetDoctors(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-  //     this.lstDoctors = items.results;
-  //     this.lstDoctors.forEach(element => {        
-  //       if (element.doctorImg == null) {
-  //         element.doctorImg = "../../../../assets/images/unknowndoctor.png";
-  //       }
-  //       else if (element.doctorImg == "") {
-  //         element.doctorImg = "../../../../assets/images/unknowndoctor.png";
-  //       }
-  //       else {
-  //         element.doctorImg = `${environment.Domain}UploadedAttachments/DoctorImages/` + element.doctorImg;
-  //       }
-  //     });
-  //     this.count = items.count;
-  //     this.loading = false;
-  //   });
-
-  // }
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
 
 }

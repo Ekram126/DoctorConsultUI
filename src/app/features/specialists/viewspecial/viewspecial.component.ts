@@ -20,7 +20,7 @@ export class ViewspecialComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,private ref: DynamicDialogRef, private specialistService: SpecialistService,private config: DynamicDialogConfig) {   this.currentUser = this.authenticationService.currentUserValue;}
   ngOnInit(): void { 
-    this.specialObj = { id:0,code: "", name: "", nameAr: "" ,pngIcon:'', isActive:false}
+    this.specialObj = { id:0,code: 0, name: "", nameAr: "" ,pngIcon:'', isActive:false}
 
 
     

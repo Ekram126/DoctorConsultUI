@@ -17,18 +17,28 @@ export class CreateRequestVM {
     specialityId:number;
 }
 
+
+
+export class EditRequestVM {
+    id :number;
+    isRead:boolean;
+}
+
 export class RequestVM {
     id? :number;
     subject: string;
     requestCode: string;
     complain: string;
     requestDate: Date;
+    actionDate:Date;
     strRequestDate: string;
     createdById: string;
     userName:string;  
     specialityId:number;
     specialityName: string;
     specialityNameAr: string;
+    statusId:number;
+    isRead:boolean;
     listDocuments:ListRequestDocumentVM[];
 }
 

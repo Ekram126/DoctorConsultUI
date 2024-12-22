@@ -27,12 +27,14 @@
         "ArabicAddress": "العنوان بالعربي",
         "Upload": "تحميل الملفات",
         "Save": "حفظ",
+        "Send": "ارسال",
         "Search": "بحث",
         "Reset": "إلغاء",
         "Remarks": "ملاحظات",
         "Attachments": "الملفات المرفقة",
         "Select": "اختر",
         "SavedSuccess": "تم حفظ البيانات بنجاح",
+        "SendSuccess": "تم ارسال البيانات بنجاح",
         "Error": "خطأ",
         "DeleteConfirmation": "تأكيد المسح",
         "Download": "تحميل",
@@ -122,6 +124,11 @@
         "IsInAbout": "تحت نبذة عنا",
         "UploadMany": "يمكن رفع ملف أو أكثر",
         "ControlPanel": "لوحة التحكم",
-        "ValidFiles": "لا يمكن رفع ملفات فيديو"
+        "ValidFiles": "لا يمكن رفع ملفات فيديو",
+        "RequestDate": "تاريخ الاستفسار",
+        "RequestAction": "تاريخ آخر رد",
+        "TrackDocuments": "ملفات التتبع",
+        "Verify": "يؤكد",
+        "SupevisorDoctor":"مدير الأطباء"
     }
 }

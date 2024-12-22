@@ -249,7 +249,16 @@ export class AddarticleComponent {
       },
       error: (e) => {
         this.errorDisplay = true;
-        this.errorMessage = e.error.message;
+        
+        if (e.error.status == 'art') {
+          if (this.lang == 'en') {
+            this.errorMessage = e.error.message;
+          }
+          else if (this.lang == 'ar') {
+            this.errorMessage = e.error.messageAr;
+          }
+        }
+        // this.errorMessage = e.error.message;
         return false;
       },
       complete: () => console.info('complete')
@@ -276,7 +285,7 @@ export class AddarticleComponent {
     this.imgVisible = true;
     this.btnHidden = true;
   }
-  close() {
+  closeDialogue() {
     this.ref.close();
   }
 }

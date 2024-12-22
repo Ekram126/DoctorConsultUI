@@ -17,7 +17,7 @@
                         |translate}}</button>
 
                     <mat-nav-list id="app-nav" aria-label="Status" *ngFor="let sts of lstStatuses">
-                        <a mat-list-item class="mat-list-item-test statusbuttonspace" *ngIf=" sts.id==1"
+                       <a mat-list-item class="mat-list-item-test statusbuttonspace" *ngIf="sts.id==1"
                             (click)="getRequestsByStatusId(sts.id)" pBadge [value]="countOpen" mat-stroked-button
                             [ngStyle]="{'color': sts.color}" autofocus>
                             <span mat-line>
@@ -25,15 +25,7 @@
                                 {{lang=="en"?sts.name:sts.nameAr}}
                             </span>
                         </a>
-                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==2"
-                            (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
-                            pBadge [value]="countClosed">
-                            <span mat-line>
-                                <span><i [ngClass]="sts.icon"></i></span>
-                                {{lang=="en"?sts.name:sts.nameAr}}
-                            </span>
-                        </a>
-                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==3"
+                        <a mat-list-item class="statusbuttonspace" *ngIf="sts.id==2"
                             (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
                             pBadge [value]="countInProgress">
                             <span mat-line>
@@ -41,7 +33,7 @@
                                 {{lang=="en"?sts.name:sts.nameAr}}
                             </span>
                         </a>
-                        <a mat-list-item class="statusbuttonspace" *ngIf=" sts.id==4"
+                        <a mat-list-item class="statusbuttonspace" *ngIf="sts.id==3"
                             (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
                             pBadge [value]="countSolved">
                             <span mat-line>
@@ -49,18 +41,40 @@
                                 {{lang=="en"?sts.name:sts.nameAr}}
                             </span>
                         </a>
+                        <a mat-list-item class="statusbuttonspace" *ngIf="sts.id==4"
+                            (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
+                            pBadge [value]="countApproved">
+                            <span mat-line>
+                                <span><i [ngClass]="sts.icon"></i></span>
+                                {{lang=="en"?sts.name:sts.nameAr}}
+                            </span>
+                        </a> 
+                        <a mat-list-item class="statusbuttonspace" *ngIf="sts.id==5"
+                        (click)="getRequestsByStatusId(sts.id)" mat-stroked-button [ngStyle]="{'color': sts.color}"
+                        pBadge [value]="countClosed">
+                        <span mat-line>
+                            <span><i [ngClass]="sts.icon"></i></span>
+                            {{lang=="en"?sts.name:sts.nameAr}}
+                        </span>
+                    </a>
 
                     </mat-nav-list>
                 </div>
             </div>
 
-            <hr />
+            <p-dataView [value]="lstRequests" [rows]="5" [paginator]="true" [sortField]="sortField"
+                [sortOrder]="sortOrder">
+
+
+                <ng-template pTemplate="header">
+                    <div class="flex flex-column md:flex-row md:justify-content-between">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort"
+                            (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
+                    </div>
+                </ng-template>
 
 
 
-
-
-            <p-dataView [value]="lstRequests" [rows]="5" [paginator]="true">
                 <ng-template let-request pTemplate="listItem">
                     <div class="col-12">
                         <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
@@ -88,10 +102,22 @@
                                     <div class="flex align-items-center gap-3">
                                         <span class="flex align-items-center gap-2">
                                             <i class="pi pi-calendar"></i>
+                                            {{'DC.RequestDate' | translate}}
                                             <span class="font-semibold">{{request.requestDate |
                                                 date:'dd-MM-yyyy'}}</span>
                                         </span>
                                     </div>
+
+                                    <div class="flex align-items-center gap-3">
+                                        <span class="flex align-items-center gap-2">
+                                            <i class="pi pi-calendar"></i>
+                                            {{'DC.RequestAction' | translate}}
+                                            <span class="font-semibold">{{request.actionDate |
+                                                date:'dd-MM-yyyy'}}</span>
+                                        </span>
+                                    </div>
+
+
                                     <div class="flex align-items-center gap-3">
                                         <span class="flex align-items-center gap-2">
                                             <span class="font-semibold">{{request.isActive}}</span>
@@ -122,32 +148,31 @@
                                         pTooltip="{{'DC.View' | translate}}" tooltipPosition="top"
                                         style="cursor: pointer;"></i>
 
+                                    <i class="pi pi-pen-to-square editIcon" style="cursor: pointer;"
+                                        *ngIf="request.statusId == 3 && (isSupervisor || isAdmin)"
+                                        (click)="editRequest(request.id)" pTooltip="{{'DC.Edit' | translate}}"
+                                        tooltipPosition="top"></i>
 
-
-                                    <i class="bi bi-pencil-fill editIcon"  style="cursor: pointer;" (click)="editRequest(request.id)"
-                                        pTooltip="{{'DC.Edit' | translate}}" tooltipPosition="top"></i>
-
-
-                                    <i class="pi pi-user " (click)="assignRequest(request.id)"
+                                    <i class="pi pi-user assignIcon"  (click)="assignRequest(request.id)"
                                         pTooltip="{{'DC.Assign' | translate}}" tooltipPosition="top"
-                                        *ngIf="request.statusId < 4 && (isSupervisor || isAdmin)"
-                                        style="color: rgb(3, 15, 143);margin: 0px 10px;cursor: pointer;"></i>
+                                        *ngIf="request.statusId < 3 && (isSupervisor || isAdmin)"
+                                        style="cursor: pointer;"></i>
 
+                                    <!-- *ngIf="request.statusId < 3 && (isDoctor || isSupervisor || isAdmin)" pi-verified-->
+                                    <i class="pi pi-reply replyIcon"  *ngIf="request.statusId < 3 && (isDoctor || isSupervisor || isAdmin)" (click)="doctorReply(request.id)"
+                                        pTooltip="{{'DC.Reply' | translate}}" tooltipPosition="top"
+                                        style="cursor: pointer;"></i>
 
+                                    <i class="pi pi-check verifyIcon"  *ngIf="request.statusId < 4 && (isSupervisor || isAdmin)" pTooltip="{{'DC.Verify' | translate}}"
+                                        tooltipPosition="top" (click)="verifyRequest(request.id)"
+                                        style="cursor: pointer;"></i>
 
-
-                                    <i class="pi pi-verified"
-                                        *ngIf="request.statusId < 4 && (isDoctor || isSupervisor || isAdmin)"
-                                        (click)="doctorReply(request.id)" pTooltip="{{'DC.Reply' | translate}}"
-                                        tooltipPosition="top"
-                                        style="color: rgb(139, 116, 1);margin: 0px 10px;cursor: pointer;"></i>
-
-
-
-                                    <i class="pi pi-stop-circle" *ngIf="request.statusId < 4 && (isAdmin)"
+                                        <i class="pi pi-stop-circle closeIcon" *ngIf="request.statusId < 5 && (isAdmin)"
                                         pTooltip="{{'DC.Close' | translate}}" tooltipPosition="top"
-                                        (click)="closeRequest(request.id)"
-                                        style="color: rgb(169, 6, 131);margin: 0px 10px;cursor: pointer;"></i>
+                                        (click)="closeRequest(request.id)" style="cursor: pointer;"></i>
+
+
+
 
                                 </div>
                             </div>
@@ -158,11 +183,18 @@
         </div>
     </div>
 </div>
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
     <ng-template pTemplate="header">
         <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
         </h6>
     </ng-template>
     <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
         translate }}</span>
+
+    <br />
+    <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+        'DC.Close' | translate }}</button>
 </p-dialog>
+
+<p-confirmDialog [style]="{width: '40vw'}" appendTo="body"></p-confirmDialog>

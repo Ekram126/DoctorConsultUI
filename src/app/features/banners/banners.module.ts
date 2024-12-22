@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BannersRoutingModule } from './banners-routing.module';
 import { DataViewModule } from 'primeng/dataview';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { DataViewModule } from 'primeng/dataview';
   imports: [
     CommonModule,
     BannersRoutingModule,
-    DataViewModule
+    DataViewModule,
+    DropdownModule
   ]
 })
 export class BannersModule { }

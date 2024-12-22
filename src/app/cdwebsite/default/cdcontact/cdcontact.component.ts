@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { CreateContactUsVM } from 'src/app/shared/models/contactUsVM';
 import { PersonalDataVM } from 'src/app/shared/models/personaldataVM';
 import { EditSectionVM } from 'src/app/shared/models/sectionVM';
@@ -22,7 +23,7 @@ export class CdcontactComponent {
   errorDisplay: boolean = false;
   personalObj: PersonalDataVM;
   contactSection: EditSectionVM;
-  constructor(private contactUsService: ContactUsService, private personalDataService: PersonalDataService, private sectionService: SectionService) {
+  constructor(private ref: DynamicDialogRef,private contactUsService: ContactUsService, private personalDataService: PersonalDataService, private sectionService: SectionService) {
     this.contactObj = { message: '', email: '', fullName: '', phone: '' }
 
 
@@ -104,11 +105,9 @@ export class CdcontactComponent {
         });
       }
     }
-
-
-
-
   }
 
-
+  closeDialogue() {
+    this.ref.close();
+  }
 }

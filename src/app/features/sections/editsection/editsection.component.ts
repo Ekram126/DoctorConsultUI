@@ -247,6 +247,8 @@ export class EditsectionComponent {
     this.imgVisible = true;
     this.btnHidden = true;
   }
-
+  closeDialogue() {
+    this.ref.close();
+  }
 
 }

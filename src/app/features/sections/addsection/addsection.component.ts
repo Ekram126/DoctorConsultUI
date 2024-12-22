@@ -191,8 +191,7 @@ export class AddsectionComponent {
     this.imgVisible = true;
     this.btnHidden = true;
   }
-  close() {
+  closeDialogue() {
     this.ref.close();
   }
-
 }

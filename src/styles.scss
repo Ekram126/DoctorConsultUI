@@ -196,7 +196,7 @@ body {
 .editIcon {
   color: #1f74c4;
   cursor: pointer;
-  margin: 0px 5px;
+  margin: 0px 10px;
 }
 
 .viewIcon {
@@ -208,8 +208,33 @@ body {
 .deleteIcon {
   color: #ba3135;
   cursor: pointer;
-  margin: 0px 5px;
+  margin: 0px 10px;
 }
+
+.closeIcon {
+  color: #a90683;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
+.replyIcon {
+  color: #8b7401;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
+.verifyIcon {
+  color: #ba3135;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
+.assignIcon {
+  color: #030f8f;
+  cursor: pointer;
+  margin: 0px 10px;
+}
+
 
 .saveIcon {
   background-color: #93d2ec !important; 
@@ -330,3 +355,35 @@ legend {
 
 }
 
+
+.notification-dropdown {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
+}
+
+.notification-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-dropdown li {
+  padding: 7px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.notification-dropdown li:last-child {
+  border-bottom: none;
+}
+.small-badge .p-badge {
+  font-size: 0.7rem !important;
+  height: 16px !important;
+  width: 14px !important;
+  line-height: 16px !important;
+}

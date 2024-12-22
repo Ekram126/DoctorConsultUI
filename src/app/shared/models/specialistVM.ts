@@ -1,6 +1,6 @@
 export class ListSpecialistVM {
     id: number;
-    code: string;
+    code: number;
     name: string;
     nameAr: string;
     svgIcon: string;
@@ -9,7 +9,7 @@ export class ListSpecialistVM {
 }
 
 export class CreateSpecialistVM {
-    code: string;
+    code: number;
     name: string;
     nameAr: string;
     pngIcon:string;
@@ -18,7 +18,7 @@ export class CreateSpecialistVM {
 
 export class EditSpecialistVM {
     id: number;
-    code: string;
+    code: number;
     name: string;
     nameAr: string;
     pngIcon:string;
@@ -27,7 +27,7 @@ export class EditSpecialistVM {
 
 export class ViewSpecialistVM {
     id: number;
-    code: string;
+    code: number;
     name: string;
     nameAr: string;
     pngIcon:string;
@@ -49,7 +49,7 @@ export class SortAndFilterSpecialistVM {
     searchObj: SearchSpecialistVM;
 }
 export class SortSpecialistVM {
-    code: string;
+    code: number;
     name: string;
     nameAr: string;
     sortBy: string;
@@ -57,7 +57,7 @@ export class SortSpecialistVM {
 }
 export class SearchSpecialistVM {
     id: number;
-    code: string;
+    code: number;
     
     name: string;
     nameAr: string;

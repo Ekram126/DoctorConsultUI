@@ -9,6 +9,7 @@ import { EditsectionComponent } from '../editsection/editsection.component';
 import { SectionService } from 'src/app/shared/services/section.service';
 import { AddsectionComponent } from '../addsection/addsection.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-listsections',
@@ -33,11 +34,10 @@ export class ListsectionsComponent {
   isOpen = false;
 
 
-
-
-
+  sortOptions!: SelectItem[];
   sortOrder!: number;
   sortField!: string;
+
 
   // safeHtml: SafeHtml;
   public safeHtmls: SafeHtml[] = []; 
@@ -56,6 +56,15 @@ export class ListsectionsComponent {
       this.isAdmin = (['Admin'].some(r => this.lstRoleNames.includes(r)));
     }
     this.loadSections();
+
+
+    
+    const titleField = this.lang === 'ar' ? 'titleAr' : 'title';
+
+    this.sortOptions = [
+      { label: 'Title ASC', value: titleField },
+      { label: 'Title DESC', value: `!${titleField}` },
+    ];
   }
 
 
@@ -133,5 +142,16 @@ export class ListsectionsComponent {
   }
 
 
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
 
 }

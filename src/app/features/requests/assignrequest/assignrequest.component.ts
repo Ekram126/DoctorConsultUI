@@ -56,7 +56,7 @@ export class AssignrequestComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.reqObj = { strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName: '', specialityNameAr: '', specialityId: 0, listDocuments: [] }
+    this.reqObj = { isRead:false,  statusId:0,   actionDate: new Date(),strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName: '', specialityNameAr: '', specialityId: 0, listDocuments: [] }
     this.trackObj = { advice: '', createdById: '', respondDate: new Date(), strRespondDate: '', requestId: 0, statusId: 0, assignTo: '' }
 
     if (this.currentUser) {
@@ -80,7 +80,7 @@ export class AssignrequestComponent implements OnInit {
           this.reqObj = reqItem;
           this.specialityId = this.reqObj.specialityId;
           if (this.isAdmin) {
-            this.lstUserRoles = [{ name: "Doctor" }, { name: "SupervisorDoctor" }];
+            this.lstUserRoles = [ { name: "Doctor" },{ name: "SupervisorDoctor" }];
             this.selectedRole = "Doctor";
             this.hidden = true;
             if ( this.selectedRole  == "Doctor") {
@@ -92,11 +92,6 @@ export class AssignrequestComponent implements OnInit {
                 error: (e) => { }
               });
             }
-            //   next: (items) => {
-            //     this.lstUserDoctors = items;
-            //   },
-            //   error: (e) => { }
-            // });
           }
 
           if (this.isSuper) {
@@ -155,7 +150,7 @@ export class AssignrequestComponent implements OnInit {
     this.trackObj.requestId = Number(this.mainRequestId)
     this.trackObj.statusId = 2;
     this.trackObj.assignTo = this.trackObj.assignTo;
-    this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm");
+    this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm:ss");
 
     this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
       next: (trackId) => {

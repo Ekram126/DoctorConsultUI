@@ -146,4 +146,10 @@ export class AddbannerComponent {
     this.btnHidden = true;
   }
 
+
+  
+  closeDialogue() {
+    this.ref.close();
+  }
+
 }

@@ -7,55 +7,50 @@ import { AuthenticationService } from 'src/app/shared/services/guards/authentica
 import { RequestService } from 'src/app/shared/services/request.service';
 import { RequestDocumentService } from 'src/app/shared/services/requestdocument.service';
 import { UploadFilesService } from 'src/app/shared/services/uploadfilesservice';
+import { environment } from 'src/environments/environment';
+import { AssignrequestComponent } from '../assignrequest/assignrequest.component';
 import { ReloadPageService } from 'src/app/shared/services/reloadpage.service';
-import { EditRequestTrackingVM, ListRequestTrackingVM } from 'src/app/shared/models/requestTrackingVM';
+import { CreateRequestTrackingVM, EditRequestTrackingVM, ListRequestTrackingVM } from 'src/app/shared/models/requestTrackingVM';
 import { RequestTrackingService } from 'src/app/shared/services/request-tracking.service';
 import { DatePipe } from '@angular/common';
-import { environment } from 'src/environments/environment';
 @Component({
-  selector: 'app-editrequest',
-  templateUrl: './editrequest.component.html',
-  styleUrls: ['./editrequest.component.scss']
+  selector: 'app-verifyrequest',
+  templateUrl: './verifyrequest.component.html',
+  styleUrls: ['./verifyrequest.component.scss']
 })
-export class EditrequestComponent implements OnInit {
+export class VerifyrequestComponent implements OnInit{
 
   lang = localStorage.getItem("lang");
   currentUser: LoggedUser;
   formData = new FormData();
   reqObj: RequestVM;
-  lstTracks: ListRequestTrackingVM[] = [];
-  lstDocuments: ListRequestDocumentVM[] = [];
+  lstTracks :ListRequestTrackingVM[]=[];
+  trackObj :CreateRequestTrackingVM;
+  lstDocuments:ListRequestDocumentVM[]=[];
   createRequestDocument: CreateRequestDocumentVM;
   lstCreateRequestDocument: CreateRequestDocumentVM[] = [];
-  editRequestTrackObj: EditRequestTrackingVM;
-
   mainRequestId: number = 0;
-  isPatient: boolean = false;
-  isShowFiles: boolean = false;
-  isSupervisor: boolean = false;
-  isDoctor: boolean = false;
-  isAdmin: boolean = false;
+
+  isPatient:boolean= false;
+  isShowFiles:boolean= false;
+  isSupervisor:boolean= false;
+  isDoctor:boolean= false;
+  isAdmin:boolean= false;
   display: boolean = false;
-
-  displayRequestObj: boolean = false;
-  lstRoleNames: string[] = [];
-
   errorDisplay: boolean = false;
   errorMessage: string = "";
+  lstRoleNames: string[] = [];
 
-  constructor(private requestService: RequestService, private requestDocumentService: RequestDocumentService, private datePipe: DatePipe,
-    private ref: DynamicDialogRef,
-    private requestTrackingService: RequestTrackingService, private config: DynamicDialogConfig, private reloadPage: ReloadPageService, 
-    public dialogService: DialogService, private authenticationService: AuthenticationService, private uploadService: UploadFilesService) {
+
+  constructor( private ref: DynamicDialogRef,private datePipe:DatePipe,private requestService: RequestService,private requestDocumentService: RequestDocumentService,private requestTrackingService: RequestTrackingService,private config: DynamicDialogConfig, private reloadPage: ReloadPageService, public dialogService: DialogService, private authenticationService: AuthenticationService, private uploadService: UploadFilesService) {
 
     this.currentUser = this.authenticationService.currentUserValue;
   }
   ngOnInit(): void {
 
-    this.reqObj = {isRead:false,  statusId: 0, actionDate: new Date(), strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName: '', specialityNameAr: '', specialityId: 0, listDocuments: [] }
-    this.editRequestTrackObj = { advice: '', id: 0, responseDate: new Date, strResponseDate: '' }
-
-
+    this.reqObj = { isRead:false, statusId:0, actionDate: new Date(), strRequestDate: '', createdById: "", requestCode: '', subject: '', complain: '', requestDate: new Date(), id: 0, userName: '', specialityName:'',specialityNameAr:'',specialityId:0,  listDocuments: [] }
+    this.trackObj={id:0,assignTo:'',createdById:'',requestId:0,respondDate:new Date,statusId:0,strRespondDate:'',advice:''}
+    
     if (this.currentUser) {
       this.currentUser["roleNames"].forEach(element => {
         this.lstRoleNames.push(element["name"]);
@@ -72,9 +67,9 @@ export class EditrequestComponent implements OnInit {
         next: (reqItem) => {
           this.reqObj = reqItem;
 
-          this.requestTrackingService.getRequestTrackByRequestId(this.reqObj.id).subscribe({
-            next: (elements) => {
-              this.lstTracks = elements.results;
+          this.requestTrackingService.getRequestTrackByRequestId(  this.reqObj .id).subscribe({
+            next:(elements)=>{
+              this.lstTracks= elements.results;
             }
           })
         },
@@ -86,25 +81,7 @@ export class EditrequestComponent implements OnInit {
     }
   }
 
-  editRequestTrack(trackId: number) {
-    this.displayRequestObj = true;
-    this.requestTrackingService.getRequestTrackById(trackId).subscribe({
-      next: (element) => {
-        this.editRequestTrackObj = element;
-      }
-    })
-  }
-  editRequest() {
-    this.editRequestTrackObj.strResponseDate = this.datePipe.transform(new Date(), "yyyy-MM-dd HH:mm:ss");
-    this.requestTrackingService.updateRequestTrack(this.editRequestTrackObj).subscribe({
-      next: (item) => {
-        this.display= true;
-      }
-    });
-  }
-
   downloadFile(fileName) {
-
     var filePath = `${environment.Domain}UploadedAttachments/`;
     this.uploadService.downloadRequestTrackFile(fileName).subscribe(
       file => {
@@ -112,15 +89,13 @@ export class EditrequestComponent implements OnInit {
         if (fileName && fileName !== "") {
           window.open(dwnldFile);
         } else {
-
           this.errorDisplay = true;
-          this.errorMessage = 'File does not exist or corrupted  ' + fileName;
-
+          this.errorMessage ='File does not exist or corrupted  '+ fileName;
         }
       },
       error => {
         this.errorDisplay = true;
-        this.errorMessage = 'File does not exist or corrupted ' + fileName;
+        this.errorMessage ='File does not exist or corrupted '+ fileName;
       }
     );
   }
@@ -132,9 +107,20 @@ export class EditrequestComponent implements OnInit {
     this.isShowFiles = true;
   }
 
-
+  approveRequest(){
+    this.trackObj.requestId = this.reqObj.id;
+    this.trackObj.statusId=4;
+    this.trackObj.createdById= this.currentUser.id;
+    this.trackObj.advice="Request is approved";
+    this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm");
+    this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
+      next:(item)=>{
+        this.display = true;
+      }
+    });
+  }
+  
   closeDialogue() {
     this.ref.close();
   }
-
 }

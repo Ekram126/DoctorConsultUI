@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { TableModule } from 'primeng/table';
@@ -14,12 +14,18 @@ import { AssignrequestComponent } from './assignrequest/assignrequest.component'
 import { ViewrequestComponent } from './viewrequest/viewrequest.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DoctorreplyComponent } from './doctorreply/doctorreply.component';
-import { MatListModule } from '@angular/material/list';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { BadgeModule } from 'primeng/badge';
 import { DataViewModule } from 'primeng/dataview';
 import { TooltipModule } from 'primeng/tooltip';
+import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { VerifyrequestComponent } from './verifyrequest/verifyrequest.component';
+
 
 @NgModule({
   declarations: [
@@ -28,7 +34,8 @@ import { TooltipModule } from 'primeng/tooltip';
     EditrequestComponent,
     AssignrequestComponent,
     ViewrequestComponent,
-    DoctorreplyComponent
+    DoctorreplyComponent,
+    VerifyrequestComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +53,13 @@ import { TooltipModule } from 'primeng/tooltip';
      MatButtonModule,
      BadgeModule,
      DataViewModule,
-     TooltipModule
-  ]
+     TooltipModule,
+     DropdownModule,
+     DynamicDialogModule,
+     ConfirmDialogModule,
+     
+  ],
+  providers: [DynamicDialogRef,ConfirmationService],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class RequestsModule { }

@@ -1,69 +1,75 @@
-
-
 <div class="container-fluid">
-	<div class="col-12 bktitles d-flex justify-content-between align-items-center">
-	  {{ 'DC.Doctors' | translate }}
-	  <div class="float-end">
-		<button class="btn btn-outline-info btn-sm" (click)="addDoctor()">{{ 'DC.Create' | translate }}</button>
-	  </div>
+
+	<div class="row">
+		<div class="col bktitles">
+			{{ 'DC.Doctors' | translate }}
+		</div>
+		<div class="col d-flex justify-content-end gap-3" *ngIf="isAdmin || isSupervisor">
+			<button class="btn btn-outline-info btn-sm" (click)="addDoctor()">{{ 'DC.Create' | translate }}</button>
+		</div>
 	</div>
-  
-	  <div class="row">
+	<div class="row">
 		<div class="card">
 
 
 
-		<p-dataView [value]="lstDoctors" [rows]="5" [paginator]="true" >
-			<ng-template let-doctor pTemplate="listItem">
-			  <div class="col-12">
-				<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-				  <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
-					[src]="doctor.doctorImg" [alt]="doctor.doctorImg" />
-				  <div class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-					<div class="flex flex-column align-items-center sm:align-items-start gap-3">
-					  <div class="text-xl font-bold text-900 arttitle">{{lang === 'en' ? doctor.name : doctor.nameAr}}</div>
-					  <div class="flex align-items-center gap-3">
-						<span class="flex align-items-center gap-2">
-						  <i class="pi pi-fw pi-list"></i>
-						  <span class="font-semibold text-info">{{lang === 'en' ? doctor.specialityName : doctor.specialityNameAr}}</span>
-						</span>
-					  </div>
-
-					    <div class="flex align-items-center gap-3">
-						<span class="flex align-items-center gap-2">
-						  <i class="pi pi-calendar"></i>
-						  <span class="font-semibold">{{doctor.joinDate | date:'dd-MM-yyyy'}}</span>
-						</span>
-					  </div>
-					  <div class="flex align-items-center gap-3">
-						<span class="flex align-items-center gap-2">
-							<span class="font-semibold">{{doctor.isActive}}</span>
-						  </span>
-					  </div>
+			<p-dataView [value]="lstDoctors" [rows]="5" [paginator]="true" [sortField]="sortField"
+				[sortOrder]="sortOrder">
+				<ng-template pTemplate="header">
+					<div class="flex flex-column md:flex-row md:justify-content-between">
+						<p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort"
+							(onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
 					</div>
-					<div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
-						<span (click)="viewDoctor(doctor.id)" pTooltip="{{'DC.View' | translate}}"
-						tooltipPosition="top">
-						<i class="bi bi-eye-fill viewIcon"></i>
-					</span> 
-					 <span (click)="editDoctor(doctor.id)" pTooltip="{{'DC.Edit' | translate}}"
-						tooltipPosition="top">
-						<i class="bi bi-pencil-fill editIcon" ></i>
-					</span>
+				</ng-template>
+				<ng-template let-doctor pTemplate="listItem">
+					<div class="col-12">
+						<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+							<img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round"
+								[src]="doctor.doctorImg" [alt]="doctor.doctorImg" />
+							<div
+								class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+								<div class="flex flex-column align-items-center sm:align-items-start gap-3">
+									<div class="text-xl font-bold text-900 arttitle"> {{doctor.doctorRole}} {{lang === 'en' ? doctor.name :
+										doctor.nameAr}}</div>
+									<div class="flex align-items-center gap-3">
+										<span class="flex align-items-center gap-2">
+											<i class="pi pi-fw pi-list"></i>
+											<span class="font-semibold text-info">{{lang === 'en' ?
+												doctor.specialityName : doctor.specialityNameAr}}</span>
+										</span>
+									</div>
+
+									<div class="flex align-items-center gap-3">
+										<span class="flex align-items-center gap-2">
+											<i class="pi pi-calendar"></i>
+											<span class="font-semibold">{{doctor.joinDate | date:'dd-MM-yyyy'}}</span>
+										</span>
+									</div>
+									<div class="flex align-items-center gap-3">
+										<span class="flex align-items-center gap-2">
+											<span class="font-semibold">{{doctor.isActive}}</span>
+										</span>
+									</div>
+								</div>
+								<div class="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+									<span (click)="viewDoctor(doctor.id)" pTooltip="{{'DC.View' | translate}}"
+										tooltipPosition="top">
+										<i class="bi bi-eye-fill viewIcon"></i>
+									</span>
+									<span (click)="editDoctor(doctor.id)" pTooltip="{{'DC.Edit' | translate}}"
+										tooltipPosition="top">
+										<i class="bi bi-pencil-fill editIcon"></i>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
-				  </div>
-				</div>
-			  </div>
-			</ng-template>
-		  </p-dataView>
+				</ng-template>
+			</p-dataView>
 
 
-	
-		
-		  </div>
-	  </div>
-	
-  </div>
 
- 
-  
+
+		</div>
+	</div>
+</div>

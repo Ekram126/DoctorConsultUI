@@ -74,7 +74,7 @@
 
 
 
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
 	<ng-template pTemplate="header">
 		<h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
 		</h6>
@@ -84,9 +84,10 @@
 		}}</span>
 
 
-	<br />
-	<button type="button" pButton icon="pi pi-times" class="p-button-danger" (click)="closeDialogue()"> {{ 'DC.Close' |
-		translate }}</button>
+		<br />
+		<button class="btn btn-primary pull-center btn-md"
+		style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+		'DC.Close' | translate }}</button>
 
 </p-dialog>
 

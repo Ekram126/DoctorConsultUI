@@ -62,6 +62,8 @@ export const environment = {
   checkDoctorRole: 'http://localhost:40378/api/Doctor/CheckDoctorRole',
   GetDoctorsBySpecialityId: 'http://localhost:40378/api/Doctor/GetDoctorsBySpecialityId/',
   updateDoctorImageAfterInsert: "http://localhost:40378/api/Doctor/UpdateDoctorImageAfterInsert",
+  generateDoctorCode: "http://localhost:40378/api/Doctor/GenerateDoctorCode",
+  
 
   listBanners: 'http://localhost:40378/api/Banner/ListBanners/',
   listAllBanners: 'http://localhost:40378/api/Banner/ListAllBanners',
@@ -87,17 +89,20 @@ export const environment = {
 
   listRequests: 'http://localhost:40378/api/Request/ListRequests/',
   addRequest: 'http://localhost:40378/api/Request/AddRequest',
-  editRequest: '',
+  editRequest: 'http://localhost:40378/api/Request/UpdateRequest',
+  updateIsReadRequest: 'http://localhost:40378/api/Request/UpdateIsReadRequest',
   deleteRequest: '',
   getRequestById: 'http://localhost:40378/api/Request/GetRequestById/',  
   generateRequestNumber: 'http://localhost:40378/api/Request/GenerateRequestNumber',
+  getUnreadNotificationsCount: 'http://localhost:40378/api/Request/GetUnreadNotificationsCount/',
   addRequestTracking: 'http://localhost:40378/api/RequestTracking/AddRequestTracking',
+  updateRequestTracking: 'http://localhost:40378/api/RequestTracking/UpdateRequestTracking',
   createRequestDocuments: 'http://localhost:40378/api/RequestDocument/CreateRequestDocuments',
+  getRequestDocumentsByRequestTrackingId: 'http://localhost:40378/api/RequestDocument/GetRequestDocumentsByRequestTrackingId/',
   downloadRequestFiles: 'http://localhost:40378/api/RequestDocument/DownloadRequestFiles/',
-  getAllTrackingsByRequestId: 'http://localhost:40378/api/RequestTracking/GetAllTrackingsByRequestId/',
-
+  getAllTrackingsByRequestId: 'http://localhost:40378/api/RequestTracking/GetAllTrackingsByRequestId/',  
+  getRequestTrackingById: 'http://localhost:40378/api/RequestTracking/getRequestTrackingById/',
   sendMailToPatient: 'http://localhost:40378/api/RequestTracking/sendMailToPatient',
-
   getRequestStatusByUserId: 'http://localhost:40378/api/RequestStatus/GetRequestStatusByUserId/',
   getRequestStatusByUserIdAndSpecialityId: 'http://localhost:40378/api/RequestStatus/GetRequestStatusByUserIdAndSpecialityId/',
 

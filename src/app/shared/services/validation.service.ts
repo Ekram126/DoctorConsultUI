@@ -36,32 +36,47 @@ export class ValidationService {
     }
     static validateName(name: string, lang: string): { isValid: boolean; errorMessage?: string } {
         if (!name) {
-
             return { isValid: false, errorMessage: lang == "en" ? 'Name is required' : 'لابد من كتابة الاسم' }; // Return an error for empty strings
         }
-        const nameRegex = /^[a-zA-Z0-9\s]+$/; // Adjust regex as needed for name validation
-        const valid = nameRegex.test(name);
 
-        return {
-            isValid: valid,
-            errorMessage: valid ? undefined : lang == "en" ? 'Invalid name format' : "الاسم غير صحيح"
-        };
+        return { isValid: true };
+
+        // const nameRegex = /^[a-zA-Z0-9\s]+$/; // Adjust regex as needed for name validation
+        // const valid = nameRegex.test(name);
+
+        // return {
+        //     isValid: valid,
+        //     errorMessage: valid ? undefined : lang == "en" ? 'Invalid name format' : "الاسم غير صحيح"
+        // };
     }
+    // static validateUserName(username: string, lang: string): { isValid: boolean; errorMessage?: string } {
+    //     if (!username) {
+    //         return { isValid: false, errorMessage: lang === 'en' ? 'Username is required' : 'لابد من كتابة اسم المستخدم' }; // Return an error for empty strings
+    //     }
+
+    //     // Remove spaces from the username
+    //     username = username.replace(/\s/g, '');
+
+    //     const nameRegex = /^[a-zA-Z0-9]+$/; // Adjust regex as needed for name validation without spaces
+    //     const valid = nameRegex.test(username);
+
+    //     return {
+    //         isValid: valid,
+    //         errorMessage: valid ? undefined : lang === 'en' ? 'Invalid username format (spaces not allowed)' : 'الاسم غير صحيح (لا يسمح بالمسافات)'
+    //     };
+    // }
+
     static validateUserName(username: string, lang: string): { isValid: boolean; errorMessage?: string } {
-        if (!username) {
-            return { isValid: false, errorMessage: lang === 'en' ? 'Username is required' : 'لابد من كتابة اسم المستخدم' }; // Return an error for empty strings
+        // Check if the username is empty
+        if (!username || username.trim() === '') {
+            return {
+                isValid: false,
+                errorMessage: lang === 'en' ? 'Username is required' : 'لابد من كتابة اسم المستخدم'
+            };
         }
-
-        // Remove spaces from the username
-        username = username.replace(/\s/g, '');
-
-        const nameRegex = /^[a-zA-Z0-9]+$/; // Adjust regex as needed for name validation without spaces
-        const valid = nameRegex.test(username);
-
-        return {
-            isValid: valid,
-            errorMessage: valid ? undefined : lang === 'en' ? 'Invalid username format (spaces not allowed)' : 'الاسم غير صحيح (لا يسمح بالمسافات)'
-        };
+    
+        // If username is non-empty, it's valid
+        return { isValid: true };
     }
     static validatePassword(password: string, lang: string): { isValid: boolean; errorMessage?: string } {
         if (!password) {

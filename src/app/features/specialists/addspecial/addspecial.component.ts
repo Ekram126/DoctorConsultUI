@@ -17,7 +17,7 @@ export class AddspecialComponent implements OnInit {
   display: boolean = false;
   specialObj: CreateSpecialistVM;
 
-  
+
   imagePath: any = "";
   upfile: ElementRef;
   file: File;
@@ -26,39 +26,39 @@ export class AddspecialComponent implements OnInit {
   fileToUpload: File;
   imageUrl: string = "";
 
-  
+
   constructor(private ref: DynamicDialogRef, private specialistService: SpecialistService, private uploadService: UploadFilesService) { }
-  ngOnInit(): void { 
-    this.specialObj = { code: "", name: "", nameAr: "",pngIcon:'',isActive:false }
+  ngOnInit(): void {
+    this.specialObj = { code: 0, name: "", nameAr: "", pngIcon: '', isActive: false }
 
 
     this.specialistService.GenerateSpecialityNumber().subscribe(num => {
       this.specialObj.code = num.sprcialityCode;
     });
 
-}
+  }
 
-onFileSelected(event: Event, fileInput: HTMLInputElement) {
-  const files = (event.target as HTMLInputElement).files;
-  const allowedTypes = ['image/jpg','image/gif','image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
-  if (files && files.length > 0)
-    this.file = files[0];
+  onFileSelected(event: Event, fileInput: HTMLInputElement) {
+    const files = (event.target as HTMLInputElement).files;
+    const allowedTypes = ['image/jpg', 'image/gif', 'image/jpeg', 'image/png', 'image/webp', 'image/jfif'];
+    if (files && files.length > 0)
+      this.file = files[0];
 
-  if (this.file && allowedTypes.includes(this.file.type)) {
-    var reader = new FileReader();
-    reader.readAsDataURL(this.file);
-    reader.onload = (_event) => {
-      this.imagePath = reader.result;
-      this.imgVisible = false;
-      this.btnHidden = false;
+    if (this.file && allowedTypes.includes(this.file.type)) {
+      var reader = new FileReader();
+      reader.readAsDataURL(this.file);
+      reader.onload = (_event) => {
+        this.imagePath = reader.result;
+        this.imgVisible = false;
+        this.btnHidden = false;
+      }
     }
   }
-}
-resetFile() {
-  this.upfile.nativeElement.value = "";
-  this.imgVisible = true;
-  this.btnHidden = true;
-}
+  resetFile() {
+    this.upfile.nativeElement.value = "";
+    this.imgVisible = true;
+    this.btnHidden = true;
+  }
   onSubmit() {
 
     if (this.file) {
@@ -68,29 +68,33 @@ resetFile() {
 
 
     this.specialistService.CreateSpecialist(this.specialObj).subscribe({
-      next: (v) => { 
+      next: (v) => {
         if (this.file) {
-           this.uploadService.uploadSpecialityImage(this.file, this.file.name).subscribe(
-              (event) => {
-                this.display = true;
-                this.ref.close();
-              },
-              (e) => {
-                this.errorDisplay = true;
-                if (e.error.status == 'img') {
-                  if (this.lang == 'en') {
-                    this.errorMessage = e.error.message;
-                  }
-                  else if (this.lang == 'ar') {
-                    this.errorMessage = e.error.messageAr;
-                  }
+          this.uploadService.uploadSpecialityImage(this.file, this.file.name).subscribe(
+            (event) => {
+              this.display = true;
+              this.ref.close();
+            },
+            (e) => {
+              this.errorDisplay = true;
+              if (e.error.status == 'img') {
+                if (this.lang == 'en') {
+                  this.errorMessage = e.error.message;
                 }
-                else {
-                  this.errorMessage = 'Could not upload the file:' + this.file.name;
+                else if (this.lang == 'ar') {
+                  this.errorMessage = e.error.messageAr;
                 }
-                return false;
-              });
-       
+              }
+
+           
+
+
+              else {
+                this.errorMessage = 'Could not upload the file:' + this.file.name;
+              }
+              return false;
+            });
+
         }
         else {
           this.display = true;
@@ -98,11 +102,20 @@ resetFile() {
         }
       },
       error: (e) => {
-              this.errorDisplay = true;
+        this.errorDisplay = true;
 
-        if (this.lang == 'en') {
-          if (e.error.status == 'code') {
+        // if (this.lang == 'en') {
+        //   if (e.error.status == 'code') {
+        //     this.errorMessage = e.error.message;
+        //   }
+        // }
+
+        if (e.error.status == 'special') {
+          if (this.lang == 'en') {
             this.errorMessage = e.error.message;
+          }
+          else if (this.lang == 'ar') {
+            this.errorMessage = e.error.messageAr;
           }
         }
         return false;
@@ -110,7 +123,7 @@ resetFile() {
       complete: () => console.info('complete')
     });
   }
-  close() {
+  closeDialogue() {
     this.ref.close();
   }
 

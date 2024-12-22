@@ -27,6 +27,25 @@
         <li class="nav-item px-3"><a class="nav-link" [routerLink]="'/contactus'"> {{'DC.ContactUs' | translate}}</a></li>
       </ul>
 
+
+
+      <div style="margin-top: 15px;">
+        <i class="pi pi-bell text-2xl small-badge" pBadge [value]="unreadNotificationsCount"
+            (click)="showNotifications($event)"></i>
+        <div class="notification-dropdown" *ngIf="showDropdown"
+            [ngStyle]="{'top.px': dropdownPosition.y, 'left.px': dropdownPosition.x}">
+            <ul>
+                <li *ngFor="let request of lstRequests">
+                    {{request.requestCode}}-{{ request.subject }}
+
+                    <i class="pi pi-eye viewIcon" (click)="viewRequest(request.id)"></i>
+
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
       <a class="btn btn-sm order-2 order-lg-0 ms-lg-4 me-3">{{helloUser}}</a>
       <button class="p-link layout-topbar-button  me-3" *ngIf="currentUser != null" (click)="logout()">
         <i class="pi pi-power-off"></i>

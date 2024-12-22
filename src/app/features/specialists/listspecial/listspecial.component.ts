@@ -46,8 +46,8 @@ export class ListspecialComponent implements OnInit {
       pagesize: 10,
     }
     this.sortFilterObjects = {
-      searchObj: { id:0, code: '', name: '', nameAr: '' },
-      sortObj: { code: '', name: '', nameAr: '', sortBy: '', sortStatus: '' }
+      searchObj: { id:0, code: 0, name: '', nameAr: '' },
+      sortObj: { code: 0, name: '', nameAr: '', sortBy: '', sortStatus: '' }
     };
   }
 

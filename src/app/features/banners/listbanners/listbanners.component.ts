@@ -9,6 +9,7 @@ import { ReloadPageService } from 'src/app/shared/services/reloadpage.service';
 import { Paging } from 'src/app/shared/models/paging';
 import { LoggedUser } from 'src/app/shared/models/userVM';
 import { BannerService } from 'src/app/shared/services/banner.service';
+import { SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-listbanners',
@@ -27,6 +28,12 @@ export class ListbannersComponent {
   isAdmin:boolean= false;
   lstRoleNames: string[] = [];
   sortStatus: string = "ascending";
+
+  
+  sortOptions!: SelectItem[];
+  sortOrder!: number;
+  sortField!: string;
+  
   constructor(private authenticationService: AuthenticationService,private bannerService: BannerService,
     private reloadService:ReloadPageService,  public dialogService: DialogService) { 
          this.currentUser = this.authenticationService.currentUserValue;}
@@ -50,7 +57,7 @@ export class ListbannersComponent {
     }
 
 
-    this.bannerService.GetBanners(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
+    this.bannerService.GetBanners(this.sortFilterObjects, 0, 0).subscribe(items => {
       this.lstBanners = items.results;
       this.lstBanners.forEach(element => {        
         if (element.bannerImg == null) {
@@ -66,6 +73,17 @@ export class ListbannersComponent {
       this.count = items.count;
       this.loading = false;
     });
+
+
+    const nameField = this.lang === 'ar' ? 'nameAr' : 'name';
+
+    this.sortOptions = [
+      //  { label: this.translate.instant('SORT.NAME_DESC'), value: '!name' },
+      { label: 'Banner Date Desc', value: '!bannerDate' },
+      { label: 'Banner Date Asc', value: 'bannerDate' },
+      { label: 'Name ASC', value: nameField },
+      { label: 'Name DESC', value: `!${nameField}` },
+    ];
   }
 
 
@@ -105,37 +123,16 @@ export class ListbannersComponent {
 
 
 
-  sort(field) {
-    if (this.sortStatus == "descending") {
-      this.sortStatus = "ascending";
-      this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
     }
-    else {
-      this.sortStatus = "descending";
-      this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-    }
-
-
-    this.sortFilterObjects.sortObj.sortBy = field.currentTarget.id;
-    this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-    this.bannerService.GetBanners(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-      this.lstBanners = items.results;
-      this.lstBanners.forEach(element => {        
-        if (element.bannerImg == null) {
-          element.bannerImg = "../../../../assets/images/unknownBanner.png";
-        }
-        else if (element.bannerImg == "") {
-          element.bannerImg = "../../../../assets/images/unknownBanner.png";
-        }
-        else {
-          element.bannerImg = `${environment.Domain}UploadedAttachments/BannerImages/` + element.bannerImg;
-        }
-      });
-      this.count = items.count;
-      this.loading = false;
-    });
-
   }
-
 
 }

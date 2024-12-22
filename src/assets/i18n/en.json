@@ -27,12 +27,14 @@
     "ArabicAddress": "Adress in Arabic",
     "Upload": "Upload",
     "Save": "Save",
+    "Send": "Send",
     "Search": "Search",
     "Reset": "Reset",
     "Remarks": "Remarks",
     "Attachments": "Attachments",
     "Select": "Select",
     "SavedSuccess": "Data is saved successfully",
+    "SendSuccess": "Data is send successfully",
     "Error": "Error",
     "DeleteConfirmation": "Delete Confirmation",
     "Download": "Download",
@@ -124,6 +126,11 @@
     "IsInAbout": "Is under about",
     "UploadMany": "Add More than 1 file",
     "ControlPanel": "Control Panel",
-    "ValidFiles": "Can't upload video files"
+    "ValidFiles": "Can't upload video files",
+    "RequestDate": "Request Date",
+    "RequestAction": "Last Action",
+    "TrackDocuments": "Track Documents",
+    "Verify": "Verify",
+    "SupevisorDoctor": "Supevisor Doctor"
   }
 }

@@ -80,34 +80,33 @@
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-md-4 col-sm-12">
                                     <input #fileInput type="file" class="file-input" (change)="onFileSelected($event,fileInput)" accept=".jpeg,.jpg,.png,.webp,.jfif,.gif">
-                            </div>
-
-                            <div class="col-lg-6">
                                 <button type="button" class="form-control" (click)="resetFile()" [hidden]="btnHidden">
                                     <h5> {{ 'DC.Reset' | translate }}</h5>
                                 </button>
                             </div>
+                            <div class="col-md-4 col-sm-12" >
+                                <img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
+                            </div>
+        
+                            <div class="col-md-4 col-sm-12" >
+                                <img src="{{imgURL}}" width="80" height="80"  />
+                            </div>
                         </div>
                     </div>
-                    <div class="col-6" >
-                        <img src="{{imagePath}}" width="80" height="80" [hidden]="imgVisible" />
-                    </div>
-
-                    <div class="col-6" >
-                        <img src="{{imgURL}}" width="80" height="80"  />
-                    </div>
+                  
                 </div>
+
+               
                 <div class="row">
                     <div class="col-12">
-                        <button class="btn"  style="background-color: #aed6e7; color:navy" value="save" type="submit">
-                        {{ 'DC.Save' | translate }}
-                    </button>
+                        <button class="btn saveIcon py-1"   value="save" type="submit">
+                            {{ 'DC.Save' | translate }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -123,7 +122,7 @@
 </p-dialog>
 
 
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
     <ng-template pTemplate="header">
         <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
         </h6>
@@ -131,4 +130,9 @@
     <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
         translate
         }}</span>
+
+        <br />
+        <button class="btn btn-primary pull-center btn-md"
+        style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+        'DC.Close' | translate }}</button>
 </p-dialog>

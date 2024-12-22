@@ -19,7 +19,7 @@ export class CreatePatientVM {
     nameAr: string;
     nationalId: string;
     dob: Date;
-    strdob: string; 
+    strDob: string; 
     mobile: string;
     email: string;
     address: string;

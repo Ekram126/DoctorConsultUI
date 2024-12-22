@@ -23,10 +23,6 @@ export const environment = {
 
 
 
-
-
-
-
   listAllArticles: 'http://doctormasry-001-site1.dtempurl.com/api/Article/ListAllArticles',
   listArticles: 'http://doctormasry-001-site1.dtempurl.com/api/Article/ListArticles/',
   listActivatedArticles: 'http://doctormasry-001-site1.dtempurl.com/api/Article/GetActivatedArticles/',
@@ -39,7 +35,7 @@ export const environment = {
 
 
 
-  
+
   listAllVideos: 'http://doctormasry-001-site1.dtempurl.com/api/Video/ListAllVideos',
   listVideos: 'http://doctormasry-001-site1.dtempurl.com/api/Video/ListVideos/',
   listActivatedVideos: 'http://doctormasry-001-site1.dtempurl.com/api/Video/GetActivatedVideos/',
@@ -58,13 +54,13 @@ export const environment = {
   listDoctors: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/ListDoctors/',
   listAllDoctors: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/ListAllDoctors',
   addDoctor: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/AddDoctor',
-  editDoctor: '',
+  editDoctor: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/UpdateDoctor',
   deleteDoctor: '',
   getDoctorById: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/GetById/',
   checkDoctorRole: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/CheckDoctorRole',
   GetDoctorsBySpecialityId: 'http://doctormasry-001-site1.dtempurl.com/api/Doctor/GetDoctorsBySpecialityId/',
   updateDoctorImageAfterInsert: "http://doctormasry-001-site1.dtempurl.com/api/Doctor/UpdateDoctorImageAfterInsert",
-
+  generateDoctorCode: "http://doctormasry-001-site1.dtempurl.com/api/Doctor/GenerateDoctorCode",
 
   listBanners: 'http://doctormasry-001-site1.dtempurl.com/api/Banner/ListBanners/',
   listAllBanners: 'http://doctormasry-001-site1.dtempurl.com/api/Banner/ListAllBanners',
@@ -90,32 +86,37 @@ export const environment = {
 
   listRequests: 'http://doctormasry-001-site1.dtempurl.com/api/Request/ListRequests/',
   addRequest: 'http://doctormasry-001-site1.dtempurl.com/api/Request/AddRequest',
-  editRequest: '',
+  editRequest: 'http://localhost:40378/api/Request/UpdateRequest',
   deleteRequest: '',
-  getRequestById: 'http://doctormasry-001-site1.dtempurl.com/api/Request/GetRequestById/',  
+  getRequestById: 'http://doctormasry-001-site1.dtempurl.com/api/Request/GetRequestById/',
   generateRequestNumber: 'http://doctormasry-001-site1.dtempurl.com/api/Request/GenerateRequestNumber',
+
+  getUnreadNotificationsCount: 'http://doctormasry-001-site1.dtempurl.com/api/Request/GetUnreadNotificationsCount/',
+  getRequestTrackingById: 'http://doctormasry-001-site1.dtempurl.com/api/RequestTracking/getRequestTrackingById/',
+  updateIsReadRequest: 'http://doctormasry-001-site1.dtempurl.com/api/Request/UpdateIsReadRequest',
   addRequestTracking: 'http://doctormasry-001-site1.dtempurl.com/api/RequestTracking/AddRequestTracking',
+  updateRequestTracking: 'http://doctormasry-001-site1.dtempurl.com/api/RequestTracking/UpdateRequestTracking',
   createRequestDocuments: 'http://doctormasry-001-site1.dtempurl.com/api/RequestDocument/CreateRequestDocuments',
   downloadRequestFiles: 'http://doctormasry-001-site1.dtempurl.com/api/RequestDocument/DownloadRequestFiles/',
   getAllTrackingsByRequestId: 'http://doctormasry-001-site1.dtempurl.com/api/RequestTracking/GetAllTrackingsByRequestId/',
-
-
+  sendMailToPatient: 'http://doctormasry-001-site1.dtempurl.com/api/RequestTracking/sendMailToPatient',
   getRequestStatusByUserId: 'http://doctormasry-001-site1.dtempurl.com/api/RequestStatus/GetRequestStatusByUserId/',
   getRequestStatusByUserIdAndSpecialityId: 'http://doctormasry-001-site1.dtempurl.com/api/RequestStatus/GetRequestStatusByUserIdAndSpecialityId/',
-
-
+  getRequestDocumentsByRequestTrackingId: 'http://doctormasry-001-site1.dtempurl.com/api/RequestDocument/GetRequestDocumentsByRequestTrackingId/',
   listAllCountries: 'http://doctormasry-001-site1.dtempurl.com/api/Country/ListAllCountries',
   GetPhoneCodeByCountryId: 'http://doctormasry-001-site1.dtempurl.com/api/Country/GetPhoneCodeByCountryId/',
 
 
-  
+
+
+
   getPersonalData: 'http://doctormasry-001-site1.dtempurl.com/api/PersonalData/GetPersonalData',
 
 
-  
+
   listSections: 'http://doctormasry-001-site1.dtempurl.com/api/Section/ListSections',
   editSection: 'http://doctormasry-001-site1.dtempurl.com/api/Section/UpdateSection',
-  selectSectionsInAbout: 'http://doctormasry-001-site1.dtempurl.com/api/Section/SelectSectionsInAbout', 
+  selectSectionsInAbout: 'http://doctormasry-001-site1.dtempurl.com/api/Section/SelectSectionsInAbout',
   addSection: 'http://doctormasry-001-site1.dtempurl.com/api/Section/AddSection',
   deleteSection: 'http://doctormasry-001-site1.dtempurl.com/api/Section/DeleteSection/',
   getSectionById: 'http://doctormasry-001-site1.dtempurl.com/api/Section/GetById/',

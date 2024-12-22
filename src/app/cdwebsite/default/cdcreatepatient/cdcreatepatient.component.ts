@@ -1,7 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
 import { ListCountryVM } from 'src/app/shared/models/countryVM';
 import { ListGender } from 'src/app/shared/models/genderVM';
 import { CreatePatientVM } from 'src/app/shared/models/patientVM';
@@ -19,7 +18,6 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
   styleUrls: ['./cdcreatepatient.component.scss']
 })
 export class CdcreatepatientComponent {
-  //lang = "en";
 
   lang = localStorage.getItem('lang');
   textDir = localStorage.getItem('dir');
@@ -39,7 +37,7 @@ export class CdcreatepatientComponent {
   constructor(
     private authenticationService: AuthenticationService,
     private patientService: PatientService,
-    private route:Router,private ref: DynamicDialogRef,
+    private route: Router, private ref: DynamicDialogRef,
     private countryService: CountryService,
     private datePipe: DatePipe) { }
 
@@ -54,7 +52,7 @@ export class CdcreatepatientComponent {
     document.head.appendChild(frontendStyles);
 
     this.currentUser = null;
-    this.patientObj = { passwordHash: '', userName: '', code: "", name: "", nameAr: "", dob: new Date, strdob: '', address: '', addressAr: '', email: '', genderId: 0, mobile: '', nationalId: '', countryId: 0 }
+    this.patientObj = { passwordHash: '', userName: '', code: "", name: "", nameAr: "", dob: new Date, strDob: '', address: '', addressAr: '', email: '', genderId: 0, mobile: '', nationalId: '', countryId: 0 }
     this.userObj = { id: '', userName: '', token: '', roleNames: [], message: '', email: '', phoneNumber: '', passwordHash: '', specialityId: 0 };
     this.lstGenders = [{ id: 1, name: "Male", nameAr: "ذكر" }, { id: 2, name: "Female", nameAr: "أنثى" }];
 
@@ -71,7 +69,7 @@ export class CdcreatepatientComponent {
     });
   }
   getdob($event) {
-    this.patientObj.strdob = this.datePipe.transform($event, "yyyy-MM-dd");
+    this.patientObj.strDob = this.datePipe.transform($event, "yyyy-MM-dd");
   }
 
   getGenderId(genderId: number) {
@@ -86,20 +84,21 @@ export class CdcreatepatientComponent {
     });
   }
 
-  onSubmit() {
+  onSubmit(): any {
 
+
+    this.patientObj.strDob = "";
     this.userObj.userName = this.patientObj.userName;
     this.userObj.passwordHash = this.patientObj.passwordHash;
     this.userObj.email = this.patientObj.email;
-    this.userObj.phoneNumber = this.patientObj.mobile;
+    this.userObj.phoneNumber = this.phoneCode + this.patientObj.mobile;
     this.userObj.roleNames = ["Patient"];
-
 
     const nameValidation = ValidationService.validateName(this.patientObj.name, this.lang);
     if (!nameValidation.isValid) {
       this.errorDisplay = true;
       this.errorMessage = nameValidation.errorMessage;
-      return;
+      return false;
     }
 
 
@@ -107,7 +106,7 @@ export class CdcreatepatientComponent {
     if (!genderValidation.isValid) {
       this.errorDisplay = true;
       this.errorMessage = genderValidation.errorMessage;
-      return;
+      return false;
     }
 
 
@@ -115,83 +114,35 @@ export class CdcreatepatientComponent {
     if (!countryValidation.isValid) {
       this.errorDisplay = true;
       this.errorMessage = countryValidation.errorMessage;
-      return;
+      return false;
     }
 
-    
+
 
     const usernameValidation = ValidationService.validateUserName(this.userObj.userName, this.lang);
     if (!usernameValidation.isValid) {
       this.errorDisplay = true;
       this.errorMessage = usernameValidation.errorMessage;
-      return;
+      return false;
     }
 
     const emailValidation = ValidationService.validateEmail(this.userObj.email, this.lang);
     if (!emailValidation.isValid) {
       this.errorDisplay = true;
       this.errorMessage = emailValidation.errorMessage;
-      return;
+      return false;
+    }
+    if (this.patientObj.countryId == 0) {
+      this.errorDisplay = true;
+      this.errorMessage = this.lang == "en" ? "Please select country" : "من فضلك اختر مدينة";
+      return false;
     }
 
-    this.patientObj.strdob = "";//this.patientObj.dob.toString();
-    this.patientObj.mobile = this.phoneCode + this.patientObj.mobile;
-   
-    this.userObj.roleNames = ["Patient"];
-
-    // this.patientService.CreatePatientAsUser(this.userObj).subscribe({
-    //   next: (v) => {
-    //     this.patientService.CreatePatient(this.patientObj).subscribe({
-    //       next: (v) => {
-    //         this.display = true;
-    //         this.route.navigate(['']);
-    //       },
-    //       error: (e) => {
-    //         this.errorDisplay = true;
-    //         if (this.lang == 'en') {
-    //           if (e.error.status == 'email') {
-    //             this.errorMessage = e.error.message;
-    //           }
-    //         }
-    //         if (this.lang == 'ar') {
-    //           if (e.error.status == 'email') {
-    //             this.errorMessage = e.error.messageAr;
-    //           }
-    //         }
-    //         return false;
-    //       },
-    //       complete: () => console.info('complete')
-    //     });
-    //   },
-    //   error: (e) => {
-    //     this.errorDisplay = true;
-    //     if (this.lang == 'en') {
-    //       if (e.error.status == 'username') {
-    //         this.errorMessage = e.error.message;
-    //       }
-    //       if (e.error.status == 'email') {
-    //         this.errorMessage = e.error.message;
-    //       }
-    //       if (e.error.status == 'password') {
-    //         this.errorMessage = e.error.message;
-    //       }
-    //     }
-    //     if (this.lang == 'ar') {
-    //       if (e.error.status == 'username') {
-    //         this.errorMessage = e.error.messageAr;
-    //       }
-    //       if (e.error.status == 'email') {
-    //         this.errorMessage = e.error.messageAr;
-    //       }
-    //       if (e.error.status == 'password') {
-    //         this.errorMessage = e.error.message;
-    //       }
-    //     }
-    //     return false;
-    //   },
-    //   complete: () => console.info('complete')
-    // });
-
+    if (this.patientObj.genderId == 0) {
+      this.errorDisplay = true;
+      this.errorMessage = this.lang == "en" ? "Please select gender" : "من فضلك اختر الجنس";
+      return false;
+    }
     this.patientService.CreatePatientAsUser(this.userObj).pipe(
       mergeMap((userResponse) => {
         // Proceed to create patient if the user creation is successful
@@ -205,9 +156,15 @@ export class CdcreatepatientComponent {
                 return false;
               },
               error: (rollbackError) => {
+                // // Handle error on rollback operation (e.g., if delete user fails)
+                // console.error('Rollback failed: ', rollbackError);
+                // return false;
+
                 // Handle error on rollback operation (e.g., if delete user fails)
                 console.error('Rollback failed: ', rollbackError);
-                return false;
+                this.errorDisplay = true;
+                this.errorMessage = 'Patient creation failed, and user deletion also failed.';
+                return of(false); // Terminate further operations if rollback fails
               }
             });
             this.errorDisplay = true;
@@ -226,7 +183,6 @@ export class CdcreatepatientComponent {
       next: (result) => {
         if (result !== false) {
           this.display = true;
-          //this.authenticationService.login(this.userObj);
           this.route.navigate(['/']);
         }
       },
@@ -270,7 +226,7 @@ export class CdcreatepatientComponent {
     return 'An error occurred'; // Fallback message if no language is matched
   }
 
-  closeDialogue(){
+  closeDialogue() {
     this.ref.close();
   }
 }

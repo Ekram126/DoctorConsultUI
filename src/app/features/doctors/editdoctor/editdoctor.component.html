@@ -46,24 +46,25 @@
 		<div class="row">
 			<div class="col-md-4 col-sm-12">
 				<label htmlFor="dob">{{'DC.DOB' | translate }}</label><br />
-				<p-calendar [(ngModel)]="doctorObj.dob" name="dob" [showIcon]="true" [yearNavigator]="true"
-					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getdob($event)" inputId="dob"
+				<p-calendar inputStyleClass="form-control" [(ngModel)]="doctorObj.dob" name="dob" [showIcon]="true"
+					[yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getdob($event)"
 					showButtonBar="true" appendTo="body">
 				</p-calendar>
 			</div>
 			<div class="col-md-4 col-sm-12">
 				<label htmlFor="joinDate">{{'DC.JoinDate' | translate }}</label><br />
-				<p-calendar [(ngModel)]="doctorObj.joinDate" name="dob" [showIcon]="true" [yearNavigator]="true"
-					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getjoinDate($event)" inputId="joinDate"
-					showButtonBar="true" appendTo="body">
+				<p-calendar inputStyleClass="form-control" [(ngModel)]="doctorObj.joinDate" name="joinDate"
+					[showIcon]="true" [yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true"
+					(onSelect)="getjoinDate($event)" showButtonBar="true" appendTo="body">
 				</p-calendar>
 			</div>
 			<div class="col-md-4 col-sm-12">
 				<label htmlFor="gradDate">{{'DC.GradDate' | translate }}</label><br />
-				<p-calendar [(ngModel)]="doctorObj.gradDate" name="dob" [showIcon]="true" [yearNavigator]="true"
-					yearRange="1900:2030" [monthNavigator]="true" (onSelect)="getgradDate($event)" inputId="gradDate"
-					showButtonBar="true" appendTo="body">
+				<p-calendar inputStyleClass="form-control" [(ngModel)]="doctorObj.gradDate" name="gradDate"
+					[showIcon]="true" [yearNavigator]="true" yearRange="1900:2030" [monthNavigator]="true"
+					(onSelect)="getgradDate($event)" showButtonBar="true" appendTo="body">
 				</p-calendar>
+
 			</div>
 		</div>
 		<div class="row">
@@ -110,13 +111,13 @@
 				<img [src]="doctorObj.doctorImg" width="80" height="80" />
 			</div>
 		</div>
-		<button class="btn saveIcon"  value="save" type="submit">
+		<button class="btn saveIcon" value="save" type="submit">
 			{{ 'DC.Save' | translate }}
 		</button>
 	</div>
 </form>
 
-<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '350px'}">
+<p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
 	<ng-template pTemplate="header">
 		<h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
 		</h6>
@@ -124,6 +125,11 @@
 	<span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
 		translate
 		}}</span>
+
+	<br />
+	<button class="btn btn-primary pull-center btn-md"
+		style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+		'DC.Close' | translate }}</button>
 </p-dialog>
 
 <p-dialog appendTo="body" modal="true" [(visible)]="errorDisplay" [style]="{ width: '350px' }">

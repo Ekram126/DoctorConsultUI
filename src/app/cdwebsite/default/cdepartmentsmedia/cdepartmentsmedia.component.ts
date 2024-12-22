@@ -114,7 +114,7 @@ export class CdepartmentsmediaComponent implements OnInit {
 
   createRequest(specialityId: number) {
     const dialogRef2 = this.dialogService.open(AddrequestComponent, {
-      header: this.lang == "en" ? 'Please Register for Consultation' : "سجل هنا للتواصل مع الطبيب المختص",
+      header: this.lang == "en" ? 'Add Request' : "طلب استشارة",
       data: { id: specialityId},
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",

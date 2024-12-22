@@ -36,3 +36,39 @@
 // // [dir="rtl"] .layout-topbar .layout-topbar-menu {
 // //     justify-content: flex-end !important; /* Align to the right in RTL */
 // // }
+
+
+
+
+
+// .notification-dropdown {
+//   position: absolute;
+//   background-color: white;
+//   border: 1px solid #ccc;
+//   border-radius: 4px;
+//   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+//   width: 200px;
+//   z-index: 1000;
+// }
+
+// .notification-dropdown ul {
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// .notification-dropdown li {
+//   padding: 7px;
+//   border-bottom: 1px solid #eee;
+//   cursor: pointer;
+// }
+
+// .notification-dropdown li:last-child {
+//   border-bottom: none;
+// }
+// .small-badge .p-badge {
+//   font-size: 0.1rem !important;
+//   height: 10px !important;
+//   width: 10px !important;
+//   line-height: 10px !important;
+// }

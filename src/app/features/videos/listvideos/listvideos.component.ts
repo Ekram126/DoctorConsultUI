@@ -10,6 +10,7 @@ import { AddvideoComponent } from '../addvideo/addvideo.component';
 import { EditvideoComponent } from '../editvideo/editvideo.component';
 import { ViewvideoComponent } from '../viewvideo/viewvideo.component';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { SelectItem } from 'primeng/api';
 
 
 @Component({
@@ -31,6 +32,11 @@ export class ListvideosComponent  implements OnInit {
   safeUrl: SafeResourceUrl;
   sortStatus: string = "ascending";
 videoId:string="";
+
+sortOptions!: SelectItem[];
+sortOrder!: number;
+sortField!: string;
+
 
   constructor(private authenticationService: AuthenticationService,private videoService: VideoService,
     private reloadService:ReloadPageService,  public dialogService: DialogService,private sanitizer: DomSanitizer) { 
@@ -56,11 +62,26 @@ videoId:string="";
     }
 
 
-    this.videoService.GetAllVideos(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
+    this.videoService.GetAllVideos(this.sortFilterObjects, 0, 0).subscribe(items => {
       this.lstVideos = items.results;
       this.count = items.count;
       this.loading = false;
     });
+
+
+    const titleField = this.lang === 'ar' ? 'titleAr' : 'title';
+ const specialityNameField = this.lang === 'ar' ? 'specialityNameAr' : 'specialityName';
+
+
+    this.sortOptions = [
+      //  { label: this.translate.instant('SORT.NAME_DESC'), value: '!name' },
+      { label: 'Banner Date Desc', value: '!date' },
+      { label: 'Banner Date Asc', value: 'date' },
+      { label: 'Title ASC', value: titleField },
+      { label: 'Title DESC', value: `!${titleField}` },
+      { label: 'Speciality ASC', value: specialityNameField },
+      { label: 'Speciality DESC', value: `!${specialityNameField}` },
+    ];
   }
 
   addVideo() {
@@ -138,5 +159,17 @@ videoId:string="";
       this.loading = false;
     });
 
+  }
+
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
   }
 }

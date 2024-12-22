@@ -232,18 +232,27 @@ export class EditarticleComponent {
    
 
     },
-      (error) => {
+      (e) => {
         this.errorDisplay = true;
-        if (this.lang == 'en') {
-          if (error.error.status == 'code') {
-            this.errorMessage = error.error.message;
-          }
-        }
-        if (this.lang == 'ar') {
-          if (error.error.status == 'code') {
-            this.errorMessage = error.error.messageAr;
-          }
+        // if (this.lang == 'en') {
+        //   if (error.error.status == 'code') {
+        //     this.errorMessage = error.error.message;
+        //   }
+        // }
+        // if (this.lang == 'ar') {
+        //   if (error.error.status == 'code') {
+        //     this.errorMessage = error.error.messageAr;
+        //   }
+        // }
 
+         
+        if (e.error.status == 'art') {
+          if (this.lang == 'en') {
+            this.errorMessage = e.error.message;
+          }
+          else if (this.lang == 'ar') {
+            this.errorMessage = e.error.messageAr;
+          }
         }
         return false;
       }
@@ -272,5 +281,7 @@ export class EditarticleComponent {
     this.btnHidden = true;
   }
 
-
+  closeDialogue() {
+    this.ref.close();
+  }
 }

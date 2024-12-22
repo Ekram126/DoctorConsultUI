@@ -80,6 +80,10 @@ import { CdtermComponent } from './cdwebsite/default/cdterm/cdterm.component';
 import { CdmissionComponent } from './cdwebsite/default/cdmission/cdmission.component';
 import { CdvisionComponent } from './cdwebsite/default/cdvision/cdvision.component';
 import { YouTubePlayerModule } from '@angular/youtube-player';
+import { ButtonModule } from 'primeng/button';
+
+
+
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, CdspecialityComponent, CddoctorComponent, CdarticleComponent, CdfooterComponent, CdcontactComponent, CdcreatepatientComponent, CdmenuComponent, CdarticledetailComponent, CddoctordetailComponent, CdepartmentsmediaComponent, CdepartmentarticlesComponent, CdepartmentartvideosComponent, ListbannersComponent, AddbannerComponent, EditbannerComponent, CdbannerComponent, CdgalleryComponent, CdtermComponent, CdmissionComponent, CdvisionComponent],
@@ -121,7 +125,11 @@ import { YouTubePlayerModule } from '@angular/youtube-player';
     MatInputModule,
     GalleriaModule,
     YouTubePlayerModule,
+    ConfirmDialogModule,
+    ButtonModule,
 
+
+    
     AuthenticateModule,
     AuthenticateRoutingModule,
 

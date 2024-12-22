@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { Paging } from 'src/app/shared/models/paging';
 import { ListRequestVM, SortAndFilterRequestVM } from 'src/app/shared/models/requestVM';
 import { LoggedUser } from 'src/app/shared/models/userVM';
@@ -16,6 +16,9 @@ import { CreateRequestTrackingVM } from 'src/app/shared/models/requestTrackingVM
 import { RequestTrackingService } from 'src/app/shared/services/request-tracking.service';
 import { DatePipe } from '@angular/common';
 import { EditrequestComponent } from '../editrequest/editrequest.component';
+import { ConfirmationService, SelectItem } from 'primeng/api';
+import { VerifyrequestComponent } from '../verifyrequest/verifyrequest.component';
+
 
 @Component({
   selector: 'app-listrequests',
@@ -24,7 +27,6 @@ import { EditrequestComponent } from '../editrequest/editrequest.component';
 })
 export class ListrequestsComponent {
   lang = localStorage.getItem('lang');
-  dir: string = "ltr";
   currentUser: LoggedUser;
 
   page: Paging;
@@ -39,6 +41,8 @@ export class ListrequestsComponent {
   countClosed: number = 0;
   countInProgress: number = 0;
   countSolved: number = 0;
+  countVerified: number = 0;
+  
   countAll: number = 0;
   countApproved: number = 0;
   isPatient: boolean = false;
@@ -50,8 +54,14 @@ export class ListrequestsComponent {
   sortStatus: string = "ascending";
 
 
+  sortOptions!: SelectItem[];
+  sortOrder!: number;
+  sortField!: string;
+
+
   constructor(private authenticationService: AuthenticationService, private requestTrackingService: RequestTrackingService,
     private reloadPage: ReloadPageService, private requestStatusService: RequestStatusService, private datePipe: DatePipe,
+    private ref: DynamicDialogRef, private confirmationService: ConfirmationService,
     private requestService: RequestService, public dialogService: DialogService) { this.currentUser = this.authenticationService.currentUserValue; }
 
   ngOnInit() {
@@ -89,31 +99,30 @@ export class ListrequestsComponent {
     }
 
     this.loadRequests();
+
+
+
+    this.sortOptions = [
+      { label: 'Request Desc', value: '!requestDate' },
+      { label: 'Request Asc', value: 'requestDate' },
+      { label: 'Last Action Asc', value: 'actionDate' },
+      { label: 'Last Action DESC', value: '!actionDate' },
+    ];
+
   }
 
-  loadRequests(){
+  loadRequests() {
+
     this.sortFilterObjects.searchObj.userId = this.currentUser.id;
     this.sortFilterObjects.searchObj.statusId = this.statusId;
     this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
-    this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
+    this.requestService.ListRequests(this.sortFilterObjects, 0, 0).subscribe(items => {
       this.lstRequests = items.results;
       this.count = items.count;
       this.loading = false;
     });
   }
 
-  // clicktbl(event: any) {
-  //   this.page.pagenumber = (event.first + 10) / 10;
-  //   this.page.pagesize = event.rows;
-  //   this.sortFilterObjects.searchObj.userId = this.currentUser.id;
-  //   this.sortFilterObjects.searchObj.statusId = this.statusId;
-  //   this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
-  //   this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-  //     this.lstRequests = items.results;
-  //     this.count = items.count;
-  //     this.loading = false;
-  //   });
-  // }
   getRequestsByStatusId(id: number) {
     this.statusId = id;
     this.page.pagenumber = 1;
@@ -131,13 +140,12 @@ export class ListrequestsComponent {
     this.sortFilterObjects.searchObj.statusId = id;
     this.sortFilterObjects.searchObj.userId = this.currentUser.id;
     this.sortFilterObjects.searchObj.specialityId = this.currentUser.specialityId;
-    this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
+
+    this.requestService.ListRequests(this.sortFilterObjects, 0, 0).subscribe(items => {
       this.lstRequests = items.results;
       this.count = items.count;
       this.loading = false;
     });
-
-
   }
   addRequest() {
     const dialogRef2 = this.dialogService.open(AddrequestComponent, {
@@ -161,7 +169,7 @@ export class ListrequestsComponent {
       data: {
         reqId: requestId
       },
-      width:"60%",
+      width: "60%",
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",
         "text-align": this.lang == "en" ? 'left' : "right",
@@ -179,7 +187,7 @@ export class ListrequestsComponent {
   viewRequest(requestId: number) {
     const dialogRef2 = this.dialogService.open(ViewrequestComponent, {
       header: this.lang == "en" ? 'View Ticket' : "بيان السؤال",
-      width:'70%',
+      width: '70%',
       data: {
         reqId: requestId
       },
@@ -196,6 +204,29 @@ export class ListrequestsComponent {
       this.reloadPage.reload();
     });
   }
+
+  verifyRequest(requestId: number){
+    const dialogRef2 = this.dialogService.open(VerifyrequestComponent, {
+      header: this.lang == "en" ? 'Verify Ticket' : "التحقق من الطلب",
+      width: '70%',
+      data: {
+        reqId: requestId
+      },
+      style: {
+        'dir': this.lang == "en" ? 'ltr' : "rtl",
+        "text-align": this.lang == "en" ? 'left' : "right",
+        "direction": this.lang == "en" ? 'ltr' : "rtl",
+        "font-family": "sans-serif",
+        "font-size": 20
+      }
+    });
+
+    dialogRef2.onClose.subscribe((res) => {
+      this.reloadPage.reload();
+    });
+  }
+
+
   doctorReply(requestId: number) {
     const dialogRef2 = this.dialogService.open(DoctorreplyComponent, {
       header: this.lang == "en" ? 'Doctor Answer' : "إجابة الطبيب",
@@ -215,15 +246,12 @@ export class ListrequestsComponent {
       this.reloadPage.reload();
     });
   }
-
-
   editRequest(id: number) {
     const ref = this.dialogService.open(EditrequestComponent, {
       header: this.lang == "en" ? "Edit Ticket" : "تعديل بيان",
 
       data: {
-        id: id,
-        statusId: this.statusId
+        reqId: id
       },
       style: {
         'dir': this.lang == "en" ? 'ltr' : "rtl",
@@ -242,41 +270,47 @@ export class ListrequestsComponent {
     });
   }
   closeRequest(requestId: number) {
+    this.confirmationService.confirm({
+      //target: event.target as EventTarget,
+      message: 'Do you sure you want to close this request?',
+       header: 'Close request',
+      // icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Yes',
 
+      accept: () => {
+        this.trackObj.requestId = requestId;
+        this.trackObj.statusId = 5;
+        this.trackObj.advice = this.lang == "en" ? "Closed" : "تم الحل";
+        this.trackObj.createdById = this.currentUser.id;
+        this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm:ss");
+        this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
+          next: (trackId) => {
+            this.display = true;
+            this.reloadPage.reload();
+          }
+        });
+      },
+      reject: () => {
+      },
+  });
 
-    this.trackObj.requestId = requestId;
-    this.trackObj.statusId = 4;
-    this.trackObj.advice = this.lang == "en" ? "Closed" : "تم الحل";
-    this.trackObj.createdById = this.currentUser.id;
-    this.trackObj.strRespondDate = this.datePipe.transform(new Date, "yyyy-MM-dd HH:mm");
-    this.requestTrackingService.addRequestTrack(this.trackObj).subscribe({
-      next: (trackId) => {
-        this.display = true;
-        this.reloadPage.reload();
-      }
-    })
   }
 
 
-  sort(field) {
-    if (this.sortStatus == "descending") {
-      this.sortStatus = "ascending";
-      this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-    }
-    else {
-      this.sortStatus = "descending";
-      this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-    }
 
+  onSortChange(event: any) {
+    let value = event.value;
 
-    this.sortFilterObjects.sortObj.sortBy = field.currentTarget.id;
-    this.sortFilterObjects.sortObj.sortStatus = this.sortStatus;
-    this.sortFilterObjects.searchObj.userId = this.currentUser.id;
-    this.requestService.ListRequests(this.sortFilterObjects, this.page.pagenumber, this.page.pagesize).subscribe(items => {
-      this.lstRequests = items.results;
-      this.count = items.count;
-      this.loading = false;
-    });
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
   }
-
+  closeDialogue() {
+    this.ref.close();
+  }
 }

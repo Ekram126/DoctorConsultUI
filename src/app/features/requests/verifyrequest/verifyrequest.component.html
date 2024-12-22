@@ -1,21 +1,21 @@
 <div class="card">
     <div class="card-body">
         <div class="row">
-            <div class="field col-3">
+            <div class="col-3">
                 <label for="code" class="titlefontbold" [translate]="'DC.Code'">{{'DC.Code' | translate
                     }}:</label>{{reqObj.requestCode}}
             </div>
-            <div class="field col-3">
+            <div class="col-3">
                 <label for="complain" class="titlefontbold" [translate]="'DC.Patient'">{{'DC.Patient' |
                     translate}}:</label>
                 {{reqObj.userName}}
             </div>
-            <div class="field col-3">
+            <div class="col-3">
                 <label for="subject" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Subject' |
                     translate}}:</label>
                 {{reqObj.subject}}
             </div>
-            <div class="field col-3">
+            <div class="col-3">
                 <label for="special" class="titlefontbold" [translate]="'DC.Subject'"> {{'DC.Special' |
                     translate}}:</label>
                 {{lang == 'en' ? reqObj.specialityName : reqObj.specialityNameAr}}
@@ -24,14 +24,16 @@
                 <label for="requestDate" [translate]="'DC.Date'">{{'DC.Date' | translate}} </label>
                 {{reqObj.requestDate}}
             </div>
-
-
         </div>
         <div class="row">
-            <div class="field col-12">
+            <div class="col-12">
                 <label for="complain" class="titlefontbold" [translate]="'DC.Complain'">{{'DC.Complain' |
                     translate}}:</label>
             </div>
+        </div>
+
+        <div *ngIf="isAdmin">
+            <button (click)="approveRequest()"  class="btn btn-sm py-1 saveIcon">{{'DC.Send' | translate }}</button>
         </div>
 
 
@@ -40,7 +42,12 @@
                 {{reqObj.complain}}
             </div>
         </div>
-
+        <div class="row" *ngIf="(isSupervisor || isAdmin) && (reqObj.statusId < 4)">
+            <div class="field col-2">
+                <button pButton pRipple type="button" (click)="assignRequest(reqObj.id)">{{'DC.Create' |
+                    translate }}<i class="pi pi-user-plus"></i></button>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12">
                 <label for="track" [translate]="'DC.Track'">{{'DC.Track' | translate}}</label>
@@ -54,7 +61,7 @@
                                 }}</th>
                             <th style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{'DC.AssignedTo' |
                                 translate }}</th>
-                            <th style="text-align: center;">{{'DC.Actions' | translate }}</th>
+                            <th style="text-align: center;">{{'DC.Documents' | translate }}</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-track>
@@ -69,12 +76,9 @@
                             <td style="text-align: center;" *ngIf="isSupervisor || isAdmin">{{track.assignedToUser}}
                             </td>
                             <td style="text-align: center;">
-                                <a (click)="getDocuments(track.id)" pTooltip="{{'DC.View' | translate }}" tooltipPosition="bottom">
-                                    <i class="pi pi-cloud-upload"
-                                        style="color: #107794; cursor: pointer;margin: 0px 5px;"></i></a>
 
-                                <a (click)="editRequestTrack(track.id)" *ngIf="track.statusId == 3" pTooltip="{{'DC.Edit' | translate }}" tooltipPosition="bottom">
-                                    <i class="pi pi-pen-to-square editIcon"
+                                <a (click)="getDocuments(track.id)" pTooltip="View Files" tooltipPosition="bottom">
+                                    <i class="pi pi-cloud-upload"
                                         style="color: #107794; cursor: pointer;margin: 0px 5px;"></i></a>
                             </td>
                         </tr>
@@ -85,8 +89,6 @@
         </div>
 
 
-
-     
         <div class="row">
             <div class="col-12" *ngIf="isShowFiles">
 
@@ -125,35 +127,16 @@
 </p-dialog>
 
 
-
-
 <p-dialog appendTo="body" modal="true" [(visible)]="display" [style]="{width: '500px'}">
     <ng-template pTemplate="header">
-        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Save' | translate }}
+        <h6 [translate]="''" style="color: #04527e;font-weight: bold;font-size: 16pt;">{{ 'DC.Send' | translate }}
         </h6>
     </ng-template>
-    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SavedSuccess' |
+    <span style="color: green;font-weight: bold;font-size: 12pt;text-align: center;"> {{ 'DC.SendSuccess' |
         translate }}</span>
     <br />
-    <br />
-    <button class="btn btn-primary pull-center btn-md"
-        style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
-        'DC.Close' | translate }}</button>
-</p-dialog>
 
-<p-dialog appendTo="body" modal="true" [(visible)]="displayRequestObj" [style]="{ width: '1000px' }">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-12">
-                <label for="advice" [translate]="'DC.Advice'">Advice</label>
-                <textarea class="form-control" id="advice" [(ngModel)]="editRequestTrackObj.advice" pInputTextarea name="advice"
-                    rows="1" [ngModelOptions]="{standalone: true}"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <button (click)="editRequest()" class="btn btn-sm py-2 saveIcon">{{'DC.Send' | translate }}</button>
-            </div>
-        </div>
-    </div>
+    <button class="btn btn-primary pull-center btn-md"
+    style="margin: 0px 5px;background-color: #93d2ec !important;border-color:#7fdcfe" (click)="closeDialogue()"> {{
+    'DC.Close' | translate }}</button>
 </p-dialog>

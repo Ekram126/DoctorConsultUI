@@ -60,7 +60,16 @@
 	</div>
 	<div class="row">
 		<div class="card">
-			<p-dataView [value]="lstBanners" [rows]="5" [paginator]="true">
+			<p-dataView [value]="lstBanners" [rows]="5" [paginator]="true"  [sortField]="sortField"
+			[sortOrder]="sortOrder">
+
+
+				<ng-template pTemplate="header">
+                    <div class="flex flex-column md:flex-row md:justify-content-between">
+                        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort"
+                            (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0" />
+                    </div>
+                </ng-template>
 				<ng-template let-banner pTemplate="listItem">
 					<div class="col-12">
 						<div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
